@@ -7,8 +7,8 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import InAppBrowser from 'react-native-inappbrowser';
+import {Platform, StyleSheet, Text, View, Button} from 'react-native';
+//import InAppBrowser from 'react-native-inappbrowser';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -20,16 +20,14 @@ const instructions = Platform.select({
 export default class App extends Component {
 
   openLink() {
-    InAppBrowser.open('www.google.com')
+    //InAppBrowser.open('www.google.com')
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome InAppBrowser for React Native!</Text>
-        <Button onPress={() => this.openLink()}>
-          <Text style={styles.instructions}>Open google.com</Text>
-        </Button>
+        <Button title='Open google.com' onPress={() => this.openLink()}></Button>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
     );
