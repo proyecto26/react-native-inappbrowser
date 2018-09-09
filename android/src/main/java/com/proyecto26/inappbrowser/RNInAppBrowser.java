@@ -16,7 +16,6 @@ import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import com.droibit.android.customtabs.launcher.CustomTabsLauncher;
 
 public class RNInAppBrowser {
   private final static String ERROR_CODE = "InAppBrowser";

@@ -37,9 +37,6 @@ dependencies {
   compile 'com.facebook.react:react-native:+'
   compile "com.android.support:support-annotations:26.+"
   compile "com.android.support:customtabs:26.+"
-  compile ('com.github.droibit.customtabslauncher:launcher:1.+') {
-    exclude module: 'customtabs'
-  }
   compile 'org.greenrobot:eventbus:3.+'
 }
   
