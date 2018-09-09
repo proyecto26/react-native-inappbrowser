@@ -1,7 +1,7 @@
 
 # InAppBrowser for React Native
 
-![InAppBrowser](img/inappbrowser.png)
+<img width="400px" src="img/inappbrowser.png">
 
 ## Getting started
 
