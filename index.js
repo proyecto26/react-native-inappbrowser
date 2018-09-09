@@ -1,7 +1,7 @@
 // @flow
 
 import invariant from 'invariant'
-import { Linking, NativeModules, Platform } from 'react-native'
+import { Linking, NativeModules, Platform, processColor } from 'react-native'
 
 const { RNInAppBrowser } = NativeModules;
 
@@ -13,8 +13,29 @@ type BrowserResult = {
   type: 'cancel' | 'dismiss',
 };
 
-async function open(url: string): Promise<{ type: 'cancel' | 'dismiss' }> {
-  return RNInAppBrowser.open(url);
+type InAppBrowserOptions = {
+  dismissButtonStyle: 'done' | 'close' | 'cancel',
+  preferredBarTintColor: string,
+  preferredControlTintColor: string,
+  toolbarColor: string,
+  enableUrlBarHiding: boolean,
+  showTitle: boolean,
+  enableDefaultShare: boolean
+}
+
+async function open(url: string, options: InAppBrowserOptions = {}): Promise<BrowserResult.type> {
+  const inAppBrowseroptions = {
+    ...options,
+    url,
+    dismissButtonStyle: options.dismissButtonStyle || 'close'
+  }
+  if (inAppBrowseroptions.preferredBarTintColor) {
+    inAppBrowseroptions.preferredBarTintColor = processColor(inAppBrowseroptions.preferredBarTintColor)
+  }
+  if (inAppBrowseroptions.preferredControlTintColor) {
+    inAppBrowseroptions.preferredControlTintColor = processColor(inAppBrowseroptions.preferredControlTintColor)
+  }
+  return RNInAppBrowser.open(inAppBrowseroptions);
 }
 
 function close(): void {
@@ -87,9 +108,19 @@ function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
   });
 }
 
+async function isAvailable(): Promise {
+  if (Platform.OS === 'android') {
+    return Promise.resolve();
+  }
+  else {
+    return RNInAppBrowser.isAvailable();
+  }
+}
+
 export default {
   open,
   openAuth,
   close,
   closeAuth,
+  isAvailable,
 };

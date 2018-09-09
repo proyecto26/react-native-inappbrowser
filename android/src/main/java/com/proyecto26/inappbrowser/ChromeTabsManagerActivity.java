@@ -1,5 +1,3 @@
-// Copyright 2015-present 650 Industries. All rights reserved.
-
 package com.proyecto26.inappbrowser;
 
 import android.app.Activity;
@@ -9,16 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import de.greenrobot.event.EventBus;
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Manages the custom chrome tabs intent by detecting when it is dismissed by the user and allowing
  * to close it programmatically when needed.
  */
 public class ChromeTabsManagerActivity extends Activity {
-
-  public static class ChromeTabsDismissedEvent {}
-
   static final String KEY_BROWSER_INTENT = "browserIntent";
 
   private boolean mOpened = false;
@@ -65,9 +60,15 @@ public class ChromeTabsManagerActivity extends Activity {
     if (!mOpened) {
       mOpened = true;
     } else {
-      EventBus.getDefault().post(new ChromeTabsDismissedEvent());
+      EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity closed"));
       finish();
     }
+  }
+
+  @Override
+  protected void onDestroy() {
+    EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity destroyed"));
+    super.onDestroy();
   }
 
   @Override

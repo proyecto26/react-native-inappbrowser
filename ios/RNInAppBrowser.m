@@ -5,6 +5,11 @@
 #else // React Native < 0.40
 #import "RCTUtils.h"
 #endif
+#if __has_include(<React/RCTConvert.h>) // React Native >= 0.40
+#import <React/RCTConvert.h>
+#else // React Native < 0.40
+#import "RCTConvert.h"
+#endif
 #import <SafariServices/SafariServices.h>
 
 @interface RNInAppBrowser () <SFSafariViewControllerDelegate>
@@ -77,18 +82,40 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
 }
 
 
-RCT_EXPORT_METHOD(open:(NSString *)authURL
+RCT_EXPORT_METHOD(open:(NSDictionary *)options
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
   if (![self initializeWebBrowserWithResolver:resolve andRejecter:reject]) {
     return;
   }
+
+  NSString* authURL = [options valueForKey:@"url"];
+  NSString* dismissButtonStyle = [options valueForKey:@"dismissButtonStyle"];
+  NSNumber* preferredBarTintColor = [options valueForKey:@"preferredBarTintColor"];
+  NSNumber* preferredControlTintColor = [options valueForKey:@"preferredControlTintColor"];
   
   // Safari View Controller to authorize request
   NSURL *url = [[NSURL alloc] initWithString:authURL];
   SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url entersReaderIfAvailable:NO];
   safariVC.delegate = self;
+  if (@available(iOS 11.0, *)) {
+    if ([dismissButtonStyle isEqualToString:@"done"]) {
+      safariVC.dismissButtonStyle = SFSafariViewControllerDismissButtonStyleDone;
+    }
+    if ([dismissButtonStyle isEqualToString:@"close"]) {
+      safariVC.dismissButtonStyle = SFSafariViewControllerDismissButtonStyleClose;
+    }
+    if ([dismissButtonStyle isEqualToString:@"cancel"]) {
+      safariVC.dismissButtonStyle = SFSafariViewControllerDismissButtonStyleCancel;
+    }
+  }
+  if (preferredBarTintColor) {
+    safariVC.preferredBarTintColor = [RCTConvert UIColor:preferredBarTintColor];
+  }
+  if (preferredControlTintColor) {
+    safariVC.preferredControlTintColor = [RCTConvert UIColor:preferredControlTintColor];
+  }
   
  // By setting the modal presentation style to OverFullScreen, we disable the "Swipe to dismiss"
  // gesture that is causing a bug where sometimes `safariViewControllerDidFinish` is not called.

@@ -1,8 +1,9 @@
 {
-  "name": "react-native-inappbrowser",
-  "version": "0.0.2",
+  "name": "react-native-inappbrowser-reborn",
+  "version": "1.0.0",
   "description": "InAppBrowser for React Native",
   "main": "index.js",
+  "readmeFilename": "README.md",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -32,9 +33,7 @@
     "babel-plugin-transform-exponentiation-operator": "^6.24.1",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-preset-react-native": "^4.0.0",
-    "invariant": "^2.2.4",
-    "react": "^16.5.0",
-    "react-native": "^0.56.0"
+    "invariant": "^2.2.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

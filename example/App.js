@@ -7,8 +7,8 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button} from 'react-native';
-//import InAppBrowser from 'react-native-inappbrowser';
+import {Platform, StyleSheet, Text, View, Button, Alert} from 'react-native';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -19,8 +19,27 @@ const instructions = Platform.select({
 
 export default class App extends Component {
 
-  openLink() {
-    //InAppBrowser.open('www.google.com')
+  async openLink() {
+    try {
+      await InAppBrowser.isAvailable()
+      InAppBrowser.open('https://www.google.com', {
+        // iOS Properties
+        dismissButtonStyle: 'cancel',
+        preferredBarTintColor: 'gray',
+        preferredControlTintColor: 'white',
+        // Android Properties
+        showTitle: true,
+        toolbarColor: '#6200EE',
+        secondaryToolbarColor: 'black',
+        enableUrlBarHiding: true,
+        enableDefaultShare: true,
+      }).then((result) => {
+        Alert.alert(JSON.stringify(result))
+      })
+    } catch (error) {
+      Alert.alert(error.message)
+    }
+    
   }
 
   render() {

@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
     "ios": "react-native run-ios",
-    "test": "jest"
+    "android": "react-native run-android"
   },
-  "main": "index.js",
   "dependencies": {
     "react": "16.4.1",
-    "react-native": "0.56.0"
+    "react-native": "0.56.0",
+    "react-native-inappbrowser-reborn": "file:../"
   },
   "devDependencies": {
     "babel-jest": "23.4.2",
