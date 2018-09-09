@@ -1,11 +1,3 @@
 {
-  "presets": ["react-native"],
-  "plugins": [
-    [
-      "module-resolver"
-    ],
-    "transform-decorators-legacy",
-    "transform-exponentiation-operator",
-    "transform-export-extensions"
-  ]
+  "presets": ["react-native"]
 }
