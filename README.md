@@ -38,7 +38,7 @@
 
 ## Usage
 ```javascript
-import RNInAppBrowser from 'react-native-inappbrowser-reborn';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 ...
 async openLink() {
