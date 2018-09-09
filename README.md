@@ -1,6 +1,7 @@
 
-# react-native-inappbrowser-reborn
-InAppBrowser for React Native
+# InAppBrowser for React Native
+
+![InAppBrowser](img/inappbrowser.png)
 
 ## Getting started
 
@@ -39,7 +40,36 @@ InAppBrowser for React Native
 ```javascript
 import RNInAppBrowser from 'react-native-inappbrowser-reborn';
 
-// TODO: What to do with the module?
-RNInAppBrowser;
+...
+async openLink() {
+  try {
+    await InAppBrowser.isAvailable()
+    InAppBrowser.open('https://www.google.com', {
+      // iOS Properties
+      dismissButtonStyle: 'cancel',
+      preferredBarTintColor: 'gray',
+      preferredControlTintColor: 'white',
+      // Android Properties
+      showTitle: true,
+      toolbarColor: '#6200EE',
+      secondaryToolbarColor: 'black',
+      enableUrlBarHiding: true,
+      enableDefaultShare: true,
+    }).then((result) => {
+      Alert.alert(JSON.stringify(result))
+    })
+  } catch (error) {
+    Alert.alert(error.message)
+  }
+}
+...
 ```
-  
+
+## Supporting 🍻
+I believe in Unicorns 🦄
+Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
+
+## Happy coding 💯
+Made with ❤️
+
+<img width="150px" src="http://phaser.azurewebsites.net/assets/nicholls.png" align="right">

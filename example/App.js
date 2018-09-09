@@ -39,7 +39,6 @@ export default class App extends Component {
     } catch (error) {
       Alert.alert(error.message)
     }
-    
   }
 
   render() {
