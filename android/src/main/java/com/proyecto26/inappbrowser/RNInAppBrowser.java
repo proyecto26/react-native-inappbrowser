@@ -24,6 +24,7 @@ public class RNInAppBrowser {
   private static final String KEY_ENABLE_URL_BAR_HIDING = "enableUrlBarHiding";
   private static final String KEY_SHOW_PAGE_TITLE = "showTitle";
   private static final String KEY_DEFAULT_SHARE_MENU_ITEM = "enableDefaultShare";
+  private static final String KEY_FORCE_CLOSE_ON_REDIRECTION = "forceCloseOnRedirection";
 
   private @Nullable Promise mOpenBrowserPromise;
   private Activity currentActivity;
@@ -64,13 +65,20 @@ public class RNInAppBrowser {
                 "Invalid secondary toolbar color '" + colorString + "': " + e.getMessage());
       }
     }
-    if (options.hasKey(KEY_ENABLE_URL_BAR_HIDING) && options.getBoolean(KEY_ENABLE_URL_BAR_HIDING)) {
+    if (options.hasKey(KEY_ENABLE_URL_BAR_HIDING) && 
+        options.getBoolean(KEY_ENABLE_URL_BAR_HIDING)) {
       builder.enableUrlBarHiding();
     }
-    if (options.hasKey(KEY_DEFAULT_SHARE_MENU_ITEM) && options.getBoolean(KEY_DEFAULT_SHARE_MENU_ITEM)) {
+    if (options.hasKey(KEY_DEFAULT_SHARE_MENU_ITEM) && 
+        options.getBoolean(KEY_DEFAULT_SHARE_MENU_ITEM)) {
       builder.addDefaultShareMenuItem();
     }
     CustomTabsIntent customTabsIntent = builder.build();
+    if (options.hasKey(KEY_FORCE_CLOSE_ON_REDIRECTION) &&
+        options.getBoolean(KEY_FORCE_CLOSE_ON_REDIRECTION)) {
+      customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+      customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
 
     Intent intent = customTabsIntent.intent;
     intent.setData(Uri.parse(url));

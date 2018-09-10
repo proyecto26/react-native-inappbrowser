@@ -20,7 +20,8 @@ type InAppBrowserOptions = {
   toolbarColor: string,
   enableUrlBarHiding: boolean,
   showTitle: boolean,
-  enableDefaultShare: boolean
+  enableDefaultShare: boolean,
+  forceCloseOnRedirection: boolean
 }
 
 async function open(url: string, options: InAppBrowserOptions = {}): Promise<BrowserResult.type> {
@@ -44,11 +45,11 @@ function close(): void {
 
 type AuthSessionResult = RedirectResult | BrowserResult;
 
-async function openAuth(url: string, redirectUrl: string): Promise<AuthSessionResult> {
+async function openAuth(url: string, redirectUrl: string, options: InAppBrowserOptions = {}): Promise<AuthSessionResult> {
   if (_authSessionIsNativelySupported()) {
     return RNInAppBrowser.openAuth(url, redirectUrl);
   } else {
-    return _openAuthSessionPolyfillAsync(url, redirectUrl);
+    return _openAuthSessionPolyfillAsync(url, redirectUrl, options);
   }
 }
 
@@ -75,7 +76,8 @@ let _redirectHandler: ?(event: RedirectEvent) => void;
 
 async function _openAuthSessionPolyfillAsync(
   startUrl: string,
-  returnUrl: string
+  returnUrl: string,
+  options: InAppBrowserOptions
 ): Promise<AuthSessionResult> {
   invariant(
     !_redirectHandler,
@@ -83,7 +85,7 @@ async function _openAuthSessionPolyfillAsync(
   );
 
   try {
-    return await Promise.race([open(startUrl), _waitForRedirectAsync(returnUrl)]);
+    return await Promise.race([open(startUrl, options), _waitForRedirectAsync(returnUrl)]);
   } finally {
     close();
     Linking.removeEventListener('url', _redirectHandler);

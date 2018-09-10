@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, Alert} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, Alert, TextInput} from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 const instructions = Platform.select({
@@ -19,10 +19,18 @@ const instructions = Platform.select({
 
 export default class App extends Component {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      url: 'https://www.google.com'
+    }
+  }
+
   async openLink() {
     try {
       await InAppBrowser.isAvailable()
-      InAppBrowser.open('https://www.google.com', {
+      InAppBrowser.open(this.state.url, {
         // iOS Properties
         dismissButtonStyle: 'cancel',
         preferredBarTintColor: 'gray',
@@ -33,6 +41,7 @@ export default class App extends Component {
         secondaryToolbarColor: 'black',
         enableUrlBarHiding: true,
         enableDefaultShare: true,
+        forceCloseOnRedirection: true,
       }).then((result) => {
         Alert.alert(JSON.stringify(result))
       })
@@ -44,8 +53,16 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome InAppBrowser for React Native!</Text>
-        <Button title='Open google.com' onPress={() => this.openLink()}></Button>
+        <Text style={styles.welcome}>{'Welcome InAppBrowser\nfor React Native!'}</Text>
+        <Text style={styles.instructions}>Type the url</Text>
+        <TextInput
+          style={styles.urlInput}
+          onChangeText={(text) => this.setState({url: text})}
+          value={this.state.url}
+        />
+        <View style={styles.openButton}>
+          <Button title='Open link' onPress={() => this.openLink()}></Button>
+        </View>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
     );
@@ -58,6 +75,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    padding: 30
   },
   welcome: {
     fontSize: 20,
@@ -69,4 +87,14 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  urlInput: {
+    height: 40, 
+    width: '100%',
+    borderColor: 'gray', 
+    borderWidth: 1,
+  },
+  openButton: {
+    paddingTop: Platform.OS === 'ios' ? 0 : 20,
+    paddingBottom: Platform.OS === 'ios' ? 0 : 20
+  }
 });
