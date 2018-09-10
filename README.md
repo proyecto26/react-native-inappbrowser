@@ -174,6 +174,7 @@ import { getDeepLink } from './utilities'
 ## Credits 👍
 * **Expo:** [WebBrowser](https://docs.expo.io/versions/latest/sdk/webbrowser)
 * **React Native Custom Tabs:** [Chrome Custom Tabs for React Native](https://github.com/droibit/react-native-custom-tabs)
+* **React Native Safari View:** [A React Native wrapper for Safari View Controller](https://github.com/naoufal/react-native-safari-view)
 
 ## Supporting 🍻
 I believe in Unicorns 🦄
