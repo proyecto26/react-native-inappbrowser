@@ -21,7 +21,7 @@ type InAppBrowserOptions = {
   enableUrlBarHiding: boolean,
   showTitle: boolean,
   enableDefaultShare: boolean,
-  forceCloseOnRedirection: boolean
+  forceCloseOnRedirection: boolean,
   readerMode: boolean
 }
 
