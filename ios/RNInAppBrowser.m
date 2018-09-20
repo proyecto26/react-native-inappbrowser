@@ -94,10 +94,11 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
   NSString* dismissButtonStyle = [options valueForKey:@"dismissButtonStyle"];
   NSNumber* preferredBarTintColor = [options valueForKey:@"preferredBarTintColor"];
   NSNumber* preferredControlTintColor = [options valueForKey:@"preferredControlTintColor"];
-  
+  BOOL readerMode = [options[@"readerMode"] boolValue];
+
   // Safari View Controller to authorize request
   NSURL *url = [[NSURL alloc] initWithString:authURL];
-  SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url entersReaderIfAvailable:NO];
+  SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url entersReaderIfAvailable:readerMode];
   safariVC.delegate = self;
   if (@available(iOS 11.0, *)) {
     if ([dismissButtonStyle isEqualToString:@"done"]) {
@@ -116,12 +117,12 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
   if (preferredControlTintColor) {
     safariVC.preferredControlTintColor = [RCTConvert UIColor:preferredControlTintColor];
   }
-  
+
  // By setting the modal presentation style to OverFullScreen, we disable the "Swipe to dismiss"
  // gesture that is causing a bug where sometimes `safariViewControllerDidFinish` is not called.
  // There are bugs filed already about it on OpenRadar.
  [safariVC setModalPresentationStyle: UIModalPresentationOverFullScreen];
-  
+
  // This is a hack to present the SafariViewController modally
  UINavigationController *safariHackVC = [[UINavigationController alloc] initWithRootViewController:safariVC];
  [safariHackVC setNavigationBarHidden:true animated:false];
@@ -192,9 +193,9 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
   }
   _redirectReject = reject;
   _redirectResolve = resolve;
-  
+
   _initialStatusBarStyle = RCTSharedApplication().statusBarStyle;
-  
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
   [RCTSharedApplication() setStatusBarStyle:UIStatusBarStyleDefault
