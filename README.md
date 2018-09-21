@@ -60,6 +60,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
         dismissButtonStyle: 'cancel',
         preferredBarTintColor: 'gray',
         preferredControlTintColor: 'white',
+        readerMode: true,
         // Android Properties
         showTitle: true,
         toolbarColor: '#6200EE',
@@ -128,7 +129,7 @@ import { getDeepLink } from './utilities'
 ...
   async onLogin() {
     const deepLink = getDeepLink("callback")
-    const url = `https://my-auth-login-page.com?redirect_uri=${deepLink}` 
+    const url = `https://my-auth-login-page.com?redirect_uri=${deepLink}`
     try {
       await InAppBrowser.isAvailable()
       InAppBrowser.openAuth(url, deepLink, {
@@ -139,7 +140,7 @@ import { getDeepLink } from './utilities'
         enableUrlBarHiding: true,
         enableDefaultShare: true,
       }).then((response) => {
-        if (response.type === 'success' && 
+        if (response.type === 'success' &&
           response.url) {
           Linking.openURL(response.url)
         }
@@ -175,6 +176,11 @@ import { getDeepLink } from './utilities'
 * **Expo:** [WebBrowser](https://docs.expo.io/versions/latest/sdk/webbrowser)
 * **React Native Custom Tabs:** [Chrome Custom Tabs for React Native](https://github.com/droibit/react-native-custom-tabs)
 * **React Native Safari View:** [A React Native wrapper for Safari View Controller](https://github.com/naoufal/react-native-safari-view)
+
+## Collaborators 🥇
+[<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) | [<img alt="EQuimper" src="https://avatars3.githubusercontent.com/u/15819498?v=4&s=117" width="117">](https://github.com/EQuimper)
+:---: | :---: |
+[Juan Nicholls](mailto:jdnichollsc@hotmail.com) | [Emanuel Quimper](mailto:quimperemanuel@gmail.com)
 
 ## Supporting 🍻
 I believe in Unicorns 🦄
