@@ -29,7 +29,8 @@ async function open(url: string, options: InAppBrowserOptions = {}): Promise<Bro
   const inAppBrowseroptions = {
     ...options,
     url,
-    dismissButtonStyle: options.dismissButtonStyle || 'close'
+    dismissButtonStyle: options.dismissButtonStyle || 'close',
+    readerMode: options.readerMode !== undefined ? options.readerMode : false
   }
   if (inAppBrowseroptions.preferredBarTintColor) {
     inAppBrowseroptions.preferredBarTintColor = processColor(inAppBrowseroptions.preferredBarTintColor)
