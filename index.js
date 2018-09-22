@@ -21,7 +21,8 @@ type InAppBrowserOptions = {
   enableUrlBarHiding: boolean,
   showTitle: boolean,
   enableDefaultShare: boolean,
-  forceCloseOnRedirection: boolean
+  forceCloseOnRedirection: boolean,
+  readerMode: boolean
 }
 
 async function open(url: string, options: InAppBrowserOptions = {}): Promise<BrowserResult.type> {
