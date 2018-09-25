@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "typings": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:proyecto26/react-native-inappbrowser.git"
