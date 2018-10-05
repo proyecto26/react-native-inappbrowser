@@ -124,7 +124,7 @@ public class RNInAppBrowser {
     Assertions.assertNotNull(mOpenBrowserPromise);
 
     WritableMap result = Arguments.createMap();
-    result.putString("type", "cancel");
+    result.putString("type", event.resultType);
     mOpenBrowserPromise.resolve(result);
     mOpenBrowserPromise = null;
   }
