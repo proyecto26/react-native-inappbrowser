@@ -60,14 +60,14 @@ public class ChromeTabsManagerActivity extends Activity {
     if (!mOpened) {
       mOpened = true;
     } else {
-      EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity closed"));
+      EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity closed", "cancel"));
       finish();
     }
   }
 
   @Override
   protected void onDestroy() {
-    EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity destroyed"));
+    EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity destroyed", "dismiss"));
     super.onDestroy();
   }
 
