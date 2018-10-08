@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, Alert, TextInput} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, Alert, TextInput, StatusBar} from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 const instructions = Platform.select({
@@ -30,6 +30,7 @@ export default class App extends Component {
   async openLink() {
     try {
       await InAppBrowser.isAvailable()
+      StatusBar.setBarStyle('light-content')
       InAppBrowser.open(this.state.url, {
         // iOS Properties
         dismissButtonStyle: 'cancel',
@@ -53,6 +54,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar barStyle="dark-content" />
         <Text style={styles.welcome}>{'Welcome InAppBrowser\nfor React Native!'}</Text>
         <Text style={styles.instructions}>Type the url</Text>
         <TextInput
