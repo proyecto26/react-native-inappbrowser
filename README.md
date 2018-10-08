@@ -172,6 +172,21 @@ import { getDeepLink } from './utilities'
 ...
 ```
 
+- StatusBar
+
+The StatusBar will keep the last one provided in your app. So if the StatusBar is `dark-content` before you open the browser this will keep it. If you want to change before opening you can do something like
+
+```javascript
+  async openInBrowser(url) {
+      try {
+        StatusBar.setBarStyle('dark-content')
+        await InAppBrowser.open(url)
+      } catch (error) {
+        Alert.alert(error.message);
+      }
+    }),
+```
+
 ## Credits 👍
 * **Expo:** [WebBrowser](https://docs.expo.io/versions/latest/sdk/webbrowser)
 * **React Native Custom Tabs:** [Chrome Custom Tabs for React Native](https://github.com/droibit/react-native-custom-tabs)
