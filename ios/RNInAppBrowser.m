@@ -194,13 +194,6 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
   _redirectReject = reject;
   _redirectResolve = resolve;
 
-  _initialStatusBarStyle = RCTSharedApplication().statusBarStyle;
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-  [RCTSharedApplication() setStatusBarStyle:UIStatusBarStyleDefault
-                                   animated:YES];
-#pragma clang diagnostic pop
   return YES;
 }
 
@@ -217,10 +210,6 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
 
 -(void)flowDidFinish
 {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-  [RCTSharedApplication() setStatusBarStyle:_initialStatusBarStyle animated:YES];
-#pragma clang diagnostic pop
   _redirectResolve = nil;
   _redirectReject = nil;
 }
