@@ -172,19 +172,19 @@ import { getDeepLink } from './utilities'
 ...
 ```
 
-- StatusBar
+### StatusBar
 
 The StatusBar will keep the last one provided in your app. So if the StatusBar is `dark-content` before you open the browser this will keep it. If you want to change before opening you can do something like
 
 ```javascript
   async openInBrowser(url) {
-      try {
-        StatusBar.setBarStyle('dark-content')
-        await InAppBrowser.open(url)
-      } catch (error) {
-        Alert.alert(error.message);
-      }
-    }),
+    try {
+      StatusBar.setBarStyle('dark-content')
+      await InAppBrowser.open(url)
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  })
 ```
 
 ## Credits 👍
