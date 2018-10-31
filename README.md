@@ -33,7 +33,7 @@
   	```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
   	```
-      compile project(':react-native-inappbrowser-reborn')
+      implementation project(':react-native-inappbrowser-reborn')
   	```
 
 ## Usage
