@@ -10,18 +10,23 @@ buildscript {
   }
 }
 
-android {
-  compileSdkVersion 26
-  buildToolsVersion "26.0.3"
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
 
+def DEFAULT_COMPILE_SDK_VERSION = 27
+def DEFAULT_BUILD_TOOLS_VERSION = "27.0.3"
+def DEFAULT_MIN_SDK_VERSION = 16
+def DEFAULT_TARGET_SDK_VERSION = 27
+
+android {
+  compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
+  buildToolsVersion safeExtGet('buildToolsVersion', DEFAULT_BUILD_TOOLS_VERSION)
   defaultConfig {
-    minSdkVersion 16
-    targetSdkVersion 26
+    minSdkVersion safeExtGet('minSdkVersion', DEFAULT_MIN_SDK_VERSION)
+    targetSdkVersion safeExtGet('targetSdkVersion', DEFAULT_TARGET_SDK_VERSION)
     versionCode 1
     versionName "1.0"
-    ndk {
-      abiFilters "armeabi-v7a", "x86"
-    }
   }
   lintOptions {
     abortOnError false
@@ -35,8 +40,8 @@ repositories {
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
   compile 'com.facebook.react:react-native:+'
-  compile "com.android.support:support-annotations:26.+"
-  compile "com.android.support:customtabs:26.+"
+  compile "com.android.support:support-annotations:+"
+  compile "com.android.support:customtabs:+"
   compile 'org.greenrobot:eventbus:3.+'
 }
   
