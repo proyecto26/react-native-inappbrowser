@@ -67,7 +67,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
         secondaryToolbarColor: 'black',
         enableUrlBarHiding: true,
         enableDefaultShare: true,
-        forceCloseOnRedirection: true,
+        forceCloseOnRedirection: false,
       }).then((result) => {
         Alert.alert(JSON.stringify(result))
       })

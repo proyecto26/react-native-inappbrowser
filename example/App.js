@@ -6,16 +6,25 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, Alert, TextInput, StatusBar} from 'react-native';
-import InAppBrowser from 'react-native-inappbrowser-reborn';
+import React, {Component} from 'react'
+import {
+  Platform, 
+  StyleSheet, 
+  Text, 
+  View, 
+  Button, 
+  Alert, 
+  TextInput, 
+  StatusBar,
+} from 'react-native'
+import InAppBrowser from 'react-native-inappbrowser-reborn'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
     'Double tap R on your keyboard to reload,\n' +
     'Shake or press menu button for dev menu',
-});
+})
 
 export default class App extends Component {
 
@@ -26,12 +35,12 @@ export default class App extends Component {
       url: 'https://www.google.com'
     }
   }
-
+  sleep = m => new Promise(r => setTimeout(r, m))
   async openLink() {
     try {
       await InAppBrowser.isAvailable()
       StatusBar.setBarStyle('light-content')
-      InAppBrowser.open(this.state.url, {
+      const response = await InAppBrowser.open(this.state.url, {
         // iOS Properties
         dismissButtonStyle: 'cancel',
         preferredBarTintColor: 'gray',
@@ -42,10 +51,10 @@ export default class App extends Component {
         secondaryToolbarColor: 'black',
         enableUrlBarHiding: true,
         enableDefaultShare: true,
-        forceCloseOnRedirection: true,
-      }).then((result) => {
-        Alert.alert(JSON.stringify(result))
+        forceCloseOnRedirection: false,
       })
+      await this.sleep(200)
+      Alert.alert('Response', JSON.stringify(response))
     } catch (error) {
       Alert.alert(error.message)
     }
@@ -67,7 +76,7 @@ export default class App extends Component {
         </View>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
-    );
+    )
   }
 }
 
@@ -99,4 +108,4 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? 0 : 20,
     paddingBottom: Platform.OS === 'ios' ? 0 : 20
   }
-});
+})
