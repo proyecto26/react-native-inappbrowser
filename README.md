@@ -33,7 +33,9 @@
   	```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
   	```
-      implementation project(':react-native-inappbrowser-reborn')
+      implementation (project(':react-native-inappbrowser-reborn')){
+        exclude group: "com.android.support"
+      }
   	```
 
 ## Usage

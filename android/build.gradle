@@ -38,10 +38,10 @@ repositories {
 }
 
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
-  compile 'com.facebook.react:react-native:+'
-  compile "com.android.support:support-annotations:+"
-  compile "com.android.support:customtabs:+"
-  compile 'org.greenrobot:eventbus:3.+'
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation 'com.facebook.react:react-native:+'
+  implementation "com.android.support:support-annotations:+"
+  implementation "com.android.support:customtabs:+"
+  implementation 'org.greenrobot:eventbus:3.+'
 }
   
