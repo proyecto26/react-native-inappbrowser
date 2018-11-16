@@ -137,9 +137,7 @@ android {
 }
 
 dependencies {
-    implementation (project(':react-native-inappbrowser-reborn')){
-        exclude group: "com.android.support"
-    }
+    implementation project(':react-native-inappbrowser-reborn')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules

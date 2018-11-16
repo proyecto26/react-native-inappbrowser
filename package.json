@@ -1,6 +1,6 @@
 {
   "name": "react-native-inappbrowser-reborn",
-  "version": "1.3.6",
+  "version": "1.3.7",
   "description": "InAppBrowser for React Native",
   "main": "index.js",
   "readmeFilename": "README.md",

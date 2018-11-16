@@ -193,9 +193,9 @@ The StatusBar will keep the last one provided in your app. So if the StatusBar i
 * **React Native Safari View:** [A React Native wrapper for Safari View Controller](https://github.com/naoufal/react-native-safari-view)
 
 ## Collaborators 🥇
-[<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) | [<img alt="EQuimper" src="https://avatars3.githubusercontent.com/u/15819498?v=4&s=117" width="117">](https://github.com/EQuimper) | [<img alt="bonesyblue" src="https://avatars3.githubusercontent.com/u/7486722?s=460&v=4&s=117" width="117">](https://github.com/bonesyblue) | [<img alt="mlazari" src="https://avatars3.githubusercontent.com/u/4928274?v=4&s=117" width="117">](https://github.com/mlazari)
-:---: | :---: |:---: | :---: |
-[Juan Nicholls](mailto:jdnichollsc@hotmail.com) | [Emanuel Quimper](mailto:quimperemanuel@gmail.com) | [Jonathan Bones](mailto:bonesyblue@gmail.com) | [Mihai Lazari](https://github.com/mlazari)
+[<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) | [<img alt="EQuimper" src="https://avatars3.githubusercontent.com/u/15819498?v=4&s=117" width="117">](https://github.com/EQuimper) | [<img alt="bonesyblue" src="https://avatars3.githubusercontent.com/u/7486722?s=460&v=4&s=117" width="117">](https://github.com/bonesyblue) | [<img alt="mlazari" src="https://avatars3.githubusercontent.com/u/4928274?v=4&s=117" width="117">](https://github.com/mlazari) | [<img alt="maestor" src="https://avatars3.githubusercontent.com/u/3604902?v=4&s=117" width="117">](https://github.com/maestor)
+:---: | :---: |:---: | :---: | :---: |
+[Juan Nicholls](mailto:jdnichollsc@hotmail.com) | [Emanuel Quimper](mailto:quimperemanuel@gmail.com) | [Jonathan Bones](mailto:bonesyblue@gmail.com) | [Mihai Lazari](https://github.com/mlazari) | [Kalle Haavisto](https://github.com/maestor)
 
 ## Supporting 🍻
 I believe in Unicorns 🦄
