@@ -14,15 +14,15 @@ type BrowserResult = {
 };
 
 type InAppBrowserOptions = {
-  dismissButtonStyle: 'done' | 'close' | 'cancel',
-  preferredBarTintColor: string,
-  preferredControlTintColor: string,
-  toolbarColor: string,
-  enableUrlBarHiding: boolean,
-  showTitle: boolean,
-  enableDefaultShare: boolean,
-  forceCloseOnRedirection: boolean,
-  readerMode: boolean
+  dismissButtonStyle?: 'done' | 'close' | 'cancel',
+  preferredBarTintColor?: string,
+  preferredControlTintColor?: string,
+  toolbarColor?: string,
+  enableUrlBarHiding?: boolean,
+  showTitle?: boolean,
+  enableDefaultShare?: boolean,
+  forceCloseOnRedirection?: boolean,
+  readerMode?: boolean
 }
 
 async function open(url: string, options: InAppBrowserOptions = {}): Promise<BrowserResult.type> {
