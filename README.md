@@ -60,7 +60,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
         dismissButtonStyle: 'cancel',
         preferredBarTintColor: 'gray',
         preferredControlTintColor: 'white',
-        readerMode: true,
+        readerMode: false,
         // Android Properties
         showTitle: true,
         toolbarColor: '#6200EE',
@@ -68,6 +68,17 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
         enableUrlBarHiding: true,
         enableDefaultShare: true,
         forceCloseOnRedirection: false,
+        // Specify full animation resource identifier(package:anim/name)
+        // or only resource name(in case of animation bundled with app).
+        animations: {
+          startEnter: 'slide_in_right',
+          startExit: 'slide_out_left',
+          endEnter: 'slide_in_right',
+          endExit: 'slide_out_left',
+        },
+        headers: {
+          'my-custom-header': 'my custom header value'
+        },
       }).then((result) => {
         Alert.alert(JSON.stringify(result))
       })
