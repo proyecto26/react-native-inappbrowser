@@ -45,6 +45,7 @@ export default class App extends Component {
         dismissButtonStyle: 'cancel',
         preferredBarTintColor: 'gray',
         preferredControlTintColor: 'white',
+        readerMode: false,
         // Android Properties
         showTitle: true,
         toolbarColor: '#6200EE',
@@ -52,8 +53,19 @@ export default class App extends Component {
         enableUrlBarHiding: true,
         enableDefaultShare: true,
         forceCloseOnRedirection: false,
+        // Specify full animation resource identifier(package:anim/name)
+        // or only resource name(in case of animation bundled with app).
+        animations: {
+          startEnter: 'slide_in_right',
+          startExit: 'slide_out_left',
+          endEnter: 'slide_in_right',
+          endExit: 'slide_out_left',
+        },
+        headers: {
+          'my-custom-header': 'my custom header value'
+        },
       })
-      await this.sleep(200)
+      await this.sleep(800)
       Alert.alert('Response', JSON.stringify(response))
     } catch (error) {
       Alert.alert(error.message)

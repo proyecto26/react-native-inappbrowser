@@ -5,18 +5,18 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --simulator=\"iPhone X\"",
     "android": "react-native run-android"
   },
   "dependencies": {
-    "react": "16.6.1",
-    "react-native": "0.57.5",
-    "react-native-inappbrowser-reborn": "^1.3.7"
+    "react": "16.4.1",
+    "react-native": "0.56.0",
+    "react-native-inappbrowser-reborn": "file:.."
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
     "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.49.1",
+    "babel-preset-react-native": "^5",
     "react-test-renderer": "16.6.1"
   },
   "jest": {

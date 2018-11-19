@@ -104,10 +104,10 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
     if ([dismissButtonStyle isEqualToString:@"done"]) {
       safariVC.dismissButtonStyle = SFSafariViewControllerDismissButtonStyleDone;
     }
-    if ([dismissButtonStyle isEqualToString:@"close"]) {
+    else if ([dismissButtonStyle isEqualToString:@"close"]) {
       safariVC.dismissButtonStyle = SFSafariViewControllerDismissButtonStyleClose;
     }
-    if ([dismissButtonStyle isEqualToString:@"cancel"]) {
+    else if ([dismissButtonStyle isEqualToString:@"cancel"]) {
       safariVC.dismissButtonStyle = SFSafariViewControllerDismissButtonStyleCancel;
     }
   }

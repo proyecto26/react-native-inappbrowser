@@ -26,7 +26,7 @@ public class RNInAppBrowserModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void open(final ReadableMap options, final Promise promise) {
     final Activity activity = getCurrentActivity();
-    inAppBrowser.open(options, promise, activity);
+    inAppBrowser.open(this.reactContext, options, promise, activity);
   }
 
   @ReactMethod

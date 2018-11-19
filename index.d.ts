@@ -13,15 +13,23 @@ declare module 'react-native-inappbrowser-reborn' {
   }
 
   export interface InAppBrowserOptions {
-    dismissButtonStyle?: 'done' | 'close' | 'cancel';
-    preferredBarTintColor?: string;
-    preferredControlTintColor?: string;
-    toolbarColor?: string;
-    enableUrlBarHiding?: boolean;
-    showTitle?: boolean;
-    enableDefaultShare?: boolean;
-    forceCloseOnRedirection?: boolean;
-    readerMode?: boolean;
+    dismissButtonStyle?: 'done' | 'close' | 'cancel',
+    preferredBarTintColor?: string,
+    preferredControlTintColor?: string,
+    readerMode?: boolean,
+    showTitle?: boolean,
+    toolbarColor?: string,
+    secondaryToolbarColor?: string,
+    enableUrlBarHiding?: boolean,
+    enableDefaultShare?: boolean,
+    forceCloseOnRedirection?: boolean,
+    animations?: {
+      startEnter: string,
+      startExit: string,
+      endEnter: string,
+      endExit: string
+    },
+    headers?: object
   }
 
   type AuthSessionResult = RedirectResult | BrowserResult;
