@@ -1,10 +1,10 @@
 declare module 'react-native-inappbrowser-reborn' {
-  export interface BrowserResult {
-    type: 'cancel' | 'dismiss';
-  }
-
   export interface RedirectEvent {
     url: 'string';
+  }
+
+  export interface BrowserResult {
+    type: 'cancel' | 'dismiss';
   }
 
   export interface RedirectResult {
@@ -29,7 +29,7 @@ declare module 'react-native-inappbrowser-reborn' {
       endEnter: string,
       endExit: string
     },
-    headers?: object
+    headers?: { [string]: string }
   }
 
   type AuthSessionResult = RedirectResult | BrowserResult;

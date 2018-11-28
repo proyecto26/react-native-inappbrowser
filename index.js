@@ -13,6 +13,11 @@ type BrowserResult = {
   type: 'cancel' | 'dismiss',
 };
 
+type RedirectResult = {
+  type: 'success',
+  url: string,
+};
+
 type InAppBrowserOptions = {
   dismissButtonStyle?: 'done' | 'close' | 'cancel',
   preferredBarTintColor?: string,
@@ -30,10 +35,10 @@ type InAppBrowserOptions = {
     endEnter: string,
     endExit: string
   },
-  headers?: object
+  headers?: { [string]: string }
 }
 
-async function open(url: string, options: InAppBrowserOptions = {}): Promise<BrowserResult.type> {
+async function open(url: string, options: InAppBrowserOptions = {}): Promise<BrowserResult> {
   const inAppBrowseroptions = {
     ...options,
     url,
@@ -103,11 +108,6 @@ async function _openAuthSessionPolyfillAsync(
   }
 }
 
-type RedirectResult = {
-  type: 'success',
-  url: string,
-};
-
 function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
   return new Promise(resolve => {
     _redirectHandler = (event: RedirectEvent) => {
@@ -120,7 +120,7 @@ function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
   });
 }
 
-async function isAvailable(): Promise {
+async function isAvailable(): Promise<void> {
   if (Platform.OS === 'android') {
     return Promise.resolve();
   }
