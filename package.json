@@ -24,6 +24,7 @@
     "in-app-browser"
   ],
   "author": "Juan David Nicholls Cardona",
+  "homepage": "https://github.com/proyecto26/react-native-inappbrowser",
   "license": "MIT",
   "peerDependencies": {
     "react-native": "^0.55.0"
