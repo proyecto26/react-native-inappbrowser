@@ -111,11 +111,13 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
       safariVC.dismissButtonStyle = SFSafariViewControllerDismissButtonStyleCancel;
     }
   }
-  if (preferredBarTintColor) {
-    safariVC.preferredBarTintColor = [RCTConvert UIColor:preferredBarTintColor];
-  }
-  if (preferredControlTintColor) {
-    safariVC.preferredControlTintColor = [RCTConvert UIColor:preferredControlTintColor];
+  if (@available(iOS 10.0, *)) {
+    if (preferredBarTintColor) {
+      safariVC.preferredBarTintColor = [RCTConvert UIColor:preferredBarTintColor];
+    }
+    if (preferredControlTintColor) {
+      safariVC.preferredControlTintColor = [RCTConvert UIColor:preferredControlTintColor];
+    }
   }
 
  // By setting the modal presentation style to OverFullScreen, we disable the "Swipe to dismiss"
