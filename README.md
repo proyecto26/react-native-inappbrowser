@@ -3,6 +3,8 @@
 
 <img width="400px" src="img/inappbrowser.png">
 
+This can act as a unified drop in replacement for the older [React Native Custom Tabs](https://github.com/droibit/react-native-custom-tabs) and [React Native Safari View](https://github.com/naoufal/react-native-safari-view) packages.
+
 ## Getting started
 
 `$ npm install react-native-inappbrowser-reborn --save`
