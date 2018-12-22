@@ -203,6 +203,32 @@ The StatusBar will keep the last one provided in your app. So if the StatusBar i
   })
 ```
 
+If you need to restore the old bar style, after the browser is dismissed, you can try and patch the StatusBar.setBarStyle function to store the old value like so:
+
+```js
+// patch StatusBar.setBarStyle to make style accessible
+const _setBarStyle = StatusBar.setBarStyle;
+StatusBar.setBarStyle = (style) => {
+	StatusBar.currentStyle = style;
+	_setBarStyle(style);
+};
+```
+
+You can than restore the old bar style after the browser has been dismissed like this: 
+
+```javascript
+  async openInBrowser(url) {
+    try {
+      const oldStyle = StatusBar.currentStyle
+      StatusBar.setBarStyle('dark-content')
+      await InAppBrowser.open(url)
+      if(oldStyle) StatusBar.setBarStyle(oldStyle)
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  })
+```
+
 ## Credits 👍
 * **Expo:** [WebBrowser](https://docs.expo.io/versions/latest/sdk/webbrowser)
 * **React Native Custom Tabs:** [Chrome Custom Tabs for React Native](https://github.com/droibit/react-native-custom-tabs)
