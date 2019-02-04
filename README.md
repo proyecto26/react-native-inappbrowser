@@ -60,7 +60,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
   async openLink() {
     try {
       await InAppBrowser.isAvailable()
-      InAppBrowser.open('https://www.google.com', {
+      const result = await InAppBrowser.open('https://www.google.com', {
         // iOS Properties
         dismissButtonStyle: 'cancel',
         preferredBarTintColor: 'gray',
@@ -84,9 +84,8 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
         headers: {
           'my-custom-header': 'my custom header value'
         },
-      }).then((result) => {
-        Alert.alert(JSON.stringify(result))
-      })
+      });
+      Alert.alert(JSON.stringify(result));
     } catch (error) {
       Alert.alert(error.message)
     }
