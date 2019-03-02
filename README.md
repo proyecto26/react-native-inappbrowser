@@ -1,7 +1,9 @@
 
 # InAppBrowser for React Native
 
-<img width="400px" src="img/inappbrowser.png">
+<p align="center">
+	<img width="400px" src="img/inappbrowser.png">
+</p>
 
 ## Getting started
 
