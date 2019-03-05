@@ -51,7 +51,6 @@ public class RNInAppBrowser {
       WritableMap result = Arguments.createMap();
       result.putString("type", "cancel");
       mOpenBrowserPromise.resolve(result);
-      mOpenBrowserPromise = null;
       return;
     }
     mOpenBrowserPromise = promise;
@@ -144,7 +143,7 @@ public class RNInAppBrowser {
     if (mOpenBrowserPromise == null) {
       return;
     }
-    
+
     if (currentActivity == null) {
       mOpenBrowserPromise.reject(ERROR_CODE, "No activity");
       mOpenBrowserPromise = null;
@@ -170,6 +169,9 @@ public class RNInAppBrowser {
 
     WritableMap result = Arguments.createMap();
     result.putString("type", event.resultType);
+    if(event.url != null) {
+      result.putString("url", event.url);
+    }
     mOpenBrowserPromise.resolve(result);
     mOpenBrowserPromise = null;
   }
