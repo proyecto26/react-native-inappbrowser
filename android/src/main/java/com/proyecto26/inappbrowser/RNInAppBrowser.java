@@ -52,6 +52,7 @@ public class RNInAppBrowser {
       WritableMap result = Arguments.createMap();
       result.putString("type", "cancel");
       mOpenBrowserPromise.resolve(result);
+      mOpenBrowserPromise = null;
       return;
     }
     mOpenBrowserPromise = promise;
