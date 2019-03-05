@@ -45,6 +45,7 @@ public class RNInAppBrowser {
   private static final Pattern animationIdentifierPattern = Pattern.compile("^.+:.+/");
 
   public void open(Context context, final ReadableMap options, final Promise promise, Activity activity) {
+
     final String url = options.getString("url");
     currentActivity = activity;
     if (mOpenBrowserPromise != null) {
@@ -140,6 +141,7 @@ public class RNInAppBrowser {
   }
 
   public void close() {
+
     if (mOpenBrowserPromise == null) {
       return;
     }

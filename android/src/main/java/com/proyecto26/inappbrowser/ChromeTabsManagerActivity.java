@@ -53,10 +53,6 @@ public class ChromeTabsManagerActivity extends Activity {
   @Override
   protected void onResume() {
     super.onResume();
-    String url = null;
-    if(getIntent().getData() != null) {
-      url = getIntent().getData().toString();
-    }
 
     // onResume will get called twice, the first time when the activity is created and a second
     // time if the user closes the chrome tabs activity. Knowing this we can detect if the user
@@ -64,14 +60,19 @@ public class ChromeTabsManagerActivity extends Activity {
     if (!mOpened) {
       mOpened = true;
     } else {
-      EventBus.getDefault().post(new ChromeTabsDismissedEvent(url,"chrome tabs activity closed", "success"));
+      if(getIntent().getData() != null) {
+        String url = getIntent().getData().toString();
+        EventBus.getDefault().post(new ChromeTabsDismissedEvent(url, "chrome tabs activity closed", "success"));
+      } else {
+        EventBus.getDefault().post(new ChromeTabsDismissedEvent(null, "chrome tabs activity closed", "cancel"));
+      }
       finish();
     }
   }
 
   @Override
   protected void onDestroy() {
-    EventBus.getDefault().post(new ChromeTabsDismissedEvent(null,"chrome tabs activity destroyed", "dismiss"));
+    EventBus.getDefault().post(new ChromeTabsDismissedEvent(null, "chrome tabs activity destroyed", "dismiss"));
     super.onDestroy();
   }
 
