@@ -45,6 +45,7 @@ public class RNInAppBrowser {
   private static final Pattern animationIdentifierPattern = Pattern.compile("^.+:.+/");
 
   public void open(Context context, final ReadableMap options, final Promise promise, Activity activity) {
+
     final String url = options.getString("url");
     currentActivity = activity;
     if (mOpenBrowserPromise != null) {
@@ -141,10 +142,11 @@ public class RNInAppBrowser {
   }
 
   public void close() {
+
     if (mOpenBrowserPromise == null) {
       return;
     }
-    
+
     if (currentActivity == null) {
       mOpenBrowserPromise.reject(ERROR_CODE, "No activity");
       mOpenBrowserPromise = null;
@@ -170,6 +172,9 @@ public class RNInAppBrowser {
 
     WritableMap result = Arguments.createMap();
     result.putString("type", event.resultType);
+    if(event.url != null) {
+      result.putString("url", event.url);
+    }
     mOpenBrowserPromise.resolve(result);
     mOpenBrowserPromise = null;
   }
