@@ -29,7 +29,7 @@ declare module 'react-native-inappbrowser-reborn' {
       endEnter: string,
       endExit: string
     },
-    headers?: { [string]: string }
+    headers?: { [key: string]: string }
   }
 
   type AuthSessionResult = RedirectResult | BrowserResult;
