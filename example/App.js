@@ -6,15 +6,15 @@
  * @flow
  */
 
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {
-  Platform, 
-  StyleSheet, 
-  Text, 
-  View, 
-  Button, 
-  Alert, 
-  TextInput, 
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Alert,
+  TextInput,
   StatusBar,
 } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
@@ -37,38 +37,39 @@ export default class App extends Component {
   }
   sleep = m => new Promise(r => setTimeout(r, m))
   async openLink() {
-    try {
-      await InAppBrowser.isAvailable()
-      StatusBar.setBarStyle('light-content')
-      const response = await InAppBrowser.open(this.state.url, {
-        // iOS Properties
-        dismissButtonStyle: 'cancel',
-        preferredBarTintColor: 'gray',
-        preferredControlTintColor: 'white',
-        readerMode: false,
-        // Android Properties
-        showTitle: true,
-        toolbarColor: '#6200EE',
-        secondaryToolbarColor: 'black',
-        enableUrlBarHiding: true,
-        enableDefaultShare: true,
-        forceCloseOnRedirection: false,
-        // Specify full animation resource identifier(package:anim/name)
-        // or only resource name(in case of animation bundled with app).
-        animations: {
-          startEnter: 'slide_in_right',
-          startExit: 'slide_out_left',
-          endEnter: 'slide_in_right',
-          endExit: 'slide_out_left',
-        },
-        headers: {
-          'my-custom-header': 'my custom header value'
-        },
-      })
-      await this.sleep(800)
-      Alert.alert('Response', JSON.stringify(response))
-    } catch (error) {
-      Alert.alert(error.message)
+    if (await InAppBrowser.isAvailable()) {
+      try {
+        StatusBar.setBarStyle('light-content')
+        const response = await InAppBrowser.open(this.state.url, {
+          // iOS Properties
+          dismissButtonStyle: 'cancel',
+          preferredBarTintColor: 'gray',
+          preferredControlTintColor: 'white',
+          readerMode: false,
+          // Android Properties
+          showTitle: true,
+          toolbarColor: '#6200EE',
+          secondaryToolbarColor: 'black',
+          enableUrlBarHiding: true,
+          enableDefaultShare: true,
+          forceCloseOnRedirection: false,
+          // Specify full animation resource identifier(package:anim/name)
+          // or only resource name(in case of animation bundled with app).
+          animations: {
+            startEnter: 'slide_in_right',
+            startExit: 'slide_out_left',
+            endEnter: 'slide_in_right',
+            endExit: 'slide_out_left',
+          },
+          headers: {
+            'my-custom-header': 'my custom header value'
+          },
+        })
+        await this.sleep(800)
+        Alert.alert('Response', JSON.stringify(response))
+      } catch (error) {
+        Alert.alert(error.message)
+      }
     }
   }
 
@@ -80,7 +81,7 @@ export default class App extends Component {
         <Text style={styles.instructions}>Type the url</Text>
         <TextInput
           style={styles.urlInput}
-          onChangeText={(text) => this.setState({url: text})}
+          onChangeText={(text) => this.setState({ url: text })}
           value={this.state.url}
         />
         <View style={styles.openButton}>
@@ -111,9 +112,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   urlInput: {
-    height: 40, 
+    height: 40,
     width: '100%',
-    borderColor: 'gray', 
+    borderColor: 'gray',
     borderWidth: 1,
   },
   openButton: {

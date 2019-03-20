@@ -181,7 +181,7 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
     // SafariView is available
     resolve(@YES);
   } else {
-    reject(@"E_SAFARI_VIEW_UNAVAILABLE", @"SafariView is unavailable", nil);
+    resolve(@NO);
   }
 }
 
