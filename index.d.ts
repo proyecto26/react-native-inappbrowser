@@ -46,7 +46,7 @@ declare module 'react-native-inappbrowser-reborn' {
       options?: InAppBrowserOptions,
     ) => Promise<AuthSessionResult>;
     closeAuth: () => void;
-    isAvailable: () => Promise<void>;
+    isAvailable: () => Promise<boolean>;
   }
 
   const RNInAppBrowser: RNInAppBrowserClassMethods;
