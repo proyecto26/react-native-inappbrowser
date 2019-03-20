@@ -57,38 +57,42 @@ Methods       | Action
 ### Demo
 
 ```javascript
-import InAppBrowser from 'react-native-inappbrowser-reborn';
+import { Linking } from 'react-native'
+import InAppBrowser from 'react-native-inappbrowser-reborn'
 
 ...
   async openLink() {
     try {
-      await InAppBrowser.isAvailable()
-      const result = await InAppBrowser.open('https://www.google.com', {
-        // iOS Properties
-        dismissButtonStyle: 'cancel',
-        preferredBarTintColor: 'gray',
-        preferredControlTintColor: 'white',
-        readerMode: false,
-        // Android Properties
-        showTitle: true,
-        toolbarColor: '#6200EE',
-        secondaryToolbarColor: 'black',
-        enableUrlBarHiding: true,
-        enableDefaultShare: true,
-        forceCloseOnRedirection: false,
-        // Specify full animation resource identifier(package:anim/name)
-        // or only resource name(in case of animation bundled with app).
-        animations: {
-          startEnter: 'slide_in_right',
-          startExit: 'slide_out_left',
-          endEnter: 'slide_in_right',
-          endExit: 'slide_out_left',
-        },
-        headers: {
-          'my-custom-header': 'my custom header value'
-        },
-      });
-      Alert.alert(JSON.stringify(result));
+      if (await InAppBrowser.isAvailable()) {
+        const url = 'https://www.google.com'
+        const result = await InAppBrowser.open(url, {
+          // iOS Properties
+          dismissButtonStyle: 'cancel',
+          preferredBarTintColor: 'gray',
+          preferredControlTintColor: 'white',
+          readerMode: false,
+          // Android Properties
+          showTitle: true,
+          toolbarColor: '#6200EE',
+          secondaryToolbarColor: 'black',
+          enableUrlBarHiding: true,
+          enableDefaultShare: true,
+          forceCloseOnRedirection: false,
+          // Specify full animation resource identifier(package:anim/name)
+          // or only resource name(in case of animation bundled with app).
+          animations: {
+            startEnter: 'slide_in_right',
+            startExit: 'slide_out_left',
+            endEnter: 'slide_in_right',
+            endExit: 'slide_out_left',
+          },
+          headers: {
+            'my-custom-header': 'my custom header value'
+          },
+        });
+        Alert.alert(JSON.stringify(result));
+      }
+      else Linking.openURL(url)
     } catch (error) {
       Alert.alert(error.message)
     }
@@ -149,20 +153,21 @@ import { getDeepLink } from './utilities'
     const deepLink = getDeepLink("callback")
     const url = `https://my-auth-login-page.com?redirect_uri=${deepLink}`
     try {
-      await InAppBrowser.isAvailable()
-      InAppBrowser.openAuth(url, deepLink, {
-        // iOS Properties
-        dismissButtonStyle: 'cancel',
-        // Android Properties
-        showTitle: false,
-        enableUrlBarHiding: true,
-        enableDefaultShare: true,
-      }).then((response) => {
-        if (response.type === 'success' &&
-          response.url) {
-          Linking.openURL(response.url)
-        }
-      })
+      if (await InAppBrowser.isAvailable()) {
+        InAppBrowser.openAuth(url, deepLink, {
+          // iOS Properties
+          dismissButtonStyle: 'cancel',
+          // Android Properties
+          showTitle: false,
+          enableUrlBarHiding: true,
+          enableDefaultShare: true,
+        }).then((response) => {
+          if (response.type === 'success' &&
+            response.url) {
+            Linking.openURL(response.url)
+          }
+        })
+      } else Linking.openURL(url)
     } catch (error) {
       Linking.openURL(url)
     }
@@ -211,8 +216,8 @@ If you need to restore the old bar style, after the browser is dismissed, you ca
 // patch StatusBar.setBarStyle to make style accessible
 const _setBarStyle = StatusBar.setBarStyle;
 StatusBar.setBarStyle = (style) => {
-	StatusBar.currentStyle = style;
-	_setBarStyle(style);
+  StatusBar.currentStyle = style;
+  _setBarStyle(style);
 };
 ```
 
