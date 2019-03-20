@@ -134,7 +134,7 @@ public class RNInAppBrowser {
       intent.putExtra(CustomTabsIntent.EXTRA_TITLE_VISIBILITY_STATE, CustomTabsIntent.NO_TITLE);
     }
 
-    EventBus.getDefault().register(this);
+    registerEventBus();
 
     currentActivity.startActivity(
         ChromeTabsManagerActivity.createStartIntent(currentActivity, intent));
@@ -144,14 +144,14 @@ public class RNInAppBrowser {
     if (mOpenBrowserPromise == null) {
       return;
     }
-    
+
     if (currentActivity == null) {
       mOpenBrowserPromise.reject(ERROR_CODE, "No activity");
       mOpenBrowserPromise = null;
       return;
     }
 
-    EventBus.getDefault().unregister(this);
+    registerEventBus();
 
     WritableMap result = Arguments.createMap();
     result.putString("type", "dismiss");
@@ -202,6 +202,12 @@ public class RNInAppBrowser {
       return context.getResources().getIdentifier(identifier, null, null);
     } else {
       return context.getResources().getIdentifier(identifier, "anim", context.getPackageName());
+    }
+  }
+
+  private void registerEventBus() {
+    if (!EventBus.getDefault().isRegistered(this)) {
+       EventBus.getDefault().register(this);
     }
   }
 }
