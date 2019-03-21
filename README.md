@@ -89,8 +89,8 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
           headers: {
             'my-custom-header': 'my custom header value'
           },
-        });
-        Alert.alert(JSON.stringify(result));
+        })
+        Alert.alert(JSON.stringify(result))
       }
       else Linking.openURL(url)
     } catch (error) {
@@ -205,7 +205,7 @@ The StatusBar will keep the last one provided in your app. So if the StatusBar i
       StatusBar.setBarStyle('dark-content')
       await InAppBrowser.open(url)
     } catch (error) {
-      Alert.alert(error.message);
+      Alert.alert(error.message)
     }
   })
 ```
@@ -214,11 +214,11 @@ If you need to restore the old bar style, after the browser is dismissed, you ca
 
 ```js
 // patch StatusBar.setBarStyle to make style accessible
-const _setBarStyle = StatusBar.setBarStyle;
+const _setBarStyle = StatusBar.setBarStyle
 StatusBar.setBarStyle = (style) => {
-  StatusBar.currentStyle = style;
-  _setBarStyle(style);
-};
+  StatusBar.currentStyle = style
+  _setBarStyle(style)
+}
 ```
 
 You can than restore the old bar style after the browser has been dismissed like this:
@@ -231,7 +231,7 @@ You can than restore the old bar style after the browser has been dismissed like
       await InAppBrowser.open(url)
       if(oldStyle) StatusBar.setBarStyle(oldStyle)
     } catch (error) {
-      Alert.alert(error.message);
+      Alert.alert(error.message)
     }
   })
 ```
