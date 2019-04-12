@@ -35,7 +35,7 @@ type InAppBrowserOptions = {
     endEnter: string,
     endExit: string
   },
-  headers?: { [string]: string }
+  headers?: { [key: string]: string }
 }
 
 async function open(url: string, options: InAppBrowserOptions = {}): Promise<BrowserResult> {
@@ -120,7 +120,8 @@ function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
   });
 }
 
-async function isAvailable(): Promise<void> {
+async function isAvailable(): 
+Promise<boolean> {
   if (Platform.OS === 'android') {
     return Promise.resolve(true);
   }
