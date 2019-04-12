@@ -120,8 +120,7 @@ function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
   });
 }
 
-async function isAvailable(): 
-Promise<boolean> {
+async function isAvailable(): Promise<boolean> {
   if (Platform.OS === 'android') {
     return Promise.resolve(true);
   }
