@@ -16,6 +16,7 @@ import {
   Alert,
   TextInput,
   StatusBar,
+  Linking
 } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
 
@@ -35,12 +36,13 @@ export default class App extends Component {
       url: 'https://www.google.com'
     }
   }
-  sleep = m => new Promise(r => setTimeout(r, m))
+  sleep = (timeout) => new Promise(fun => setTimeout(fun, timeout))
   async openLink() {
-    if (await InAppBrowser.isAvailable()) {
-      try {
+    const { url } = this.state
+    try {
+      if (await InAppBrowser.isAvailable()) {
         StatusBar.setBarStyle('light-content')
-        const response = await InAppBrowser.open(this.state.url, {
+        const result = await InAppBrowser.open(url, {
           // iOS Properties
           dismissButtonStyle: 'cancel',
           preferredBarTintColor: 'gray',
@@ -66,10 +68,11 @@ export default class App extends Component {
           },
         })
         await this.sleep(800)
-        Alert.alert('Response', JSON.stringify(response))
-      } catch (error) {
-        Alert.alert(error.message)
+        Alert.alert('Response', JSON.stringify(result))
       }
+      else Linking.openURL(url)
+    } catch (error) {
+      Alert.alert(error.message)
     }
   }
 
