@@ -63,8 +63,8 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
 ...
   async openLink() {
     try {
+      const url = 'https://www.google.com'
       if (await InAppBrowser.isAvailable()) {
-        const url = 'https://www.google.com'
         const result = await InAppBrowser.open(url, {
           // iOS Properties
           dismissButtonStyle: 'cancel',
