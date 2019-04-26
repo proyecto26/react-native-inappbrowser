@@ -11,7 +11,6 @@ import android.provider.Browser;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsIntent;
 
-import com.facebook.infer.annotation.Assertions;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.WritableMap;
@@ -165,7 +164,9 @@ public class RNInAppBrowser {
   public void onEvent(ChromeTabsDismissedEvent event) {
     EventBus.getDefault().unregister(this);
 
-    Assertions.assertNotNull(mOpenBrowserPromise);
+    if (mOpenBrowserPromise == null) {
+      throw new AssertionError();
+    }
 
     WritableMap result = Arguments.createMap();
     result.putString("type", event.resultType);
