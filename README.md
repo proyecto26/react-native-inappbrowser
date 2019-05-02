@@ -68,7 +68,7 @@ Property       | Description
 -------------- | ------
 `showTitle` (Boolean)   | Sets whether the title should be shown in the custom tab. [`true`/`false`]
 `toolbarColor` (String)           | Sets the toolbar color. [`gray`/`#808080`]
-`secondaryToolbarColor` (Boolean) | Sets the color of the secondary toolbar. [`white`/`#FFFFFF`]
+`secondaryToolbarColor` (String)  | Sets the color of the secondary toolbar. [`white`/`#FFFFFF`]
 `enableUrlBarHiding` (Boolean)    | Enables the url bar to hide as the user scrolls down on the page.[`true`/`false`]
 `enableDefaultShare` (Boolean)    | Adds a default share item to the menu. [`true`/`false`]
 `animations` (Object)             | Sets the start and exit animations. [`{ startEnter, startExit, endEnter, endExit }`]
