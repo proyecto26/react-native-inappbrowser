@@ -136,7 +136,7 @@ public class RNInAppBrowser {
     registerEventBus();
 
     currentActivity.startActivity(
-        ChromeTabsManagerActivity.createStartIntent(currentActivity, intent));
+        ChromeTabsManagerActivity.createStartIntent(currentActivity, intent), customTabsIntent.startAnimationBundle);
   }
 
   public void close() {
