@@ -120,16 +120,17 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
     }
   }
 
- // By setting the modal presentation style to OverFullScreen, we disable the "Swipe to dismiss"
- // gesture that is causing a bug where sometimes `safariViewControllerDidFinish` is not called.
- // There are bugs filed already about it on OpenRadar.
- [safariVC setModalPresentationStyle: UIModalPresentationOverFullScreen];
+  // By setting the modal presentation style to OverFullScreen, we disable the "Swipe to dismiss"
+  // gesture that is causing a bug where sometimes `safariViewControllerDidFinish` is not called.
+  // There are bugs filed already about it on OpenRadar.
+  [safariVC setModalPresentationStyle: UIModalPresentationNone];
 
- // This is a hack to present the SafariViewController modally
- UINavigationController *safariHackVC = [[UINavigationController alloc] initWithRootViewController:safariVC];
- [safariHackVC setNavigationBarHidden:true animated:false];
- UIViewController *presentingViewController = RCTPresentedViewController();
- [presentingViewController presentViewController:safariHackVC animated:true completion:nil];
+  // This is a hack to present the SafariViewController modally
+  UINavigationController *safariHackVC = [[UINavigationController alloc] initWithRootViewController:safariVC];
+  [safariHackVC setNavigationBarHidden:true animated:false];
+
+  UIViewController *ctrl = RCTPresentedViewController();
+  [ctrl presentViewController:safariHackVC animated:YES completion:nil];
 }
 
 - (void)performSynchronouslyOnMainThread:(void (^)(void))block
@@ -145,8 +146,8 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
 {
   __weak typeof(self) weakSelf = self;
   [self performSynchronouslyOnMainThread:^{
-    UIViewController *presentingViewController = RCTPresentedViewController();
-    [presentingViewController dismissViewControllerAnimated:YES completion:^{
+    UIViewController *ctrl = RCTPresentedViewController();
+    [ctrl dismissViewControllerAnimated:YES completion:^{
       __strong typeof(self) strongSelf = weakSelf;
       if (strongSelf) {
         strongSelf.redirectResolve(@{

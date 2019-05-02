@@ -24,20 +24,22 @@ const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
     'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+    'Shake or press menu button for dev menu'
 })
 
 export default class App extends Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
       url: 'https://www.google.com'
     }
   }
-  sleep = (timeout) => new Promise(fun => setTimeout(fun, timeout))
-  async openLink() {
+  sleep (timeout) {
+    return new Promise(resolve => setTimeout(resolve, timeout))
+  }
+
+  async openLink () {
     const { url } = this.state
     try {
       if (await InAppBrowser.isAvailable()) {
@@ -45,7 +47,7 @@ export default class App extends Component {
         const result = await InAppBrowser.open(url, {
           // iOS Properties
           dismissButtonStyle: 'cancel',
-          preferredBarTintColor: 'gray',
+          preferredBarTintColor: '#453AA4',
           preferredControlTintColor: 'white',
           readerMode: false,
           // Android Properties
@@ -61,25 +63,24 @@ export default class App extends Component {
             startEnter: 'slide_in_right',
             startExit: 'slide_out_left',
             endEnter: 'slide_in_left',
-            endExit: 'slide_out_right',
+            endExit: 'slide_out_right'
           },
           headers: {
             'my-custom-header': 'my custom header value'
-          },
+          }
         })
         await this.sleep(800)
         Alert.alert('Response', JSON.stringify(result))
-      }
-      else Linking.openURL(url)
+      } else Linking.openURL(url)
     } catch (error) {
       Alert.alert(error.message)
     }
   }
 
-  render() {
+  render () {
     return (
       <View style={styles.container}>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar barStyle='dark-content' />
         <Text style={styles.welcome}>{'Welcome InAppBrowser\nfor React Native!'}</Text>
         <Text style={styles.instructions}>Type the url</Text>
         <TextInput
@@ -88,7 +89,7 @@ export default class App extends Component {
           value={this.state.url}
         />
         <View style={styles.openButton}>
-          <Button title='Open link' onPress={() => this.openLink()}></Button>
+          <Button title='Open link' onPress={() => this.openLink()} />
         </View>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
@@ -107,18 +108,18 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
+    marginBottom: 5
   },
   urlInput: {
     height: 40,
     width: '100%',
     borderColor: 'gray',
-    borderWidth: 1,
+    borderWidth: 1
   },
   openButton: {
     paddingTop: Platform.OS === 'ios' ? 0 : 20,

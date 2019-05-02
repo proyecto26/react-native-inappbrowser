@@ -54,6 +54,26 @@ Methods       | Action
 `closeAuth`   | Dismisses the current authentication session
 `isAvailable` | Detect if the device supports this plugin
 
+### iOS Options
+
+Property       | Description
+-------------- | ------
+`dismissButtonStyle` (String)        | The style of the dismiss button. [`done|close|cancel`]
+`preferredBarTintColor` (String)     | The color to tint the background of the navigation bar and the toolbar. [`white|#FFFFFF`]
+`preferredControlTintColor` (String) | The color to tint the control buttons on the navigation bar and the toolbar. [`gray|#808080`]
+`readerMode` (Boolean)               | A value that specifies whether Safari should enter Reader mode, if it is available. [`true|false`]
+
+### Android Options
+Property       | Description
+-------------- | ------
+`showTitle` (Boolean)   | Sets whether the title should be shown in the custom tab. [`true|false`]
+`toolbarColor` (String)           | Sets the toolbar color. [`gray|#808080`]
+`secondaryToolbarColor` (Boolean) | Sets the color of the secondary toolbar. [`white|#FFFFFF`]
+`enableUrlBarHiding` (Boolean)    | Enables the url bar to hide as the user scrolls down on the page.[`true|false`]
+`enableDefaultShare` (Boolean)    | Adds a default share item to the menu. [`true|false`]
+`animations` (Object)             | Sets the start and exit animations. [`{ startEnter, startExit, endEnter, endExit }`]
+`headers` (Object)                | The data are key/value pairs, they will be sent in the HTTP request headers for the provided url. [`{ 'Authorization': 'Bearer ...' }`]
+
 ### Demo
 
 ```javascript
