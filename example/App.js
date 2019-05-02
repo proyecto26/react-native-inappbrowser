@@ -60,8 +60,8 @@ export default class App extends Component {
           animations: {
             startEnter: 'slide_in_right',
             startExit: 'slide_out_left',
-            endEnter: 'slide_in_right',
-            endExit: 'slide_out_left',
+            endEnter: 'slide_in_left',
+            endExit: 'slide_out_right',
           },
           headers: {
             'my-custom-header': 'my custom header value'
