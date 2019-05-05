@@ -150,7 +150,7 @@ public class RNInAppBrowser {
       return;
     }
 
-    registerEventBus();
+    EventBus.getDefault().unregister(this);
 
     WritableMap result = Arguments.createMap();
     result.putString("type", "dismiss");
