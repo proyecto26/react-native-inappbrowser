@@ -55,8 +55,8 @@
           var qs = parse_query_string(query);
           if (qs.redirect_url) {
             setTimeout(function() {
-                alert("Redirecting...");
-                window.location.href = qs.redirect_url;
+                alert(qs.redirect_url);
+                window.open(qs.redirect_url);
             }, 2600);
           }
           else {
