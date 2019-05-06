@@ -56,7 +56,7 @@
           if (qs.redirect_url) {
             alert(qs.redirect_url);
             setTimeout(function () {
-                window.location.href = qs.redirect_url;
+                window.location.assign(qs.redirect_url);
             })
           }
           else {
