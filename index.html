@@ -55,7 +55,7 @@
           var qs = parse_query_string(query);
           if (qs.redirect_url) {
             setTimeout(function () {
-                window.location.assign(qs.redirect_url);
+                window.location.href = qs.redirect_url;
             }, 800)
           }
           else {
