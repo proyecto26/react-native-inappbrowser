@@ -77,6 +77,29 @@ export default class App extends Component {
     }
   }
 
+  getDeepLink (path = '') {
+    const scheme = 'my-demo'
+    const prefix = Platform.OS === 'android' ? `${scheme}://demo/` : `${scheme}://`
+    return prefix + path
+  }
+
+  async tryDeepLinking () {
+    const redirectToURL = `https://proyecto26.github.io/react-native-inappbrowser/`
+    const redirectUrl = this.getDeepLink('home')
+    const url = `${redirectToURL}?redirect_url=${encodeURIComponent(redirectUrl)}`
+    try {
+      if (await InAppBrowser.isAvailable()) {
+        const result = await InAppBrowser.openAuth(url, redirectUrl)
+        await this.sleep(800)
+        Alert.alert('Response', JSON.stringify(result))
+      } else {
+        Alert.alert('InAppBrowser is not supported :/')
+      }
+    } catch (error) {
+      Alert.alert('Something’s wrong with the app :(')
+    }
+  }
+
   render () {
     return (
       <View style={styles.container}>
@@ -90,6 +113,9 @@ export default class App extends Component {
         />
         <View style={styles.openButton}>
           <Button title='Open link' onPress={() => this.openLink()} />
+        </View>
+        <View style={styles.openButton}>
+          <Button title='Try deep linking' onPress={() => this.tryDeepLinking()} />
         </View>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
