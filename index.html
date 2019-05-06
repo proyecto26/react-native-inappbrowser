@@ -54,10 +54,11 @@
           var query = window.location.search.substring(1);
           var qs = parse_query_string(query);
           if (qs.redirect_url) {
-            setTimeout(function() {
-                alert(qs.redirect_url);
-                window.open(qs.redirect_url);
-            }, 2600);
+            var $body = document.document.getElementsByTagName("body");
+            var aTag = document.createElement('a');
+            aTag.setAttribute('href', qs.redirect_url);
+            aTag.innerHTML = "Go!";
+            $body.appendChild(aTag);
           }
           else {
             alert("'redirect_url' query string param is missing :(");
