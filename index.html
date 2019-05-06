@@ -54,10 +54,8 @@
           var query = window.location.search.substring(1);
           var qs = parse_query_string(query);
           if (qs.redirect_url) {
-            var aTag = document.createElement('a');
-            aTag.setAttribute('href', qs.redirect_url);
-            aTag.innerHTML = "Redirect to app!";
-            document.body.appendChild(aTag);
+            console.log(qs.redirect_url);
+            window.location.replace(qs.redirect_url);
           }
           else {
             alert("'redirect_url' query string param is missing :(");
