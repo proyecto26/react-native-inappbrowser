@@ -1,3 +1,15 @@
+[![NPM version][npm-image]][npm-url]
+[![Downloads][downloads-image]][npm-url]
+[![TotalDownloads][total-downloads-image]][npm-url]
+[![Twitter Follow][twitter-image]][twitter-url]
+
+[npm-image]:http://img.shields.io/npm/v/react-native-inappbrowser-reborn.svg
+[npm-url]:https://npmjs.org/package/react-native-inappbrowser-reborn
+[downloads-image]:http://img.shields.io/npm/dm/react-native-inappbrowser-reborn.svg
+[total-downloads-image]:http://img.shields.io/npm/dt/react-native-inappbrowser-reborn.svg?label=total%20downloads
+[twitter-image]:https://img.shields.io/twitter/follow/jdnichollsc.svg?style=social&label=Follow%20me
+[twitter-url]:https://twitter.com/jdnichollsc
+
 <p align="center">
   <h1 align="center">InAppBrowser for React Native</h1>
 </p>
