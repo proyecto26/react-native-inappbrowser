@@ -1,3 +1,4 @@
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg)](https://github.com/proyecto26/react-native-inappbrowser/graphs/commit-activity)
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][npm-url]
 [![TotalDownloads][total-downloads-image]][npm-url]
