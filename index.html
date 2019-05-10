@@ -55,7 +55,7 @@
           var qs = parse_query_string(query);
           if (qs.redirect_url) {
             setTimeout(function () {
-                window.location.href = qs.redirect_url;
+                window.location.href = qs.redirect_url + '?code=1234';
             }, 800)
           }
           else {
