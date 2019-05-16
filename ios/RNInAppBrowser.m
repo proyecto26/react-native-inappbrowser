@@ -11,6 +11,9 @@
 #import "RCTConvert.h"
 #endif
 #import <SafariServices/SafariServices.h>
+#if __has_include("AuthenticationServices/AuthenticationServices.h")
+#import <AuthenticationServices/AuthenticationServices.h>
+#endif
 
 @interface RNInAppBrowser () <SFSafariViewControllerDelegate>
 
@@ -19,7 +22,11 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_12_0
+@property (nonatomic, strong) ASWebAuthenticationSession *authSession;
+#else
 @property (nonatomic, strong) SFAuthenticationSession *authSession;
+#endif
 #pragma clang diagnostic pop
 
 @end
@@ -67,10 +74,17 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
         [strongSelf flowDidFinish];
       }
     };
-    _authSession = [[SFAuthenticationSession alloc]
-                    initWithURL:url
-                    callbackURLScheme:redirectURL
-                    completionHandler:completionHandler];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_12_0
+        _authSession = [[ASWebAuthenticationSession alloc]
+                          initWithURL:url
+                          callbackURLScheme:redirectURL
+                          completionHandler:completionHandler];
+#else
+        _authSession = [[SFAuthenticationSession alloc]
+                          initWithURL:url
+                          callbackURLScheme:redirectURL
+                          completionHandler:completionHandler];
+#endif
     [_authSession start];
   } else {
       resolve(@{
