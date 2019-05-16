@@ -12,7 +12,7 @@
   "dependencies": {
     "react": "16.8.6",
     "react-native": "0.59.8",
-    "react-native-inappbrowser-reborn": "^2.0.3"
+    "react-native-inappbrowser-reborn": "^2.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
