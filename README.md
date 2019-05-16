@@ -19,9 +19,8 @@
   </a>
 </p>
 
-<p align="center">
-  <h1 align="center">InAppBrowser for React Native</h1>
-</p>
+<h1 align="center">InAppBrowser for React Native</h1>
+<h4 align="center"><a href="https://developer.chrome.com/multidevice/android/customtabs#whatarethey">Chrome Custom Tabs</a> for Android & <a href="https://developer.apple.com/documentation/safariservices">SafariServices</a>/<a href="https://developer.apple.com/documentation/authenticationservices">AuthenticationServices</a> for iOS.</h4>
 
 <p align="center">
   <img width="400px" src="img/inappbrowser.png">
