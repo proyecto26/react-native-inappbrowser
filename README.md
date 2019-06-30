@@ -63,7 +63,7 @@
   	```
       implementation project(':react-native-inappbrowser-reborn')
   	```
-4. Update you ProGuard config (Optional)
+4. Update ProGuard config (Optional)
   - Append the following lines to your ProGuard config (`proguard-rules.pro`)
     ```
     -keepattributes *Annotation*
