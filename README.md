@@ -63,6 +63,15 @@
   	```
       implementation project(':react-native-inappbrowser-reborn')
   	```
+4. Update you ProGuard config (Optional)
+  - Append the following lines to your ProGuard config (`proguard-rules.pro`)
+    ```
+    -keepattributes *Annotation*
+    -keepclassmembers class ** {
+      @org.greenrobot.eventbus.Subscribe <methods>;
+    }
+    -keep enum org.greenrobot.eventbus.ThreadMode { *; }
+    ```
 
 ## Usage
 
