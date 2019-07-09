@@ -2,11 +2,15 @@ apply plugin: 'com.android.library'
 
 buildscript {
   repositories {
+    maven {
+      url 'https://dl.google.com/dl/android/maven2'
+    }
     jcenter()
+    google()
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.2.3'
+    classpath 'com.android.tools.build:gradle:3.4.1'
   }
 }
 
@@ -14,11 +18,10 @@ def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
-def DEFAULT_COMPILE_SDK_VERSION = 27
-def DEFAULT_BUILD_TOOLS_VERSION = "27.0.3"
+def DEFAULT_COMPILE_SDK_VERSION = 28
+def DEFAULT_BUILD_TOOLS_VERSION = "28.0.3"
 def DEFAULT_MIN_SDK_VERSION = 16
-def DEFAULT_TARGET_SDK_VERSION = 27
-def DEFAULT_SUPPORT_LIB_VERSION = "27.1.1"
+def DEFAULT_TARGET_SDK_VERSION = 28
 
 android {
   compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
@@ -42,8 +45,8 @@ dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation 'com.facebook.react:react-native:+'
   implementation 'com.facebook.infer.annotation:infer-annotation:+'
-  implementation "com.android.support:support-annotations:${safeExtGet('supportLibVersion', DEFAULT_SUPPORT_LIB_VERSION)}"
-  implementation "com.android.support:customtabs:${safeExtGet('supportLibVersion', DEFAULT_SUPPORT_LIB_VERSION)}"
+  implementation 'androidx.annotation:annotation:1.+'
+  implementation 'androidx.browser:browser:1.+'
   implementation 'org.greenrobot:eventbus:3.+'
 }
   

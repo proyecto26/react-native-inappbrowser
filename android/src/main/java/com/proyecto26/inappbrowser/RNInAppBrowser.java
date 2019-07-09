@@ -8,8 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.provider.Browser;
-import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsIntent;
+import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsIntent;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;

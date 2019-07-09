@@ -35,6 +35,7 @@ export default class App extends Component {
       url: 'https://www.google.com'
     }
   }
+
   sleep (timeout) {
     return new Promise(resolve => setTimeout(resolve, timeout))
   }

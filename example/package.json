@@ -3,23 +3,29 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "react-native start",
     "test": "jest",
-    "ios": "react-native run-ios --simulator=\"iPhone X\"",
+    "lint": "eslint .",
+    "ios": "react-native run-ios",
     "android": "react-native run-android",
-    "haul": "haul"
+    "bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+    "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean --force",
+    "clean:android": "cd android && ./gradlew clean && cd ..",
+    "clean:ios": "cd ios && pod cache clean --all;rm -rf ~/Library/Caches/CocoaPods; rm -rf Pods; rm -rf ~/Library/Developer/Xcode/DerivedData/*; pod deintegrate; pod setup; pod install;"
   },
   "dependencies": {
     "react": "16.8.6",
-    "react-native": "0.59.8",
-    "react-native-inappbrowser-reborn": "^2.0.4"
+    "react-native": "0.60.0",
+    "react-native-inappbrowser-reborn": "file:.."
   },
   "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/runtime": "^7.4.3",
-    "babel-jest": "^24.7.1",
-    "jest": "^24.7.1",
-    "metro-react-native-babel-preset": "^0.53.1",
+    "@babel/core": "^7.5.0",
+    "@babel/runtime": "^7.5.1",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-jest": "^24.8.0",
+    "eslint": "^6.0.1",
+    "jest": "^24.8.0",
+    "metro-react-native-babel-preset": "^0.55.0",
     "react-test-renderer": "16.8.6"
   },
   "jest": {

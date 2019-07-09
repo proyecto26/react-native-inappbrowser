@@ -55,6 +55,5 @@ buck-out/
 # Bundle artifact
 *.jsbundle
 
-# Haul
-#
-haul-debug.log
+# CocoaPods
+/ios/Pods/
