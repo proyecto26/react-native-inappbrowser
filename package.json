@@ -27,7 +27,7 @@
   "homepage": "https://github.com/proyecto26/react-native-inappbrowser",
   "license": "MIT",
   "peerDependencies": {
-    "react-native": ">=0.60.0"
+    "react-native": ">=0.55.0"
   },
   "dependencies": {
     "invariant": "^2.2.4"
