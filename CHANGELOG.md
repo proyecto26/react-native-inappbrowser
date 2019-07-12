@@ -25,6 +25,7 @@ in case of vulnerabilities.
 - **Android:** Migrate to Android X by [@jdnichollsc](https://github.com/jdnichollsc).
 - Start following [SemVer](https://semver.org) with git tags properly 😅.
 - Included a **CHANGELOG** to see the history of the changes of the project.
+- Validate if `EventBus` of **Android** is registered before to unregister.
 
 ### Removed
 - **com.facebook.infer.annotation** dependency is not required anymore to buid for **Android**.
@@ -35,7 +36,7 @@ in case of vulnerabilities.
 
 ## [2.0.4] - 2019-05-16
 ### Added
-- README now contains a badges section
+- README now contains a badges section.
 - Include deep linking example with `demo` schemes, redirecting back from an external static page created with [GitHub Pages](https://github.com/proyecto26/react-native-inappbrowser/tree/gh-pages).
 - Use `ASWebAuthenticationSession` instead of `SFAuthenticationSession` for **iOS** >= 12.
 
@@ -48,20 +49,20 @@ in case of vulnerabilities.
 - README now contains the different options to open the browser.
 
 ### Changed
-- Fix **Android** animations by adding `customTabsIntent.startAnimationBundle` when the `ChromeTabsManagerActivity` intent is created by [@miktolon](https://github.com/miktolon)
-- Using **Android** `AssertionError` instead of use `Assertion` lib of Facebook by [@SnaiNeR](https://github.com/SnaiNeR)
+- Fix **Android** animations by adding `customTabsIntent.startAnimationBundle` when the `ChromeTabsManagerActivity` intent is created by [@miktolon](https://github.com/miktolon).
+- Using **Android** `AssertionError` instead of use `Assertion` lib of Facebook by [@SnaiNeR](https://github.com/SnaiNeR).
 - Set modal presentation style of **SFSafariViewController** to `UIModalPresentationNone` instead of `UIModalPresentationOverFullScreen`.
-- Update example to use RN 0.59.5
+- Update example to use RN 0.59.5.
 
 ## [2.0.1] - 2019-04-12
 ### Fixed
-- Fix flow types by [@petekp](https://github.com/petekp)
+- Fix flow types by [@petekp](https://github.com/petekp).
 
 ## [2.0.0] - 2019-03-21
 ### Added
 - Default methods to open and close the embedded browser **(open, close)** with options.
 - Methods to open and close external urls to authenticate the user **(openAuth, closeAuth)** using deep linking.
-- `isAvailable` method to detect if the device supports the plugin
+- `isAvailable` method to detect if the device supports the plugin.
 
 ## [...2.0.0]
 Missing tags for previous versions 🤷‍♂
@@ -82,7 +83,7 @@ Missing tags for previous versions 🤷‍♂
 - Fix README to import native package in `MainApplication` instead of `MainActivity` by [@mammad2c](https://github.com/mammad2c).
 - Update the `isAvailable` method to return a boolean instead by [@kikketer](https://github.com/kikketer).
 - Fix **TypeScript** typings by [@petekp](https://github.com/petekp).
-- Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro)
+- Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro).
 
 
 [Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/2.0.4...HEAD

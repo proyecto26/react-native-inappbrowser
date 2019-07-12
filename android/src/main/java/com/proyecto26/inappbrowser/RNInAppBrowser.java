@@ -150,7 +150,7 @@ public class RNInAppBrowser {
       return;
     }
 
-    EventBus.getDefault().unregister(this);
+    unRegisterEventBus();
 
     WritableMap result = Arguments.createMap();
     result.putString("type", "dismiss");
@@ -163,7 +163,7 @@ public class RNInAppBrowser {
 
   @Subscribe
   public void onEvent(ChromeTabsDismissedEvent event) {
-    EventBus.getDefault().unregister(this);
+    unRegisterEventBus();
 
     if (mOpenBrowserPromise == null) {
       throw new AssertionError();
@@ -208,7 +208,13 @@ public class RNInAppBrowser {
 
   private void registerEventBus() {
     if (!EventBus.getDefault().isRegistered(this)) {
-       EventBus.getDefault().register(this);
+      EventBus.getDefault().register(this);
+    }
+  }
+
+  private void unRegisterEventBus() {
+    if (EventBus.getDefault().isRegistered(this)) {
+      EventBus.getDefault().unregister(this);
     }
   }
 }
