@@ -81,7 +81,7 @@ Missing tags for previous versions 🤷‍♂
 - Add `com.facebook.infer.annotation` dependecy to fix build error by [Artem Emelyanov](mailto:snainer@gmail.com) ([80ff313](https://github.com/proyecto26/react-native-inappbrowser/commit/80ff313c36911d4d82d2885ad8424d7f0f72de29)).
 - Clear `mOpenBrowserPromise` after sending a cancel by [@rbscott](https://github.com/rbscott) ([d9cc2a3](https://github.com/proyecto26/react-native-inappbrowser/commit/d9cc2a3183f84790deb22bf01f4f7658d67bc8ca)).
 - Fix README to import native package in `MainApplication` instead of `MainActivity` by [@mammad2c](https://github.com/mammad2c) ([ce3f5a9](https://github.com/proyecto26/react-native-inappbrowser/commit/ce3f5a93812a1a2dd7293092bb4a2972f4943268)).
-- Update the `isAvailable` method to return a boolean instead by [@kikketer](https://github.com/kikketer).
+- Update the `isAvailable` method to return a boolean instead by [@kikketer](https://github.com/kikketer) ([1d75810](https://github.com/proyecto26/react-native-inappbrowser/commit/1d75810881cc6fd5a6913fbef986f897d366cdb9)).
 - Fix **TypeScript** typings by [@petekp](https://github.com/petekp) ([e0e99a5](https://github.com/proyecto26/react-native-inappbrowser/commit/e0e99a523d9a2df99263ffbed3f2738afd05b46b)).
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
