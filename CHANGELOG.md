@@ -48,8 +48,10 @@ in case of vulnerabilities.
 ### Added
 - README now contains the different options to open the browser.
 
+### Fixed
+- Add `customTabsIntent.startAnimationBundle` when the `ChromeTabsManagerActivity` intent is created to fix **Android** animations by [@miktolon](https://github.com/miktolon) ([3f0cb35](https://github.com/proyecto26/react-native-inappbrowser/commit/3f0cb356733832a4578ebf1cb45377aa0d8d2806)).
+
 ### Changed
-- Fix **Android** animations by adding `customTabsIntent.startAnimationBundle` when the `ChromeTabsManagerActivity` intent is created by [@miktolon](https://github.com/miktolon) ([3f0cb35](https://github.com/proyecto26/react-native-inappbrowser/commit/3f0cb356733832a4578ebf1cb45377aa0d8d2806)).
 - Using **Android** `AssertionError` instead of use `Assertion` lib of Facebook by [@SnaiNeR](https://github.com/SnaiNeR) ([e9a54d3](https://github.com/proyecto26/react-native-inappbrowser/commit/e9a54d3fe759380f992aa1ed7fbcf5d1299a7d73)).
 - Set modal presentation style of **SFSafariViewController** to `UIModalPresentationNone` instead of `UIModalPresentationOverFullScreen`.
 - Update example to use RN 0.59.5.
