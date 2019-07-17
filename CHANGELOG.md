@@ -24,8 +24,9 @@ in case of vulnerabilities.
 ### Added
 - **Android:** Migrate to AndroidX by [@jdnichollsc](https://github.com/jdnichollsc) ([8a083f2](https://github.com/proyecto26/react-native-inappbrowser/commit/8a083f24847ac5f49923c6217106628434634b4d)).
 - Start following [SemVer](https://semver.org) with git tags properly 😅.
-- Included a **CHANGELOG** to see the history of the changes of the project.
+- Include a **CHANGELOG** to see the history of the changes of the project.
 - Validate if `EventBus` of **Android** is registered before to unregister.
+- Include ESLint config for React Native.
 
 ### Removed
 - **com.facebook.infer.annotation** dependency is not required anymore to buid for **Android**.

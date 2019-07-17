@@ -5,6 +5,7 @@
   "main": "index.js",
   "readmeFilename": "README.md",
   "scripts": {
+    "lint": "eslint index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "typings": "./index.d.ts",
@@ -27,13 +28,15 @@
   "homepage": "https://github.com/proyecto26/react-native-inappbrowser",
   "license": "MIT",
   "peerDependencies": {
-    "react-native": ">=0.55.0"
+    "react-native": ">=0.56"
   },
   "dependencies": {
     "invariant": "^2.2.4"
   },
   "devDependencies": {
+    "@react-native-community/eslint-config": "0.0.5",
     "babel-core": "^6.26.3",
+    "eslint": "^6.0.1",
     "flow-bin": "^0.102.0"
   }
 }
