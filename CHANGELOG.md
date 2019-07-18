@@ -27,6 +27,7 @@ in case of vulnerabilities.
 - Include a **CHANGELOG** to see the history of the changes of the project.
 - Validate if `EventBus` of **Android** is registered before to unregister.
 - Include ESLint config for React Native.
+- Activating Open Collective ([#80](https://github.com/proyecto26/react-native-inappbrowser/pull/80))
 
 ### Removed
 - **com.facebook.infer.annotation** dependency is not required anymore to build for **Android**.
