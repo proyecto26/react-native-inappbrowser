@@ -1,21 +1,21 @@
 // @flow
 
-import invariant from 'invariant'
-import { Linking, NativeModules, Platform, processColor } from 'react-native'
+import invariant from 'invariant';
+import { Linking, NativeModules, Platform, processColor } from 'react-native';
 
 const { RNInAppBrowser } = NativeModules;
 
 type RedirectEvent = {
-  url: 'string',
+  url: 'string'
 };
 
 type BrowserResult = {
-  type: 'cancel' | 'dismiss',
+  type: 'cancel' | 'dismiss'
 };
 
 type RedirectResult = {
   type: 'success',
-  url: string,
+  url: string
 };
 
 type InAppBrowserOptions = {
@@ -36,20 +36,27 @@ type InAppBrowserOptions = {
     endExit: string
   },
   headers?: { [key: string]: string }
-}
+};
 
-async function open(url: string, options: InAppBrowserOptions = {}): Promise<BrowserResult> {
+async function open(
+  url: string,
+  options: InAppBrowserOptions = {}
+): Promise<BrowserResult> {
   const inAppBrowseroptions = {
     ...options,
     url,
     dismissButtonStyle: options.dismissButtonStyle || 'close',
     readerMode: options.readerMode !== undefined ? options.readerMode : false
-  }
+  };
   if (inAppBrowseroptions.preferredBarTintColor) {
-    inAppBrowseroptions.preferredBarTintColor = processColor(inAppBrowseroptions.preferredBarTintColor)
+    inAppBrowseroptions.preferredBarTintColor = processColor(
+      inAppBrowseroptions.preferredBarTintColor
+    );
   }
   if (inAppBrowseroptions.preferredControlTintColor) {
-    inAppBrowseroptions.preferredControlTintColor = processColor(inAppBrowseroptions.preferredControlTintColor)
+    inAppBrowseroptions.preferredControlTintColor = processColor(
+      inAppBrowseroptions.preferredControlTintColor
+    );
   }
   return RNInAppBrowser.open(inAppBrowseroptions);
 }
@@ -60,7 +67,11 @@ function close(): void {
 
 type AuthSessionResult = RedirectResult | BrowserResult;
 
-async function openAuth(url: string, redirectUrl: string, options: InAppBrowserOptions = {}): Promise<AuthSessionResult> {
+async function openAuth(
+  url: string,
+  redirectUrl: string,
+  options: InAppBrowserOptions = {}
+): Promise<AuthSessionResult> {
   if (_authSessionIsNativelySupported()) {
     return RNInAppBrowser.openAuth(url, redirectUrl);
   } else {
@@ -100,7 +111,10 @@ async function _openAuthSessionPolyfillAsync(
   );
 
   try {
-    return await Promise.race([open(startUrl, options), _waitForRedirectAsync(returnUrl)]);
+    return await Promise.race([
+      open(startUrl, options),
+      _waitForRedirectAsync(returnUrl)
+    ]);
   } finally {
     close();
     Linking.removeEventListener('url', _redirectHandler);
@@ -123,8 +137,7 @@ function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
 async function isAvailable(): Promise<boolean> {
   if (Platform.OS === 'android') {
     return Promise.resolve(true);
-  }
-  else {
+  } else {
     return RNInAppBrowser.isAvailable();
   }
 }
@@ -134,5 +147,5 @@ export default {
   openAuth,
   close,
   closeAuth,
-  isAvailable,
+  isAvailable
 };
