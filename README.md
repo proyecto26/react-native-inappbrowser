@@ -8,6 +8,9 @@
   <a href="https://github.com/proyecto26/react-native-inappbrowser/graphs/commit-activity">
     <img src="https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg" alt="Maintenance" />
   </a>
+  <a href="https://opencollective.com/proyecto26" alt="Financial Contributors on Open Collective">
+    <img src="https://opencollective.com/proyecto26/all/badge.svg?label=financial+contributors" />
+  </a>
   <a href="https://npmjs.org/package/react-native-inappbrowser-reborn">
     <img src="http://img.shields.io/npm/dm/react-native-inappbrowser-reborn.svg" alt="Downloads" />
   </a>
@@ -293,12 +296,33 @@ You can than restore the old bar style after the browser has been dismissed like
 ## Contributors ✨
 Please do contribute! Issues and pull requests are welcome.
 
-Thanks goes to these wonderful people:
-<!-- CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3" width="100" /><br /><sub><b>Juan Nicholls</b></sub>](https://github.com/jdnichollsc)<br />[✉](mailto:jdnichollsc@hotmail.com) | [<img alt="EQuimper" src="https://avatars3.githubusercontent.com/u/15819498?v=3" width="100" /><br /><sub><b>Emanuel Quimper</b></sub>](https://github.com/EQuimper)<br />[✉](mailto:quimperemanuel@gmail.com) | [<img alt="bonesyblue" src="https://avatars3.githubusercontent.com/u/7486722?v=3" width="100" /><br /><sub><b>Jonathan Bones</b></sub>](https://github.com/bonesyblue)<br />[✉](mailto:bonesyblue@gmail.com) | [<img alt="mlazari" src="https://avatars3.githubusercontent.com/u/4928274?v=3" width="100" /><br /><sub><b>Mihai Lazari</b></sub>](https://github.com/mlazari) | [<img alt="maestor" src="https://avatars3.githubusercontent.com/u/3604902?v=3" width="100" /><br /><sub><b>Kalle Haavisto</b></sub>](https://github.com/maestor)<br />[✉](mailto:maestori@gmail.com) | [<img alt="plamworapot" src="https://avatars3.githubusercontent.com/u/4770354?v=3" width="100" /><br /><sub><b>Worapot Pengsuk</b></sub>](https://github.com/plamworapot) | [<img alt="adammcarth" src="https://avatars3.githubusercontent.com/u/3016455?v=3" width="100" /><br /><sub><b>Adam McArthur</b></sub>](https://github.com/adammcarth)<br />[✉](mailto:adam@adammcarthur.net) |
-| :---: | :---: |:---: | :---: | :---: | :---: | :---: |
-| [<img alt="SnaiNeR" src="https://avatars3.githubusercontent.com/u/39980963?v=3" width="100" /><br /><sub><b>Artem Emelyanov</b></sub>](https://github.com/SnaiNeR)<br />[✉](mailto:snainer@gmail.com) | [<img alt="rbscott" src="https://avatars2.githubusercontent.com/u/882258?v=4&s=117" width="100" /><br /><sub><b>Robert Scott</b></sub>](https://github.com/rbscott) | [<img alt="Kikketer" src="https://avatars0.githubusercontent.com/u/958042?s=460&v=4" width="100" /><br /><sub><b>Chris Weed</b></sub>](https://github.com/kikketer) | [<img alt="almouro" src="https://avatars3.githubusercontent.com/u/4534323?v=4" width="100" /><br /><sub><b>Alexandre Moureaux</b></sub>](https://github.com/almouro) | [<img alt="petekp" src="https://avatars2.githubusercontent.com/u/950779?s=460&v=4" width="100" /><br /><sub><b>Pete Petrash</b></sub>](https://github.com/petekp) | [<img alt="miktolon" src="https://avatars3.githubusercontent.com/u/1495540?v=4" width="100" /><br /><sub><b>Mika Tolonen</b></sub>](https://github.com/miktolon) 
-<!-- CONTRIBUTORS-LIST:END -->
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/proyecto26/react-native-inappbrowser/graphs/contributors"><img src="https://opencollective.com/proyecto26/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/proyecto26/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/proyecto26"><img src="https://opencollective.com/proyecto26/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/proyecto26/contribute)]
+
+<a href="https://opencollective.com/proyecto26/organization/0/website"><img src="https://opencollective.com/proyecto26/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/proyecto26/organization/1/website"><img src="https://opencollective.com/proyecto26/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/proyecto26/organization/2/website"><img src="https://opencollective.com/proyecto26/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/proyecto26/organization/3/website"><img src="https://opencollective.com/proyecto26/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/proyecto26/organization/4/website"><img src="https://opencollective.com/proyecto26/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/proyecto26/organization/5/website"><img src="https://opencollective.com/proyecto26/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/proyecto26/organization/6/website"><img src="https://opencollective.com/proyecto26/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/proyecto26/organization/7/website"><img src="https://opencollective.com/proyecto26/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/proyecto26/organization/8/website"><img src="https://opencollective.com/proyecto26/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/proyecto26/organization/9/website"><img src="https://opencollective.com/proyecto26/organization/9/avatar.svg"></a>
 
 ## Supporting 🍻
 I believe in Unicorns 🦄
