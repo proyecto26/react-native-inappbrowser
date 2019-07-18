@@ -29,7 +29,7 @@ in case of vulnerabilities.
 - Include ESLint config for React Native.
 
 ### Removed
-- **com.facebook.infer.annotation** dependency is not required anymore to buid for **Android**.
+- **com.facebook.infer.annotation** dependency is not required anymore to build for **Android**.
 
 ### BREAKING CHANGES
 
