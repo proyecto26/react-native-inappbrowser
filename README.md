@@ -1,6 +1,6 @@
 <p align="center">
   <a href="./LICENSE">
-     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license" />
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license" />
   </a>
   <a href="https://npmjs.org/package/react-native-inappbrowser-reborn">
     <img src="http://img.shields.io/npm/v/react-native-inappbrowser-reborn.svg" alt="Current npm package version" />
