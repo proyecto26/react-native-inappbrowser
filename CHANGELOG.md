@@ -28,6 +28,7 @@ in case of vulnerabilities.
 - Validate if `EventBus` of **Android** is registered before to unregister.
 - Include ESLint config for React Native.
 - Activating Open Collective ([#80](https://github.com/proyecto26/react-native-inappbrowser/pull/80)) and Create **CONTRIBUTING.md** to see how to contribute.
+- Added `animated`, `modalPresentationStyle` and `modalTransitionStyle` properties for iOS options ([86f7238](https://github.com/proyecto26/react-native-inappbrowser/commit/86f7238d8eb856b28fae9981ca7bb42b12c43e18)).
 
 ### Removed
 - **com.facebook.infer.annotation** dependency is not required anymore to build for **Android**.
