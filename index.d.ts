@@ -12,11 +12,30 @@ declare module 'react-native-inappbrowser-reborn' {
     url: string;
   }
 
-  export interface InAppBrowserOptions {
+  type InAppBrowseriOSOptions = {
     dismissButtonStyle?: 'done' | 'close' | 'cancel',
     preferredBarTintColor?: string,
     preferredControlTintColor?: string,
     readerMode?: boolean,
+    animated?: boolean,
+    modalPresentationStyle?:
+      | 'fullScreen'
+      | 'pageSheet'
+      | 'formSheet'
+      | 'currentContext'
+      | 'custom'
+      | 'overFullScreen'
+      | 'overCurrentContext'
+      | 'popover'
+      | 'none',
+    modalTransitionStyle?:
+      | 'coverVertical'
+      | 'flipHorizontal'
+      | 'crossDissolve'
+      | 'partialCurl'
+  }
+
+  type InAppBrowserAndroidOptions = {
     showTitle?: boolean,
     toolbarColor?: string,
     secondaryToolbarColor?: string,
@@ -31,6 +50,8 @@ declare module 'react-native-inappbrowser-reborn' {
     },
     headers?: { [key: string]: string }
   }
+
+  export type InAppBrowserOptions = InAppBrowserAndroidOptions | InAppBrowseriOSOptions;
 
   type AuthSessionResult = RedirectResult | BrowserResult;
 

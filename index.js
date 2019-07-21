@@ -18,11 +18,30 @@ type RedirectResult = {
   url: string
 };
 
-type InAppBrowserOptions = {
+type InAppBrowseriOSOptions = {
   dismissButtonStyle?: 'done' | 'close' | 'cancel',
   preferredBarTintColor?: string,
   preferredControlTintColor?: string,
   readerMode?: boolean,
+  animated?: boolean,
+  modalPresentationStyle?:
+    | 'fullScreen'
+    | 'pageSheet'
+    | 'formSheet'
+    | 'currentContext'
+    | 'custom'
+    | 'overFullScreen'
+    | 'overCurrentContext'
+    | 'popover'
+    | 'none',
+  modalTransitionStyle?:
+    | 'coverVertical'
+    | 'flipHorizontal'
+    | 'crossDissolve'
+    | 'partialCurl'
+};
+
+type InAppBrowserAndroidOptions = {
   showTitle?: boolean,
   toolbarColor?: string,
   secondaryToolbarColor?: string,
@@ -38,6 +57,8 @@ type InAppBrowserOptions = {
   headers?: { [key: string]: string }
 };
 
+type InAppBrowserOptions = InAppBrowserAndroidOptions | InAppBrowseriOSOptions;
+
 async function open(
   url: string,
   options: InAppBrowserOptions = {}
@@ -46,7 +67,8 @@ async function open(
     ...options,
     url,
     dismissButtonStyle: options.dismissButtonStyle || 'close',
-    readerMode: options.readerMode !== undefined ? options.readerMode : false
+    readerMode: options.readerMode !== undefined ? options.readerMode : false,
+    animated: options.animated !== undefined ? options.animated : true
   };
   if (inAppBrowseroptions.preferredBarTintColor) {
     inAppBrowseroptions.preferredBarTintColor = processColor(
@@ -88,7 +110,6 @@ function closeAuth(): void {
 }
 
 /* iOS <= 10 and Android polyfill for SFAuthenticationSession flow */
-
 function _authSessionIsNativelySupported() {
   if (Platform.OS === 'android') {
     return false;

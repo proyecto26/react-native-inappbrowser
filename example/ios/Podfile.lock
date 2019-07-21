@@ -107,7 +107,7 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-RCTWebSocket (from `../node_modules/react-native/Libraries/WebSocket`)
-  - RNInAppBrowser (from `/Users/jdnichollsc/dev/react-native/inappbrowser/example/node_modules/react-native-inappbrowser-reborn`)
+  - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -158,7 +158,7 @@ EXTERNAL SOURCES:
   React-RCTWebSocket:
     :path: "../node_modules/react-native/Libraries/WebSocket"
   RNInAppBrowser:
-    :path: "/Users/jdnichollsc/dev/react-native/inappbrowser/example/node_modules/react-native-inappbrowser-reborn"
+    :path: "../node_modules/react-native-inappbrowser-reborn"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 

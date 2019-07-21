@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -17,40 +17,43 @@ import {
   TextInput,
   StatusBar,
   Linking
-} from 'react-native'
-import InAppBrowser from 'react-native-inappbrowser-reborn'
+} from 'react-native';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
     'Double tap R on your keyboard to reload,\n' +
     'Shake or press menu button for dev menu'
-})
+});
 
 export default class App extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = {
       url: 'https://www.google.com'
-    }
+    };
   }
 
-  sleep (timeout) {
-    return new Promise(resolve => setTimeout(resolve, timeout))
+  sleep(timeout) {
+    return new Promise(resolve => setTimeout(resolve, timeout));
   }
 
-  async openLink () {
-    const { url } = this.state
+  async openLink() {
+    const { url } = this.state;
     try {
       if (await InAppBrowser.isAvailable()) {
-        StatusBar.setBarStyle('light-content')
+        StatusBar.setBarStyle('light-content');
         const result = await InAppBrowser.open(url, {
           // iOS Properties
           dismissButtonStyle: 'cancel',
           preferredBarTintColor: '#453AA4',
           preferredControlTintColor: 'white',
           readerMode: false,
+          animated: true,
+          modalPresentationStyle: 'fullScreen',
+          modalTransitionStyle: 'partialCurl',
           // Android Properties
           showTitle: true,
           toolbarColor: '#6200EE',
@@ -69,58 +72,67 @@ export default class App extends Component {
           headers: {
             'my-custom-header': 'my custom header value'
           }
-        })
-        await this.sleep(800)
-        Alert.alert('Response', JSON.stringify(result))
-      } else Linking.openURL(url)
-    } catch (error) {
-      Alert.alert(error.message)
-    }
-  }
-
-  getDeepLink (path = '') {
-    const scheme = 'my-demo'
-    const prefix = Platform.OS === 'android' ? `${scheme}://demo/` : `${scheme}://`
-    return prefix + path
-  }
-
-  async tryDeepLinking () {
-    const redirectToURL = `https://proyecto26.github.io/react-native-inappbrowser/`
-    const redirectUrl = this.getDeepLink('home')
-    const url = `${redirectToURL}?redirect_url=${encodeURIComponent(redirectUrl)}`
-    try {
-      if (await InAppBrowser.isAvailable()) {
-        const result = await InAppBrowser.openAuth(url, redirectUrl)
-        await this.sleep(800)
-        Alert.alert('Response', JSON.stringify(result))
+        });
+        await this.sleep(800);
+        Alert.alert('Response', JSON.stringify(result));
       } else {
-        Alert.alert('InAppBrowser is not supported :/')
+        Linking.openURL(url);
       }
     } catch (error) {
-      Alert.alert('Something’s wrong with the app :(')
+      Alert.alert(error.message);
     }
   }
 
-  render () {
+  getDeepLink(path = '') {
+    const scheme = 'my-demo';
+    const prefix =
+      Platform.OS === 'android' ? `${scheme}://demo/` : `${scheme}://`;
+    return prefix + path;
+  }
+
+  async tryDeepLinking() {
+    const redirectToURL =
+      'https://proyecto26.github.io/react-native-inappbrowser/';
+    const redirectUrl = encodeURIComponent(this.getDeepLink('home'));
+    const url = `${redirectToURL}?redirect_url=${redirectUrl}`;
+    try {
+      if (await InAppBrowser.isAvailable()) {
+        const result = await InAppBrowser.openAuth(url, redirectUrl);
+        await this.sleep(800);
+        Alert.alert('Response', JSON.stringify(result));
+      } else {
+        Alert.alert('InAppBrowser is not supported :/');
+      }
+    } catch (error) {
+      Alert.alert('Something’s wrong with the app :(');
+    }
+  }
+
+  render() {
     return (
       <View style={styles.container}>
-        <StatusBar barStyle='dark-content' />
-        <Text style={styles.welcome}>{'Welcome InAppBrowser\nfor React Native!'}</Text>
+        <StatusBar barStyle="dark-content" />
+        <Text style={styles.welcome}>
+          {'Welcome InAppBrowser\nfor React Native!'}
+        </Text>
         <Text style={styles.instructions}>Type the url</Text>
         <TextInput
           style={styles.urlInput}
-          onChangeText={(text) => this.setState({ url: text })}
+          onChangeText={text => this.setState({ url: text })}
           value={this.state.url}
         />
         <View style={styles.openButton}>
-          <Button title='Open link' onPress={() => this.openLink()} />
+          <Button title="Open link" onPress={() => this.openLink()} />
         </View>
         <View style={styles.openButton}>
-          <Button title='Try deep linking' onPress={() => this.tryDeepLinking()} />
+          <Button
+            title="Try deep linking"
+            onPress={() => this.tryDeepLinking()}
+          />
         </View>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
-    )
+    );
   }
 }
 
@@ -152,4 +164,4 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? 0 : 20,
     paddingBottom: Platform.OS === 'ios' ? 0 : 20
   }
-})
+});
