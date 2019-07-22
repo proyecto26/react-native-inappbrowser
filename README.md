@@ -97,6 +97,7 @@ Property       | Description
 `animated` (Boolean)                 | Animate the presentation. [`true`/`false`]
 `modalPresentationStyle` (String)    | The presentation style for modally presented view controllers. [`none`/`fullScreen`/`pageSheet`/`formSheet`/`currentContext`/`custom`/`overFullScreen`/`overCurrentContext`/`popover`]
 `modalTransitionStyle` (String)      | The transition style to use when presenting the view controller. [`coverVertical`/`flipHorizontal`/`crossDissolve`/`partialCurl`]
+`modalEnabled` (Boolean)             | Present the **SafariViewController** modally or as push instead. [`true`/`false`]
 
 ### Android Options
 Property       | Description

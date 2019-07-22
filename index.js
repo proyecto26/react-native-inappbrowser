@@ -38,7 +38,8 @@ type InAppBrowseriOSOptions = {
     | 'coverVertical'
     | 'flipHorizontal'
     | 'crossDissolve'
-    | 'partialCurl'
+    | 'partialCurl',
+  modalEnabled?: boolean
 };
 
 type InAppBrowserAndroidOptions = {
@@ -63,12 +64,15 @@ async function open(
   url: string,
   options: InAppBrowserOptions = {}
 ): Promise<BrowserResult> {
+  const modalEnabled =
+    options.modalEnabled !== undefined ? options.modalEnabled : true;
   const inAppBrowseroptions = {
     ...options,
     url,
     dismissButtonStyle: options.dismissButtonStyle || 'close',
     readerMode: options.readerMode !== undefined ? options.readerMode : false,
-    animated: options.animated !== undefined ? options.animated : true
+    animated: options.animated !== undefined ? options.animated : true,
+    modalEnabled
   };
   if (inAppBrowseroptions.preferredBarTintColor) {
     inAppBrowseroptions.preferredBarTintColor = processColor(

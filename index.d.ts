@@ -32,7 +32,8 @@ declare module 'react-native-inappbrowser-reborn' {
       | 'coverVertical'
       | 'flipHorizontal'
       | 'crossDissolve'
-      | 'partialCurl'
+      | 'partialCurl',
+    modalEnabled?: boolean
   }
 
   type InAppBrowserAndroidOptions = {

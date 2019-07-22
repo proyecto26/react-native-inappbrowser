@@ -113,6 +113,7 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
   self.animated = [options[@"animated"] boolValue];
   NSString* modalPresentationStyle = [options valueForKey:@"modalPresentationStyle"];
   NSString* modalTransitionStyle = [options valueForKey:@"modalTransitionStyle"];
+  BOOL modalEnabled = [options[@"modalEnabled"] boolValue];
 
   // Safari View Controller to authorize request
   NSURL *url = [[NSURL alloc] initWithString:authURL];
@@ -138,15 +139,21 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
     }
   }
 
-  safariVC.modalPresentationStyle = [self modalPresentationStyleWithString: modalPresentationStyle];
-  safariVC.modalTransitionStyle = [self modalTransitionStyleWithString: modalTransitionStyle];
-
-  // This is a hack to present the SafariViewController modally
-  UINavigationController *safariHackVC = [[UINavigationController alloc] initWithRootViewController:safariVC];
-  [safariHackVC setNavigationBarHidden:true animated:false];
+  if(self.animated) {
+    safariVC.modalPresentationStyle = [self getPresentationStyle: modalPresentationStyle];
+    safariVC.modalTransitionStyle = [self getTransitionStyle: modalTransitionStyle];
+  }
 
   UIViewController *ctrl = RCTPresentedViewController();
-  [ctrl presentViewController:safariHackVC animated:[self animated] completion:nil];
+  if (modalEnabled) {
+    // This is a hack to present the SafariViewController modally
+    UINavigationController *safariHackVC = [[UINavigationController alloc] initWithRootViewController:safariVC];
+    [safariHackVC setNavigationBarHidden:true animated:false];
+    [ctrl presentViewController:safariHackVC animated:self.animated completion:nil];
+  }
+  else {
+    [ctrl presentViewController:safariVC animated:self.animated completion:nil];
+  }
 }
 
 - (void)performSynchronouslyOnMainThread:(void (^)(void))block
@@ -163,7 +170,7 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
   __weak typeof(self) weakSelf = self;
   [self performSynchronouslyOnMainThread:^{
     UIViewController *ctrl = RCTPresentedViewController();
-    [ctrl dismissViewControllerAnimated:[weakSelf animated] completion:^{
+    [ctrl dismissViewControllerAnimated:weakSelf.animated completion:^{
       __strong typeof(self) strongSelf = weakSelf;
       if (strongSelf) {
         strongSelf.redirectResolve(@{
@@ -235,7 +242,7 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
   _redirectReject = nil;
 }
 
-- (UIModalPresentationStyle)modalPresentationStyleWithString:(NSString *)modalPresentationStyleString {
+- (UIModalPresentationStyle)getPresentationStyle:(NSString *)styleKey {
   NSDictionary *styles = @{
     @"fullScreen": @(UIModalPresentationFullScreen),
     @"pageSheet": @(UIModalPresentationPageSheet),
@@ -247,21 +254,21 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
     @"popover": @(UIModalPresentationPopover)
   };
   UIModalPresentationStyle modalPresentationStyle = UIModalPresentationNone;
-  NSNumber *style = [styles objectForKey: modalPresentationStyleString];
+  NSNumber *style = [styles objectForKey: styleKey];
   if (style != nil) {
     modalPresentationStyle = [style intValue];
   }
   return modalPresentationStyle;
 }
 
-- (UIModalTransitionStyle)modalTransitionStyleWithString:(NSString *)modalTransitionStyleString {
+- (UIModalTransitionStyle)getTransitionStyle:(NSString *)styleKey {
   NSDictionary *styles = @{
     @"flipHorizontal": @(UIModalTransitionStyleFlipHorizontal),
     @"crossDissolve": @(UIModalTransitionStyleCrossDissolve),
     @"partialCurl": @(UIModalTransitionStylePartialCurl)
   };
   UIModalTransitionStyle modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-  NSNumber *style = [styles objectForKey: modalTransitionStyleString];
+  NSNumber *style = [styles objectForKey: styleKey];
   if (style != nil) {
     modalTransitionStyle = [style intValue];
   }

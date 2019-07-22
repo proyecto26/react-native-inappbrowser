@@ -54,6 +54,7 @@ export default class App extends Component {
           animated: true,
           modalPresentationStyle: 'fullScreen',
           modalTransitionStyle: 'partialCurl',
+          modalEnabled: true,
           // Android Properties
           showTitle: true,
           toolbarColor: '#6200EE',
