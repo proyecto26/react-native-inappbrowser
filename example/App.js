@@ -52,8 +52,8 @@ export default class App extends Component {
           preferredControlTintColor: 'white',
           readerMode: false,
           animated: true,
-          modalPresentationStyle: 'fullScreen',
-          modalTransitionStyle: 'partialCurl',
+          modalPresentationStyle: 'none',
+          modalTransitionStyle: 'coverVertical',
           modalEnabled: true,
           // Android Properties
           showTitle: true,
