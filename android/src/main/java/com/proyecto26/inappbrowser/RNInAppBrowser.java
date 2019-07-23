@@ -122,6 +122,7 @@ public class RNInAppBrowser {
         options.getBoolean(KEY_FORCE_CLOSE_ON_REDIRECTION)) {
       customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
       customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
     }
 
     Intent intent = customTabsIntent.intent;

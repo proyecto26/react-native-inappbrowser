@@ -32,7 +32,8 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      url: 'https://www.google.com'
+      url: 'https://www.google.com',
+      statusBarStyle: 'dark-content'
     };
   }
 
@@ -41,20 +42,21 @@ export default class App extends Component {
   }
 
   async openLink() {
-    const { url } = this.state;
+    const { url, statusBarStyle } = this.state;
     try {
       if (await InAppBrowser.isAvailable()) {
-        StatusBar.setBarStyle('light-content');
+        // A delay to change the StatusBar when the browser is opened
+        setTimeout(() => StatusBar.setBarStyle('light-content'), 500);
         const result = await InAppBrowser.open(url, {
           // iOS Properties
           dismissButtonStyle: 'cancel',
           preferredBarTintColor: '#453AA4',
           preferredControlTintColor: 'white',
           readerMode: false,
-          animated: true,
-          modalPresentationStyle: 'none',
-          modalTransitionStyle: 'coverVertical',
-          modalEnabled: true,
+          animated: false,
+          modalPresentationStyle: 'overFullScreen',
+          modalTransitionStyle: 'partialCurl',
+          modalEnabled: false,
           // Android Properties
           showTitle: true,
           toolbarColor: '#6200EE',
@@ -74,6 +76,7 @@ export default class App extends Component {
             'my-custom-header': 'my custom header value'
           }
         });
+        // A delay to show an alert when the browser is closed
         await this.sleep(800);
         Alert.alert('Response', JSON.stringify(result));
       } else {
@@ -81,6 +84,9 @@ export default class App extends Component {
       }
     } catch (error) {
       Alert.alert(error.message);
+    } finally {
+      // Restore the previous StatusBar of the App
+      StatusBar.setBarStyle(statusBarStyle);
     }
   }
 
@@ -110,9 +116,10 @@ export default class App extends Component {
   }
 
   render() {
+    const { statusBarStyle } = this.state;
     return (
       <View style={styles.container}>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar barStyle={statusBarStyle} />
         <Text style={styles.welcome}>
           {'Welcome InAppBrowser\nfor React Native!'}
         </Text>

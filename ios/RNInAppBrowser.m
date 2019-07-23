@@ -27,7 +27,6 @@
 #else
 @property (nonatomic, strong) SFAuthenticationSession *authSession;
 #endif
-@property (nonatomic, assign) BOOL animated;
 #pragma clang diagnostic pop
 
 @end
@@ -36,7 +35,7 @@ NSString *RNInAppBrowserErrorCode = @"RNInAppBrowser";
 
 @implementation RNInAppBrowser
 {
-  UIStatusBarStyle _initialStatusBarStyle;
+  BOOL animated;
 }
 
 RCT_EXPORT_MODULE()
@@ -53,7 +52,6 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
   [self initializeWebBrowserWithResolver:resolve andRejecter:reject];
-
 
   if (@available(iOS 11, *)) {
     NSURL *url = [[NSURL alloc] initWithString: authURL];
@@ -76,23 +74,23 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
       }
     };
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_12_0
-        _authSession = [[ASWebAuthenticationSession alloc]
-                          initWithURL:url
-                          callbackURLScheme:redirectURL
-                          completionHandler:completionHandler];
+    _authSession = [[ASWebAuthenticationSession alloc]
+                      initWithURL:url
+                      callbackURLScheme:redirectURL
+                      completionHandler:completionHandler];
 #else
-        _authSession = [[SFAuthenticationSession alloc]
-                          initWithURL:url
-                          callbackURLScheme:redirectURL
-                          completionHandler:completionHandler];
+    _authSession = [[SFAuthenticationSession alloc]
+                      initWithURL:url
+                      callbackURLScheme:redirectURL
+                      completionHandler:completionHandler];
 #endif
     [_authSession start];
   } else {
-      resolve(@{
-          @"type" : @"cancel",
-          @"message" : @"openAuth requires iOS 11 or greater"
-      });
-      [self flowDidFinish];
+    resolve(@{
+      @"type" : @"cancel",
+      @"message" : @"openAuth requires iOS 11 or greater"
+    });
+    [self flowDidFinish];
   }
 }
 
@@ -110,10 +108,10 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
   NSNumber* preferredBarTintColor = [options valueForKey:@"preferredBarTintColor"];
   NSNumber* preferredControlTintColor = [options valueForKey:@"preferredControlTintColor"];
   BOOL readerMode = [options[@"readerMode"] boolValue];
-  self.animated = [options[@"animated"] boolValue];
   NSString* modalPresentationStyle = [options valueForKey:@"modalPresentationStyle"];
   NSString* modalTransitionStyle = [options valueForKey:@"modalTransitionStyle"];
   BOOL modalEnabled = [options[@"modalEnabled"] boolValue];
+  animated = [options[@"animated"] boolValue];
 
   // Safari View Controller to authorize request
   NSURL *url = [[NSURL alloc] initWithString:authURL];
@@ -138,21 +136,21 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
       safariVC.preferredControlTintColor = [RCTConvert UIColor:preferredControlTintColor];
     }
   }
-
-  if(self.animated) {
-    safariVC.modalPresentationStyle = [self getPresentationStyle: modalPresentationStyle];
-    safariVC.modalTransitionStyle = [self getTransitionStyle: modalTransitionStyle];
-  }
-
+  
   UIViewController *ctrl = RCTPresentedViewController();
   if (modalEnabled) {
+    safariVC.modalPresentationStyle = [self getPresentationStyle: modalPresentationStyle];
+    if(animated) {
+      safariVC.modalTransitionStyle = [self getTransitionStyle: modalTransitionStyle];
+    }
+
     // This is a hack to present the SafariViewController modally
     UINavigationController *safariHackVC = [[UINavigationController alloc] initWithRootViewController:safariVC];
     [safariHackVC setNavigationBarHidden:true animated:false];
-    [ctrl presentViewController:safariHackVC animated:self.animated completion:nil];
+    [ctrl presentViewController:safariHackVC animated:animated completion:nil];
   }
   else {
-    [ctrl presentViewController:safariVC animated:self.animated completion:nil];
+    [ctrl presentViewController:safariVC animated:animated completion:nil];
   }
 }
 
@@ -170,12 +168,12 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
   __weak typeof(self) weakSelf = self;
   [self performSynchronouslyOnMainThread:^{
     UIViewController *ctrl = RCTPresentedViewController();
-    [ctrl dismissViewControllerAnimated:weakSelf.animated completion:^{
+    [ctrl dismissViewControllerAnimated:animated completion:^{
       __strong typeof(self) strongSelf = weakSelf;
-      if (strongSelf) {
+      if (strongSelf && strongSelf.redirectResolve) {
         strongSelf.redirectResolve(@{
-                                     @"type": @"dismiss",
-                                     });
+          @"type": @"dismiss",
+        });
         [strongSelf flowDidFinish];
       }
     }];
@@ -191,7 +189,7 @@ RCT_EXPORT_METHOD(closeAuth) {
     [_authSession cancel];
     if (_redirectResolve) {
       _redirectResolve(@{
-        @"type": @"dismiss"
+        @"type": @"dismiss",
       });
 
       [self flowDidFinish];
@@ -230,10 +228,12 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
  */
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
 {
+  [controller dismissViewControllerAnimated:animated completion:nil];
   _redirectResolve(@{
     @"type": @"cancel",
   });
   [self flowDidFinish];
+  [self close];
 }
 
 -(void)flowDidFinish
@@ -251,9 +251,10 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
     @"custom": @(UIModalPresentationCustom),
     @"overFullScreen": @(UIModalPresentationOverFullScreen),
     @"overCurrentContext": @(UIModalPresentationOverCurrentContext),
-    @"popover": @(UIModalPresentationPopover)
+    @"popover": @(UIModalPresentationPopover),
+    @"none": @(UIModalPresentationNone)
   };
-  UIModalPresentationStyle modalPresentationStyle = UIModalPresentationNone;
+  UIModalPresentationStyle modalPresentationStyle = UIModalPresentationOverFullScreen;
   NSNumber *style = [styles objectForKey: styleKey];
   if (style != nil) {
     modalPresentationStyle = [style intValue];
@@ -263,6 +264,7 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
 
 - (UIModalTransitionStyle)getTransitionStyle:(NSString *)styleKey {
   NSDictionary *styles = @{
+    @"coverVertical": @(UIModalTransitionStyleCoverVertical),
     @"flipHorizontal": @(UIModalTransitionStyleFlipHorizontal),
     @"crossDissolve": @(UIModalTransitionStyleCrossDissolve),
     @"partialCurl": @(UIModalTransitionStylePartialCurl)
