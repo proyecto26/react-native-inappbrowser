@@ -7,7 +7,7 @@
     "test": "jest",
     "lint": "eslint App.js",
     "ios": "react-native run-ios",
-    "android": "react-native run-android",
+    "android": "npx react-native run-android",
     "bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean --force",
     "clean:android": "cd android && ./gradlew clean && cd ..",

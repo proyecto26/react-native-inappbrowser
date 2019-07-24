@@ -109,6 +109,7 @@ Property       | Description
 `enableDefaultShare` (Boolean)    | Adds a default share item to the menu. [`true`/`false`]
 `animations` (Object)             | Sets the start and exit animations. [`{ startEnter, startExit, endEnter, endExit }`]
 `headers` (Object)                | The data are key/value pairs, they will be sent in the HTTP request headers for the provided url. [`{ 'Authorization': 'Bearer ...' }`]
+`forceCloseOnRedirection` (Boolean) | Open Custom Tab in new task to avoid issues redirecting back to app scheme. [`true`/`false`]
 
 ### Demo
 
