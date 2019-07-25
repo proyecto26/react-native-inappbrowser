@@ -125,9 +125,13 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
         const result = await InAppBrowser.open(url, {
           // iOS Properties
           dismissButtonStyle: 'cancel',
-          preferredBarTintColor: 'gray',
+          preferredBarTintColor: '#453AA4',
           preferredControlTintColor: 'white',
           readerMode: false,
+          animated: false,
+          modalPresentationStyle: 'overFullScreen',
+          modalTransitionStyle: 'partialCurl',
+          modalEnabled: false,
           // Android Properties
           showTitle: true,
           toolbarColor: '#6200EE',
@@ -145,7 +149,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
           },
           headers: {
             'my-custom-header': 'my custom header value'
-          },
+          }
         })
         Alert.alert(JSON.stringify(result))
       }
