@@ -30,6 +30,7 @@ in case of vulnerabilities.
 - Activating Open Collective ([#80](https://github.com/proyecto26/react-native-inappbrowser/pull/80)) and Create **CONTRIBUTING.md** to see how to contribute.
 - Added `animated`, `modalPresentationStyle` and `modalTransitionStyle` properties for iOS options ([86f7238](https://github.com/proyecto26/react-native-inappbrowser/commit/86f7238d8eb856b28fae9981ca7bb42b12c43e18)).
 - Present the **SafariViewController** modally or as push instead using the `modalEnabled` property ([4a0d57c](https://github.com/proyecto26/react-native-inappbrowser/commit/4a0d57c73eccaaf45a212853c50aa41520b550c8)).
+- Add workaround to dismiss **SafariViewController** without animation.
 
 ### Removed
 - **com.facebook.infer.annotation** dependency is not required anymore to build for **Android**.

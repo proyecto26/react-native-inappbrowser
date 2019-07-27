@@ -138,6 +138,7 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
   }
   
   UIViewController *ctrl = RCTPresentedViewController();
+
   if (modalEnabled) {
     safariVC.modalPresentationStyle = [self getPresentationStyle: modalPresentationStyle];
     if(animated) {
@@ -166,9 +167,10 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
 - (void)_close
 {
   __weak typeof(self) weakSelf = self;
+  __weak typeof(BOOL) weakAnimated = animated;
   [self performSynchronouslyOnMainThread:^{
     UIViewController *ctrl = RCTPresentedViewController();
-    [ctrl dismissViewControllerAnimated:animated completion:^{
+    [ctrl dismissViewControllerAnimated:weakAnimated completion:^{
       __strong typeof(self) strongSelf = weakSelf;
       if (strongSelf && strongSelf.redirectResolve) {
         strongSelf.redirectResolve(@{
@@ -228,12 +230,13 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
  */
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
 {
-  [controller dismissViewControllerAnimated:animated completion:nil];
+  if (!animated) {
+    [self dismissWithoutAnimation:controller];
+  }
   _redirectResolve(@{
     @"type": @"cancel",
   });
   [self flowDidFinish];
-  [self close];
 }
 
 -(void)flowDidFinish
@@ -275,6 +278,25 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
     modalTransitionStyle = [style intValue];
   }
   return modalTransitionStyle;
+}
+
+- (void)dismissWithoutAnimation:(SFSafariViewController *)controller
+{
+  CATransition* transition = [CATransition animation];
+  transition.duration = 0.0;
+  transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+  transition.type = kCATransitionFade;
+  transition.subtype = kCATransitionFromBottom;
+
+  controller.view.alpha = 0.05;
+  controller.view.frame = CGRectMake(0.0, 0.0, 0.5, 0.5);
+
+  UIViewController *ctrl = RCTPresentedViewController();
+  NSString* animationKey = @"dismissInAppBrowser";
+  [ctrl.view.layer addAnimation:transition forKey:animationKey];
+  [ctrl dismissViewControllerAnimated:false completion:^{
+    [ctrl.view.layer removeAnimationForKey:animationKey];
+  }];
 }
 
 @end
