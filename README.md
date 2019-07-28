@@ -128,10 +128,10 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
           preferredBarTintColor: '#453AA4',
           preferredControlTintColor: 'white',
           readerMode: false,
-          animated: false,
+          animated: true,
           modalPresentationStyle: 'overFullScreen',
           modalTransitionStyle: 'partialCurl',
-          modalEnabled: false,
+          modalEnabled: true,
           // Android Properties
           showTitle: true,
           toolbarColor: '#6200EE',
