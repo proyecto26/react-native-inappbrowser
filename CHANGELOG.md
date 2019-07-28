@@ -21,6 +21,8 @@ in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+
+## [3.0.0] - 2019-07-27
 ### Added
 - **Android:** Migrate to AndroidX by [@jdnichollsc](https://github.com/jdnichollsc) ([8a083f2](https://github.com/proyecto26/react-native-inappbrowser/commit/8a083f24847ac5f49923c6217106628434634b4d)).
 - Start following [SemVer](https://semver.org) with git tags properly 😅.
@@ -93,7 +95,8 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/2.0.4...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/2.0.4...v3.0.0
 [2.0.4]: https://github.com/proyecto26/react-native-inappbrowser/compare/2.0.3...2.0.4
 [2.0.3]: https://github.com/proyecto26/react-native-inappbrowser/compare/2.0.2...2.0.3
 [2.0.2]: https://github.com/proyecto26/react-native-inappbrowser/compare/2.0.1...2.0.2
