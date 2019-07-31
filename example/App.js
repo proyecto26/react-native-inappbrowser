@@ -46,14 +46,18 @@ export default class App extends Component {
     try {
       if (await InAppBrowser.isAvailable()) {
         // A delay to change the StatusBar when the browser is opened
-        setTimeout(() => StatusBar.setBarStyle('light-content'), 500);
+        const animated = true;
+        setTimeout(
+          () => StatusBar.setBarStyle('light-content'),
+          animated && Platform.OS === 'ios' ? 500 : 0
+        );
         const result = await InAppBrowser.open(url, {
           // iOS Properties
           dismissButtonStyle: 'cancel',
           preferredBarTintColor: '#453AA4',
           preferredControlTintColor: 'white',
           readerMode: false,
-          animated: true,
+          animated,
           modalPresentationStyle: 'overFullScreen',
           modalTransitionStyle: 'partialCurl',
           modalEnabled: true,
