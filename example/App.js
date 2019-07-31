@@ -102,10 +102,10 @@ export default class App extends Component {
   }
 
   async tryDeepLinking() {
-    const redirectToURL =
+    const loginUrl =
       'https://proyecto26.github.io/react-native-inappbrowser/';
     const redirectUrl = encodeURIComponent(this.getDeepLink('home'));
-    const url = `${redirectToURL}?redirect_url=${redirectUrl}`;
+    const url = `${loginUrl}?redirect_url=${redirectUrl}`;
     try {
       if (await InAppBrowser.isAvailable()) {
         const result = await InAppBrowser.openAuth(url, redirectUrl);
