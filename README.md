@@ -337,6 +337,9 @@ Support this project with your organization. Your logo will show up here with a 
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
 
+## Security contact information 🚨
+To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
+
 ## Happy coding 💯
 Made with ❤️
 
