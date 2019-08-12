@@ -35,7 +35,7 @@ in case of vulnerabilities.
 - Add workaround to dismiss **SafariViewController** without animation.
 
 ### Removed
-- **com.facebook.infer.annotation** dependency is not required anymore to build for **Android**.
+- **com.facebook.infer.annotation** dependency is not required anymore to build for **Android** ([dcbfaef](https://github.com/proyecto26/react-native-inappbrowser/commit/dcbfaef49fa04fdabc281cd2c61124a11c6a7d29#diff-7ae5a9093507568eabbf35c3b0665732)).
 
 ### BREAKING CHANGES
 
