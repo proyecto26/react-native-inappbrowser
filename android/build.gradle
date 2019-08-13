@@ -45,17 +45,21 @@ dependencies {
   implementation 'org.greenrobot:eventbus:3.+'
 
   def supportLibVersion = null
-  if (project.hasProperty('supportLibVersion')) {
-    supportLibVersion = project.supportLibVersion
-  } else if (project.hasProperty('supportVersion')) {
-    supportLibVersion = project.supportVersion
+  def androidXVersion = safeExtGet('androidXVersion', null)
+  if (rootProject.ext.has('supportLibVersion')) {
+    supportLibVersion = rootProject.ext.get('supportLibVersion')
+  } else if (rootProject.ext.has('supportVersion')) {
+    supportLibVersion = rootProject.ext.get('supportVersion')
   }
-  if (supportLibVersion) {
+  if (supportLibVersion && androidXVersion == null) {
     implementation "com.android.support:support-annotations:$supportLibVersion"
     implementation "com.android.support:customtabs:$supportLibVersion"
   } else {
-    implementation 'androidx.annotation:annotation:1.+'
-    implementation 'androidx.browser:browser:1.+'
+    if (androidXVersion == null) {
+      androidXVersion = '1.x'
+    }
+    implementation "androidx.annotation:annotation:$androidXVersion"
+    implementation "androidx.browser:browser:$androidXVersion"
   }
 }
   
