@@ -42,8 +42,20 @@ repositories {
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation 'com.facebook.react:react-native:+'
-  implementation 'androidx.annotation:annotation:1.+'
-  implementation 'androidx.browser:browser:1.+'
   implementation 'org.greenrobot:eventbus:3.+'
+
+  def supportLibVersion = null
+  if (project.hasProperty('supportLibVersion')) {
+    supportLibVersion = project.supportLibVersion
+  } else if (project.hasProperty('supportVersion')) {
+    supportLibVersion = project.supportVersion
+  }
+  if (supportLibVersion) {
+    implementation "com.android.support:support-annotations:$supportLibVersion"
+    implementation "com.android.support:customtabs:$supportLibVersion"
+  } else {
+    implementation 'androidx.annotation:annotation:1.+'
+    implementation 'androidx.browser:browser:1.+'
+  }
 }
   
