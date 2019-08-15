@@ -43,15 +43,18 @@ dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation 'com.facebook.react:react-native:+'
   implementation 'org.greenrobot:eventbus:3.+'
-
   def supportLibVersion = safeExtGet('supportLibVersion', safeExtGet('supportVersion', null))
   def androidXVersion = safeExtGet('androidXVersion', null)
-  def androidXAnnotation = safeExtGet('androidXAnnotation', androidXVersion)
-  def androidXBrowser = safeExtGet('androidXBrowser', androidXVersion)
   if (supportLibVersion && androidXVersion == null) {
     implementation "com.android.support:support-annotations:$supportLibVersion"
     implementation "com.android.support:customtabs:$supportLibVersion"
   } else {
+    def defaultAndroidXVersion = "1.x"
+    if (androidXVersion == null) {
+      androidXVersion = defaultAndroidXVersion
+    }
+    def androidXAnnotation = safeExtGet('androidXAnnotation', androidXVersion)
+    def androidXBrowser = safeExtGet('androidXBrowser', androidXVersion)
     implementation "androidx.annotation:annotation:$androidXAnnotation"
     implementation "androidx.browser:browser:$androidXBrowser"
   }
