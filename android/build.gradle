@@ -45,16 +45,15 @@ dependencies {
   implementation 'org.greenrobot:eventbus:3.+'
 
   def supportLibVersion = safeExtGet('supportLibVersion', safeExtGet('supportVersion', null))
-  def androidXVersion = safeExtGet('androidXVersion', null)
-  if (supportLibVersion && androidXVersion == null) {
+  def androidXVersion = safeExtGet('androidXVersion', '1.x')
+  def androidXAnnotation = safeExtGet('androidXAnnotation', androidXVersion)
+  def androidXBrowser = safeExtGet('androidXBrowser', androidXVersion)
+  if (supportLibVersion) {
     implementation "com.android.support:support-annotations:$supportLibVersion"
     implementation "com.android.support:customtabs:$supportLibVersion"
   } else {
-    if (androidXVersion == null) {
-      androidXVersion = '1.x'
-    }
-    implementation "androidx.annotation:annotation:$androidXVersion"
-    implementation "androidx.browser:browser:$androidXVersion"
+    implementation "androidx.annotation:annotation:$androidXAnnotation"
+    implementation "androidx.browser:browser:$androidXBrowser"
   }
 }
   
