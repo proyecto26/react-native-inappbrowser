@@ -22,9 +22,11 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.0.1] - 2019-08-16
+
 ### Added
-- Add gradle backward-compatibility for Android Support using Jetifier ([#96](https://github.com/proyecto26/react-native-inappbrowser/issues/96)).
-- Using **androidXVersion** from **rootProject.ext** for **AndroidX** with backward compatibility.
+- Add gradle backward-compatibility for Android Support with Jetifier ([#96](https://github.com/proyecto26/react-native-inappbrowser/pull/97)).
+- Added **androidXAnnotation** and **androidXBrowser** properties from **rootProject.ext** for **AndroidX** with backward compatibility using **supportLibVersion** property instead.
 
 ## [3.0.0] - 2019-07-27
 ### Added
