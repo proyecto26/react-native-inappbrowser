@@ -42,7 +42,7 @@ Linking the package manually is not required anymore with [Autolinking](https://
 
   `$ cd ios && pod install && cd ..` # CocoaPods on iOS needs this extra step
 
-- **Android Platform for Android Support:**
+- **Android Platform with Android Support:**
 
   Using [Jetifier tool](https://github.com/mikehardy/jetifier) for backward-compatibility.
 
@@ -59,7 +59,7 @@ Linking the package manually is not required anymore with [Autolinking](https://
     }
   ```
 
-- **Android Platform for AndroidX:**
+- **Android Platform with AndroidX:**
 
   Modify your **android/build.gradle** configuration:
   ```
