@@ -35,10 +35,52 @@
 
 ### Mostly automatic installation
 
+#### Using React Native >= 0.60
+Linking the package manually is not required anymore with [Autolinking](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md).
+
+- **iOS Platform:**
+
+  `$ cd ios && pod install && cd ..` # CocoaPods on iOS needs this extra step
+
+- **Android Platform for Android Support:**
+
+  Using [Jetifier tool](https://github.com/mikehardy/jetifier) for backward-compatibility.
+
+  Modify your **android/build.gradle** configuration:
+  ```
+  buildscript {
+    ext {
+      buildToolsVersion = "28.0.3"
+      minSdkVersion = 16
+      compileSdkVersion = 28
+      targetSdkVersion = 28
+      # Only using Android Support libraries
+      supportLibVersion = "28.0.0"
+    }
+  ```
+
+- **Android Platform for AndroidX:**
+
+  Modify your **android/build.gradle** configuration:
+  ```
+  buildscript {
+    ext {
+      buildToolsVersion = "28.0.3"
+      minSdkVersion = 16
+      compileSdkVersion = 28
+      targetSdkVersion = 28
+      # Remove 'supportLibVersion' property and put specific versions for AndroidX libraries
+      androidXAnnotation = "1.1.0"
+      androidXBrowser = "1.0.0"
+      // Put here other AndroidX dependencies
+    }
+  ```
+
+#### Using React Native < 0.60
+
 `$ react-native link react-native-inappbrowser-reborn`
 
 ### Manual installation
-
 
 #### iOS
 
