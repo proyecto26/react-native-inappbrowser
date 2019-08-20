@@ -84,7 +84,10 @@ async function open(
       inAppBrowseroptions.preferredControlTintColor
     );
   }
-  return RNInAppBrowser.open(inAppBrowseroptions);
+  // use SetTimeout to make sure InAppBrowser doesn't open until current execution context has finished
+  setTimeout(() => {
+    return RNInAppBrowser.open(inAppBrowseroptions);
+  });
 }
 
 function close(): void {
@@ -130,16 +133,16 @@ async function _openAuthSessionPolyfillAsync(
   returnUrl: string,
   options: InAppBrowserOptions
 ): Promise<AuthSessionResult> {
+  // reset redirect handler upon new Auth session
+  _redirectHandler = null
   invariant(
     !_redirectHandler,
     'InAppBrowser.openAuth is in a bad state. _redirectHandler is defined when it should not be.'
   );
 
   try {
-    return await Promise.race([
-      open(startUrl, options),
-      _waitForRedirectAsync(returnUrl)
-    ]);
+    await open(startUrl, options)
+    return await _waitForRedirectAsync(returnUrl)
   } finally {
     close();
     Linking.removeEventListener('url', _redirectHandler);
@@ -147,15 +150,16 @@ async function _openAuthSessionPolyfillAsync(
   }
 }
 
-function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
+async function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
   return new Promise(resolve => {
-    _redirectHandler = (event: RedirectEvent) => {
-      if (event.url.startsWith(returnUrl)) {
+    _redirectHandler = (event: RedirectEvent) => {      
+       // check URL has param before resolving (eg. example://auth?code=abcd) 
+          if (event.url.startsWith(returnUrl + '?')) {
         resolve({ url: event.url, type: 'success' });
       }
     };
 
-    Linking.addEventListener('url', _redirectHandler);
+    Linking.addEventListener('url', _redirectHandler);  
   });
 }
 
