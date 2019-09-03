@@ -102,13 +102,19 @@ export default class App extends Component {
   }
 
   async tryDeepLinking() {
-    const loginUrl =
-      'https://proyecto26.github.io/react-native-inappbrowser/';
+    const loginUrl = 'https://proyecto26.github.io/react-native-inappbrowser/';
     const redirectUrl = encodeURIComponent(this.getDeepLink('home'));
     const url = `${loginUrl}?redirect_url=${redirectUrl}`;
     try {
       if (await InAppBrowser.isAvailable()) {
-        const result = await InAppBrowser.openAuth(url, redirectUrl);
+        const result = await InAppBrowser.openAuth(url, redirectUrl, {
+          showTitle: true,
+          toolbarColor: '#6200EE',
+          secondaryToolbarColor: 'black',
+          enableUrlBarHiding: true,
+          enableDefaultShare: true,
+          waitForRedirectDelay: 1000
+        });
         await this.sleep(800);
         Alert.alert('Response', JSON.stringify(result));
       } else {
