@@ -300,7 +300,24 @@ import { getDeepLink } from './utilities'
 
 ### StatusBar
 
-The StatusBar will keep the last one provided in your app. So if the StatusBar is `dark-content` before you open the browser this will keep it. If you want to change before opening you can do something like
+The StatusBar will keep the last one provided in your app. So if the StatusBar is `dark-content` before you open the browser this will keep it.
+
+Starting with React Native 0.59 onwards, there is a simpler way of handling this update, without the need of patching StatusBar.
+```javascript
+  async openInBrowser(url) {
+    try {
+      const oldStyle = StatusBar.pushStackEntry({ barStyle: 'dark-content', animate: false });
+      await InAppBrowser.open(url)
+      StatusBar.popStackEntry(oldStyle);
+    } catch (error) {
+      Alert.alert(error.message)
+    }
+  })
+```
+
+For previous versions, you can still apply the method described below.
+
+If you want to change before opening you can do something like
 
 ```javascript
   async openInBrowser(url) {
