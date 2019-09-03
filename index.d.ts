@@ -49,7 +49,8 @@ declare module 'react-native-inappbrowser-reborn' {
       endEnter: string,
       endExit: string
     },
-    headers?: { [key: string]: string }
+    headers?: { [key: string]: string },
+    waitForRedirectDelay?: number
   }
 
   export type InAppBrowserOptions = InAppBrowserAndroidOptions | InAppBrowseriOSOptions;

@@ -22,6 +22,11 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.1.0] - 2019-09-03
+
+### Added
+- Add `waitForRedirectDelay` option for **Android** to fix issues dismissing the browser before detecting the redirection with `Linking` ([817f6ec](https://github.com/proyecto26/react-native-inappbrowser/commit/817f6ece140c0f2f84e21a537d5030403e652bc1)).
+
 ## [3.0.1] - 2019-08-16
 
 ### Added

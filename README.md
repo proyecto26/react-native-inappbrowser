@@ -152,6 +152,7 @@ Property       | Description
 `animations` (Object)             | Sets the start and exit animations. [`{ startEnter, startExit, endEnter, endExit }`]
 `headers` (Object)                | The data are key/value pairs, they will be sent in the HTTP request headers for the provided url. [`{ 'Authorization': 'Bearer ...' }`]
 `forceCloseOnRedirection` (Boolean) | Open Custom Tab in a new task to avoid issues redirecting back to app scheme. [`true`/`false`]
+`waitForRedirectDelay` (Number)   | Sets a delay for wait the redirection using `openAuth` method.
 
 ### Demo
 
@@ -191,7 +192,8 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
           },
           headers: {
             'my-custom-header': 'my custom header value'
-          }
+          },
+          waitForRedirectDelay: 0
         })
         Alert.alert(JSON.stringify(result))
       }
@@ -264,6 +266,7 @@ import { getDeepLink } from './utilities'
           showTitle: false,
           enableUrlBarHiding: true,
           enableDefaultShare: true,
+          waitForRedirectDelay: 1000
         }).then((response) => {
           if (response.type === 'success' &&
             response.url) {

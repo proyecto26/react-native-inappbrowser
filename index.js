@@ -55,7 +55,8 @@ type InAppBrowserAndroidOptions = {
     endEnter: string,
     endExit: string
   },
-  headers?: { [key: string]: string }
+  headers?: { [key: string]: string },
+  waitForRedirectDelay?: number
 };
 
 type InAppBrowserOptions = InAppBrowserAndroidOptions | InAppBrowseriOSOptions;
@@ -66,25 +67,26 @@ async function open(
 ): Promise<BrowserResult> {
   const modalEnabled =
     options.modalEnabled !== undefined ? options.modalEnabled : true;
-  const inAppBrowseroptions = {
+  const inAppBrowserOptions = {
     ...options,
     url,
     dismissButtonStyle: options.dismissButtonStyle || 'close',
     readerMode: options.readerMode !== undefined ? options.readerMode : false,
     animated: options.animated !== undefined ? options.animated : true,
-    modalEnabled
+    modalEnabled,
+    waitForRedirectDelay: options.waitForRedirectDelay || 0
   };
-  if (inAppBrowseroptions.preferredBarTintColor) {
-    inAppBrowseroptions.preferredBarTintColor = processColor(
-      inAppBrowseroptions.preferredBarTintColor
+  if (inAppBrowserOptions.preferredBarTintColor) {
+    inAppBrowserOptions.preferredBarTintColor = processColor(
+      inAppBrowserOptions.preferredBarTintColor
     );
   }
-  if (inAppBrowseroptions.preferredControlTintColor) {
-    inAppBrowseroptions.preferredControlTintColor = processColor(
-      inAppBrowseroptions.preferredControlTintColor
+  if (inAppBrowserOptions.preferredControlTintColor) {
+    inAppBrowserOptions.preferredControlTintColor = processColor(
+      inAppBrowserOptions.preferredControlTintColor
     );
   }
-  return RNInAppBrowser.open(inAppBrowseroptions);
+  return RNInAppBrowser.open(inAppBrowserOptions);
 }
 
 function close(): void {
@@ -134,10 +136,15 @@ async function _openAuthSessionPolyfillAsync(
     !_redirectHandler,
     'InAppBrowser.openAuth is in a bad state. _redirectHandler is defined when it should not be.'
   );
-
+  let response = null;
   try {
-    return await Promise.race([
-      open(startUrl, options),
+    response = await Promise.race([
+      open(startUrl, options).then(result => {
+        return new Promise(resolve => {
+          // A delay to wait for the redirection or dismiss the browser instead
+          setTimeout(() => resolve(result), options.waitForRedirectDelay);
+        });
+      }),
       _waitForRedirectAsync(returnUrl)
     ]);
   } finally {
@@ -145,6 +152,7 @@ async function _openAuthSessionPolyfillAsync(
     Linking.removeEventListener('url', _redirectHandler);
     _redirectHandler = null;
   }
+  return response;
 }
 
 function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
