@@ -192,7 +192,8 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
           },
           headers: {
             'my-custom-header': 'my custom header value'
-          }
+          },
+          waitForRedirectDelay: 0
         })
         Alert.alert(JSON.stringify(result))
       }
@@ -265,6 +266,7 @@ import { getDeepLink } from './utilities'
           showTitle: false,
           enableUrlBarHiding: true,
           enableDefaultShare: true,
+          waitForRedirectDelay: 1000
         }).then((response) => {
           if (response.type === 'success' &&
             response.url) {
