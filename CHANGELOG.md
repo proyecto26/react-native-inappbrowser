@@ -22,6 +22,9 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+### Added
+- Add `waitForRedirectDelay` option for **Android** to fix issues dismissing the browser before detecting the redirection with `Linking`.
+
 ## [3.0.1] - 2019-08-16
 
 ### Added
