@@ -5,6 +5,9 @@
   <a href="https://npmjs.org/package/react-native-inappbrowser-reborn">
     <img src="http://img.shields.io/npm/v/react-native-inappbrowser-reborn.svg" alt="Current npm package version" />
   </a>
+  <a href="https://tidelift.com/subscription/pkg/npm-react-native-inappbrowser-reborn?utm_source=npm-react-native-inappbrowser-reborn&utm_medium=referral&utm_campaign=readme">
+    <img src="https://tidelift.com/badges/package/npm/react-native-inappbrowser-reborn" />
+  </a>
   <a href="https://github.com/proyecto26/react-native-inappbrowser/graphs/commit-activity">
     <img src="https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg" alt="Maintenance" />
   </a>
