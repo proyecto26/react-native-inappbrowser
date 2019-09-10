@@ -210,6 +210,10 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
 
 ### Authentication Flow using Deep Linking
 
+#### Tips
+Once you set up Deep Linking, you must be sure that your auth login page won't try to redirect to the app automatically through JavaScript or a <meta> HTML tag since Chrome, for instance, is known to block this kind of automatic redirects ([more here](https://stackoverflow.com/a/41882732/1532821)) so you should use a 302 backend redirection or an <a> link that the user can press.
+
+
 - utilities.js
 ```javascript
 import { Platform } from 'react-native'
