@@ -33,4 +33,9 @@ public class RNInAppBrowserModule extends ReactContextBaseJavaModule {
   public void close() {
     inAppBrowser.close();
   }
+
+  @ReactMethod
+  public void isAvailable(final Promise promise) {
+    inAppBrowser.isAvailable(this.reactContext, promise);
+  }
 }
