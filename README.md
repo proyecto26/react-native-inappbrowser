@@ -140,9 +140,10 @@ Property       | Description
 `preferredControlTintColor` (String) | The color to tint the control buttons on the navigation bar and the toolbar. [`gray`/`#808080`]
 `readerMode` (Boolean)               | A value that specifies whether Safari should enter Reader mode, if it is available. [`true`/`false`]
 `animated` (Boolean)                 | Animate the presentation. [`true`/`false`]
-`modalPresentationStyle` (String)    | The presentation style for modally presented view controllers. [`none`/`fullScreen`/`pageSheet`/`formSheet`/`currentContext`/`custom`/`overFullScreen`/`overCurrentContext`/`popover`]
+`modalPresentationStyle` (String)    | The presentation style for modally presented view controllers. [`automatic`/`none`/`fullScreen`/`pageSheet`/`formSheet`/`currentContext`/`custom`/`overFullScreen`/`overCurrentContext`/`popover`]
 `modalTransitionStyle` (String)      | The transition style to use when presenting the view controller. [`coverVertical`/`flipHorizontal`/`crossDissolve`/`partialCurl`]
 `modalEnabled` (Boolean)             | Present the **SafariViewController** modally or as push instead. [`true`/`false`]
+`enableBarCollapsing` (Boolean)      | Determines whether the browser's tool bars will collapse or not. [`true`/`false`]
 
 ### Android Options
 Property       | Description
@@ -178,6 +179,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
           modalPresentationStyle: 'overFullScreen',
           modalTransitionStyle: 'partialCurl',
           modalEnabled: true,
+          enableBarCollapsing: false,
           // Android Properties
           showTitle: true,
           toolbarColor: '#6200EE',

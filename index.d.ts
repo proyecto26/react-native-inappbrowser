@@ -19,6 +19,7 @@ declare module 'react-native-inappbrowser-reborn' {
     readerMode?: boolean,
     animated?: boolean,
     modalPresentationStyle?:
+      | 'automatic'
       | 'fullScreen'
       | 'pageSheet'
       | 'formSheet'
@@ -33,7 +34,8 @@ declare module 'react-native-inappbrowser-reborn' {
       | 'flipHorizontal'
       | 'crossDissolve'
       | 'partialCurl',
-    modalEnabled?: boolean
+    modalEnabled?: boolean,
+    enableBarCollapsing?: boolean
   }
 
   type InAppBrowserAndroidOptions = {

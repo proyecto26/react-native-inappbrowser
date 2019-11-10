@@ -22,15 +22,24 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.2.0] - 2019-11-10
+
+### Added
+- Added support for `automatic` modal presentation style from **iOS**.
+- Added `enableBarCollapsing` option to determines whether the browser's tool bars will collapse or not from **iOS**.
+
+### Fixed
+- Fixed Browser crashes on iOS 13 when openAuth is used.
+
 ## [3.1.0] - 2019-09-03
 
 ### Added
-- Add `waitForRedirectDelay` option for **Android** to fix issues dismissing the browser before detecting the redirection with `Linking` ([817f6ec](https://github.com/proyecto26/react-native-inappbrowser/commit/817f6ece140c0f2f84e21a537d5030403e652bc1)).
+- Added `waitForRedirectDelay` option for **Android** to fix issues dismissing the browser before detecting the redirection with `Linking` ([817f6ec](https://github.com/proyecto26/react-native-inappbrowser/commit/817f6ece140c0f2f84e21a537d5030403e652bc1)).
 
 ## [3.0.1] - 2019-08-16
 
 ### Added
-- Add gradle backward-compatibility for Android Support with Jetifier ([#96](https://github.com/proyecto26/react-native-inappbrowser/pull/97)).
+- Added gradle backward-compatibility for Android Support with Jetifier ([#96](https://github.com/proyecto26/react-native-inappbrowser/pull/97)).
 - Added **androidXAnnotation** and **androidXBrowser** properties from **rootProject.ext** for **AndroidX** with backward compatibility using **supportLibVersion** property instead.
 
 ## [3.0.0] - 2019-07-27

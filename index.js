@@ -25,6 +25,7 @@ type InAppBrowseriOSOptions = {
   readerMode?: boolean,
   animated?: boolean,
   modalPresentationStyle?:
+    | 'automatic'
     | 'fullScreen'
     | 'pageSheet'
     | 'formSheet'
@@ -39,7 +40,8 @@ type InAppBrowseriOSOptions = {
     | 'flipHorizontal'
     | 'crossDissolve'
     | 'partialCurl',
-  modalEnabled?: boolean
+  modalEnabled?: boolean,
+  enableBarCollapsing?: boolean
 };
 
 type InAppBrowserAndroidOptions = {
@@ -65,27 +67,31 @@ async function open(
   url: string,
   options: InAppBrowserOptions = {}
 ): Promise<BrowserResult> {
-  const modalEnabled =
-    options.modalEnabled !== undefined ? options.modalEnabled : true;
-  const inAppBrowserOptions = {
-    ...options,
-    url,
-    dismissButtonStyle: options.dismissButtonStyle || 'close',
-    readerMode: options.readerMode !== undefined ? options.readerMode : false,
-    animated: options.animated !== undefined ? options.animated : true,
+  const {
+    animated,
+    readerMode,
     modalEnabled,
-    waitForRedirectDelay: options.waitForRedirectDelay || 0
+    dismissButtonStyle,
+    waitForRedirectDelay,
+    enableBarCollapsing,
+    preferredBarTintColor,
+    preferredControlTintColor,
+    ...optionalOptions
+  } = options;
+  const inAppBrowserOptions = {
+    ...optionalOptions,
+    url,
+    dismissButtonStyle: dismissButtonStyle || 'close',
+    readerMode: !!readerMode,
+    animated: animated !== undefined ? animated : true,
+    modalEnabled: modalEnabled !== undefined ? modalEnabled : true,
+    waitForRedirectDelay: waitForRedirectDelay || 0,
+    enableBarCollapsing: !!enableBarCollapsing,
+    preferredBarTintColor:
+      preferredBarTintColor && processColor(preferredBarTintColor),
+    preferredControlTintColor:
+      preferredControlTintColor && processColor(preferredControlTintColor)
   };
-  if (inAppBrowserOptions.preferredBarTintColor) {
-    inAppBrowserOptions.preferredBarTintColor = processColor(
-      inAppBrowserOptions.preferredBarTintColor
-    );
-  }
-  if (inAppBrowserOptions.preferredControlTintColor) {
-    inAppBrowserOptions.preferredControlTintColor = processColor(
-      inAppBrowserOptions.preferredControlTintColor
-    );
-  }
   return RNInAppBrowser.open(inAppBrowserOptions);
 }
 
@@ -139,13 +145,13 @@ async function _openAuthSessionPolyfillAsync(
   let response = null;
   try {
     response = await Promise.race([
+      _waitForRedirectAsync(returnUrl),
       open(startUrl, options).then(result => {
         return new Promise(resolve => {
           // A delay to wait for the redirection or dismiss the browser instead
           setTimeout(() => resolve(result), options.waitForRedirectDelay);
         });
-      }),
-      _waitForRedirectAsync(returnUrl)
+      })
     ]);
   } finally {
     close();

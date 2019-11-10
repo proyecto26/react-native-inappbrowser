@@ -47,10 +47,8 @@ export default class App extends Component {
       if (await InAppBrowser.isAvailable()) {
         // A delay to change the StatusBar when the browser is opened
         const animated = true;
-        setTimeout(
-          () => StatusBar.setBarStyle('light-content'),
-          animated && Platform.OS === 'ios' ? 500 : 0
-        );
+        const delay = animated && Platform.OS === 'ios' ? 400 : 0;
+        setTimeout(() => StatusBar.setBarStyle('light-content'), delay);
         const result = await InAppBrowser.open(url, {
           // iOS Properties
           dismissButtonStyle: 'cancel',
@@ -58,9 +56,10 @@ export default class App extends Component {
           preferredControlTintColor: 'white',
           readerMode: false,
           animated,
-          modalPresentationStyle: 'overFullScreen',
+          modalPresentationStyle: 'fullScreen',
           modalTransitionStyle: 'partialCurl',
           modalEnabled: true,
+          enableBarCollapsing: false,
           // Android Properties
           showTitle: true,
           toolbarColor: '#6200EE',
@@ -103,8 +102,8 @@ export default class App extends Component {
 
   async tryDeepLinking() {
     const loginUrl = 'https://proyecto26.github.io/react-native-inappbrowser/';
-    const redirectUrl = encodeURIComponent(this.getDeepLink('home'));
-    const url = `${loginUrl}?redirect_url=${redirectUrl}`;
+    const redirectUrl = this.getDeepLink();
+    const url = `${loginUrl}?redirect_url=${encodeURIComponent(redirectUrl)}`;
     try {
       if (await InAppBrowser.isAvailable()) {
         const result = await InAppBrowser.openAuth(url, redirectUrl, {
@@ -113,7 +112,7 @@ export default class App extends Component {
           secondaryToolbarColor: 'black',
           enableUrlBarHiding: true,
           enableDefaultShare: true,
-          waitForRedirectDelay: 1000
+          waitForRedirectDelay: 2000
         });
         await this.sleep(800);
         Alert.alert('Response', JSON.stringify(result));
