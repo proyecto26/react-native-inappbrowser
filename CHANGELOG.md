@@ -22,6 +22,12 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.3.0] - 2019-11-12
+
+### Fixed
+- Removed `waitForRedirectDelay` option and fixed race condition from **Android** to get the response of the redirection ([#36](https://github.com/proyecto26/react-native-inappbrowser/issues/36))
+- Fixed **Android** Activity issue closing the browser and restoring the state by using `onSaveInstanceState` ([#60](https://github.com/proyecto26/react-native-inappbrowser/issues/60)).
+
 ## [3.2.0] - 2019-11-10
 
 ### Added

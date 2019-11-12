@@ -111,8 +111,7 @@ export default class App extends Component {
           toolbarColor: '#6200EE',
           secondaryToolbarColor: 'black',
           enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          waitForRedirectDelay: 2000
+          enableDefaultShare: true
         });
         await this.sleep(800);
         Alert.alert('Response', JSON.stringify(result));

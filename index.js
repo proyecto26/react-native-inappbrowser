@@ -57,8 +57,7 @@ type InAppBrowserAndroidOptions = {
     endEnter: string,
     endExit: string
   },
-  headers?: { [key: string]: string },
-  waitForRedirectDelay?: number
+  headers?: { [key: string]: string }
 };
 
 type InAppBrowserOptions = InAppBrowserAndroidOptions | InAppBrowseriOSOptions;
@@ -72,7 +71,6 @@ async function open(
     readerMode,
     modalEnabled,
     dismissButtonStyle,
-    waitForRedirectDelay,
     enableBarCollapsing,
     preferredBarTintColor,
     preferredControlTintColor,
@@ -85,7 +83,6 @@ async function open(
     readerMode: !!readerMode,
     animated: animated !== undefined ? animated : true,
     modalEnabled: modalEnabled !== undefined ? modalEnabled : true,
-    waitForRedirectDelay: waitForRedirectDelay || 0,
     enableBarCollapsing: !!enableBarCollapsing,
     preferredBarTintColor:
       preferredBarTintColor && processColor(preferredBarTintColor),
@@ -146,11 +143,8 @@ async function _openAuthSessionPolyfillAsync(
   try {
     response = await Promise.race([
       _waitForRedirectAsync(returnUrl),
-      open(startUrl, options).then(result => {
-        return new Promise(resolve => {
-          // A delay to wait for the redirection or dismiss the browser instead
-          setTimeout(() => resolve(result), options.waitForRedirectDelay);
-        });
+      open(startUrl, options).then(function(result) {
+        return _checkResultAndReturnUrl(returnUrl, result);
       })
     ]);
   } finally {
@@ -170,6 +164,25 @@ function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
     };
 
     Linking.addEventListener('url', _redirectHandler);
+  });
+}
+
+function _checkResultAndReturnUrl(
+  returnUrl: string,
+  result: RedirectResult
+): Promise<RedirectResult> {
+  return new Promise(function(resolve) {
+    Linking.getInitialURL()
+      .then(function(url) {
+        if (url && url.startsWith(returnUrl)) {
+          resolve({ url: url, type: 'success' });
+        } else {
+          resolve(result);
+        }
+      })
+      .catch(function() {
+        resolve(result);
+      });
   });
 }
 
