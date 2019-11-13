@@ -45,7 +45,9 @@
     "@react-native-community/eslint-config": "0.0.5",
     "babel-core": "^6.26.3",
     "eslint": "^6.0.1",
-    "flow-bin": "^0.102.0"
+    "flow-bin": "^0.102.0",
+    "react": "16.8.6",
+    "react-native": "0.60.0"
   },
   "collective": {
     "type": "opencollective",
