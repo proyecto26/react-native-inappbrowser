@@ -1,6 +1,6 @@
 {
   "name": "react-native-inappbrowser-reborn",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "InAppBrowser for React Native",
   "main": "index.js",
   "files": [
@@ -24,11 +24,22 @@
   },
   "keywords": [
     "react-native",
-    "in",
-    "app",
-    "browser",
-    "inappbrowser",
-    "in-app-browser"
+    "React Native",
+		"JavaScript",
+		"Android",
+		"iOS",
+		"browser",
+		"InAppBrowser",
+		"in-app-browser",
+		"InAppBrowser",
+		"Chrome",
+		"Safari",
+		"Chrome Custom Tabs",
+		"SafariServices",
+		"AuthenticationServices",
+		"SFSafariViewController",
+		"CustomTabsIntent",
+		"ChromeTabsManagerActivity"
   ],
   "author": "Juan David Nicholls Cardona",
   "homepage": "https://github.com/proyecto26/react-native-inappbrowser",
