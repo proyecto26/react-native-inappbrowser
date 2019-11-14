@@ -22,6 +22,14 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.3.1] - 2019-11-13
+
+### Fixed
+- Exclude unnecessary file and folders from release distribution by [@SaeedZhiany](https://github.com/SaeedZhiany) ([#114](https://github.com/proyecto26/react-native-inappbrowser/pull/114)).
+- Update `.gitignore` to clean unnecessary files by [@friederbluemle](https://github.com/friederbluemle) ([#115](https://github.com/proyecto26/react-native-inappbrowser/pull/115)).
+- Use `yarn` instead of `npm` cli by [@friederbluemle](https://github.com/friederbluemle) ([#116](https://github.com/proyecto26/react-native-inappbrowser/pull/116)).
+- Update dev dependencies by [@friederbluemle](https://github.com/friederbluemle) ([#117](https://github.com/proyecto26/react-native-inappbrowser/pull/117)).
+
 ## [3.3.0] - 2019-11-12
 
 ### Fixed
@@ -121,7 +129,8 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.0...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.1...HEAD
+[3.3.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.0...v3.3.1
 [3.3.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.2.0...v3.3.0
 [3.2.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.0.1...v3.1.0
