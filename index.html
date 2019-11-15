@@ -54,7 +54,7 @@
           var query = window.location.search.substring(1);
           var qs = parse_query_string(query);
           if (qs.redirect_url) {
-            var link = qs.redirect_url + '?code=1234';
+            var link = qs.redirect_url + '?code=' + new Date().getTime();
             var buttonRedirect = document.createElement('a');
             buttonRedirect.setAttribute('id', 'redirect');
             buttonRedirect.setAttribute('href', link);
