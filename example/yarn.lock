@@ -5187,7 +5187,7 @@ react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   integrity sha512-gbBVYR2p8mnriqAwWx9LbuUrShnAuSCNnuPGyc7GJrMVQtPDAh8iLpv7FRuMPFb56KkaVZIYSz1PrjI9q0QPCw==
 
 "react-native-inappbrowser-reborn@file:..":
-  version "3.3.0"
+  version "3.3.1"
   dependencies:
     invariant "^2.2.4"
     opencollective-postinstall "^2.0.2"

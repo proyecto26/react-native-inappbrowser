@@ -22,6 +22,10 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+### Fixed
+- Validate if the **type** of the auth result is different to `cancel` before to check the url of the last redirection from **Android**.
+- Fixed issue getting the result of the auth redirection by using `AppState` to detect **Android** Activity `OnResume` event once.
+
 ## [3.3.1] - 2019-11-13
 
 ### Fixed
