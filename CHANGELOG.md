@@ -22,6 +22,12 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.3.2] - 2019-11-15
+
+### Fixed
+- Validate if the **type** of the auth result is different to `cancel` before to check the url of the last redirection from **Android**.
+- Fixed issue getting the result of the auth redirection by using `AppState` to detect **Android** Activity `OnResume` event once.
+
 ## [3.3.1] - 2019-11-13
 
 ### Fixed
@@ -129,7 +135,8 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.1...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.2...HEAD
+[3.3.2]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.1...v3.3.2
 [3.3.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.0...v3.3.1
 [3.3.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.2.0...v3.3.0
 [3.2.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.1.0...v3.2.0

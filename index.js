@@ -1,7 +1,13 @@
 // @flow
 
 import invariant from 'invariant';
-import { Linking, NativeModules, Platform, processColor } from 'react-native';
+import {
+  Linking,
+  NativeModules,
+  Platform,
+  processColor,
+  AppState
+} from 'react-native';
 
 const { RNInAppBrowser } = NativeModules;
 
@@ -66,28 +72,21 @@ async function open(
   url: string,
   options: InAppBrowserOptions = {}
 ): Promise<BrowserResult> {
-  const {
-    animated,
-    readerMode,
-    modalEnabled,
-    dismissButtonStyle,
-    enableBarCollapsing,
-    preferredBarTintColor,
-    preferredControlTintColor,
-    ...optionalOptions
-  } = options;
   const inAppBrowserOptions = {
-    ...optionalOptions,
+    ...options,
     url,
-    dismissButtonStyle: dismissButtonStyle || 'close',
-    readerMode: !!readerMode,
-    animated: animated !== undefined ? animated : true,
-    modalEnabled: modalEnabled !== undefined ? modalEnabled : true,
-    enableBarCollapsing: !!enableBarCollapsing,
+    dismissButtonStyle: options.dismissButtonStyle || 'close',
+    readerMode: !!options.readerMode,
+    animated: options.animated !== undefined ? options.animated : true,
+    modalEnabled:
+      options.modalEnabled !== undefined ? options.modalEnabled : true,
+    enableBarCollapsing: !!options.enableBarCollapsing,
     preferredBarTintColor:
-      preferredBarTintColor && processColor(preferredBarTintColor),
+      options.preferredBarTintColor &&
+      processColor(options.preferredBarTintColor),
     preferredControlTintColor:
-      preferredControlTintColor && processColor(preferredControlTintColor)
+      options.preferredControlTintColor &&
+      processColor(options.preferredControlTintColor)
   };
   return RNInAppBrowser.open(inAppBrowserOptions);
 }
@@ -169,20 +168,32 @@ function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
 
 function _checkResultAndReturnUrl(
   returnUrl: string,
-  result: RedirectResult
-): Promise<RedirectResult> {
+  result: AuthSessionResult
+): Promise<AuthSessionResult> {
   return new Promise(function(resolve) {
-    Linking.getInitialURL()
-      .then(function(url) {
-        if (url && url.startsWith(returnUrl)) {
-          resolve({ url: url, type: 'success' });
-        } else {
-          resolve(result);
+    if (Platform.OS === 'android' && result.type !== 'cancel') {
+      /**
+       * Detect Android Activity OnResume event once
+       */
+      const _handleAppStateChange = async nextAppState => {
+        if (nextAppState === 'active') {
+          try {
+            const url = await Linking.getInitialURL();
+            if (url && url.startsWith(returnUrl)) {
+              resolve({ url, type: 'success' });
+            } else {
+              resolve(result);
+            }
+          } catch (error) {
+            resolve(result);
+          }
+          AppState.removeEventListener('change', _handleAppStateChange);
         }
-      })
-      .catch(function() {
-        resolve(result);
-      });
+      };
+      AppState.addEventListener('change', _handleAppStateChange);
+    } else {
+      resolve(result);
+    }
   });
 }
 

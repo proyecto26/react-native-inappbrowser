@@ -1,6 +1,6 @@
 {
   "name": "react-native-inappbrowser-reborn",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "description": "InAppBrowser for React Native",
   "main": "index.js",
   "files": [
@@ -56,8 +56,7 @@
     "babel-core": "^6.26.3",
     "eslint": "^6.6.0",
     "flow-bin": "^0.98.0",
-    "react": "^16.8.6",
-    "react-native": "^0.60.0"
+    "react-native": ">=0.56"
   },
   "collective": {
     "type": "opencollective",
