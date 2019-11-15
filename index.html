@@ -54,18 +54,12 @@
           var query = window.location.search.substring(1);
           var qs = parse_query_string(query);
           if (qs.redirect_url) {
-            var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
             var link = qs.redirect_url + '?code=1234';
-            if (isChrome) {
-                var buttonRedirection = document.createElement('a');
-                buttonRedirection.setAttribute('href', link);
-                buttonRedirection.innerText = "Press here to redirect";
-                document.body.appendChild(buttonRedirection);
-            } else {
-                setTimeout(function () {
-                    window.location.href = link;
-                }, 800)
-            }
+            var buttonRedirect = document.createElement('a');
+            buttonRedirect.setAttribute('id', 'redirect');
+            buttonRedirect.setAttribute('href', link);
+            buttonRedirect.innerText = "Press here to redirect";
+            document.body.appendChild(buttonRedirect);
           }
           else {
             alert("'redirect_url' query string param is missing :(");
