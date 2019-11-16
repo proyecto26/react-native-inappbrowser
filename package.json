@@ -56,7 +56,8 @@
     "babel-core": "^6.26.3",
     "eslint": "^6.6.0",
     "flow-bin": "^0.98.0",
-    "react-native": ">=0.56"
+    "react": "16.8.6",
+    "react-native": "0.60.0"
   },
   "collective": {
     "type": "opencollective",
