@@ -361,6 +361,10 @@ You can than restore the old bar style after the browser has been dismissed like
   })
 ```
 
+### Authentication
+
+Using in-app browser tabs (like SFAuthenticationSession/ASWebAuthenticationSession and Android Custom Tabs) where available. Embedded user-agents, known as web-views (like UIWebView and WKWebView), are explicitly not supported due to the usability and security reasons documented in [Section 8.12 of RFC 8252](https://tools.ietf.org/html/rfc8252#section-8.12).
+
 ## Credits 👍
 * **Expo:** [WebBrowser](https://docs.expo.io/versions/latest/sdk/webbrowser)
 * **React Native Custom Tabs:** [Chrome Custom Tabs for React Native](https://github.com/droibit/react-native-custom-tabs)
