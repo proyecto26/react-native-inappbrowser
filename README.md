@@ -210,6 +210,35 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
 
 ### Authentication Flow using Deep Linking
 
+Define your app scheme and replace `my-scheme` and `my-host` with your info.
+
+- Enable deep linking (Android) - **[AndroidManifest.xml](https://github.com/proyecto26/react-native-inappbrowser/blob/master/example/android/app/src/main/AndroidManifest.xml#L23)**
+```
+<intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data android:scheme="my-scheme" android:host="my-host" android:pathPrefix="" />
+</intent-filter>
+```
+
+- Enable deep linking (iOS) - **[Info.plist](https://github.com/proyecto26/react-native-inappbrowser/blob/master/example/ios/example/Info.plist#L23)**
+```
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+    <key>CFBundleTypeRole</key>
+    <string>Editor</string>
+    <key>CFBundleURLName</key>
+    <string>my-scheme</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>my-scheme</string>
+    </array>
+  </dict>
+</array>
+```
+
 - utilities.js
 ```javascript
 import { Platform } from 'react-native'
@@ -227,11 +256,12 @@ import { createStackNavigator } from 'react-navigation'
 
 const Main = createStackNavigator(
   {
+    SplashComponent: { screen: SplashComponent },
     LoginComponent: { screen: LoginComponent },
     HomeComponent: { screen: HomeComponent },
-    SplashComponent: { //Redirect users to the Home page if they are authenticated, otherwise to Login page...
-      screen: SplashComponent,
-      path: 'callback/' //Deep linking to get the auth_token
+    CallbackComponent: { //Redirect users to the Home page if they are authenticated, otherwise to Login page...
+      screen: CallbackComponent,
+      path: 'callback/' //Enable Deep linking redirection to get the auth_token
     }
   },
   {
@@ -286,18 +316,39 @@ import { getDeepLink } from './utilities'
 - SplashComponent
 ```javascript
 ...
-  componentWillMount() {
+  async componentDidMount() {
+    // Play Lottie Animation :)
+    
+    // Validate the stored access token (Maybe with a request)
+    // Redirect the user to the Home page if the token is still valid
+    // Otherwise redirect to the Login page
+  }
+...
+```
+
+- CallbackComponent
+```javascript
+...
+  async componentDidMount() {
+    // Play Lottie Animation :)
+    try {
+      await this.loadUserInfo()
+      // Redirect to the Home page
+    } catch (error) {
+      // Show error and redirect the user to the Login page
+    }
+  }
+  
+  async loadUserInfo() {
     const { navigation } = this.props
     const { state: { params } } = navigation
-    const { access_token } = params || {}
+    const { code, error } = params || {}
 
-    if (access_token) {
-      // Opened by deep linking, the user is authenticated
-      // Redirect to the Home page
+    if (code) {
+      // Get and Save the access token request, user info...
     }
     else {
-      // Detect if the stored token is still valid
-      // And redirect the user to Home or Login page
+      return Promise.reject(new Error(error))
     }
   }
 ...
