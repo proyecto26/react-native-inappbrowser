@@ -6,7 +6,8 @@ import {
   NativeModules,
   Platform,
   processColor,
-  AppState
+  AppState,
+  AppStateStatus
 } from 'react-native';
 
 const { RNInAppBrowser } = NativeModules;
@@ -157,7 +158,7 @@ async function _openAuthSessionPolyfillAsync(
 function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
   return new Promise(resolve => {
     _redirectHandler = (event: RedirectEvent) => {
-      if (event.url.startsWith(returnUrl)) {
+      if (event.url && event.url.startsWith(returnUrl)) {
         resolve({ url: event.url, type: 'success' });
       }
     };
@@ -166,35 +167,38 @@ function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
   });
 }
 
-function _checkResultAndReturnUrl(
+/**
+ * Detect Android Activity `OnResume` event once
+ */
+function AppStateActiveOnce(): Promise<void> {
+  return new Promise(function(resolve) {
+    function _handleAppStateChange(nextAppState: AppStateStatus) {
+      if (nextAppState === 'active') {
+        AppState.removeEventListener('change', _handleAppStateChange);
+        resolve();
+      }
+    }
+    AppState.addEventListener('change', _handleAppStateChange);
+  });
+}
+
+async function _checkResultAndReturnUrl(
   returnUrl: string,
   result: AuthSessionResult
 ): Promise<AuthSessionResult> {
-  return new Promise(function(resolve) {
-    if (Platform.OS === 'android' && result.type !== 'cancel') {
-      /**
-       * Detect Android Activity OnResume event once
-       */
-      const _handleAppStateChange = async nextAppState => {
-        if (nextAppState === 'active') {
-          try {
-            const url = await Linking.getInitialURL();
-            if (url && url.startsWith(returnUrl)) {
-              resolve({ url, type: 'success' });
-            } else {
-              resolve(result);
-            }
-          } catch (error) {
-            resolve(result);
-          }
-          AppState.removeEventListener('change', _handleAppStateChange);
-        }
-      };
-      AppState.addEventListener('change', _handleAppStateChange);
-    } else {
-      resolve(result);
+  if (Platform.OS === 'android' && result.type !== 'cancel') {
+    try {
+      await AppStateActiveOnce();
+      const url = await Linking.getInitialURL();
+      return url && url.startsWith(returnUrl)
+        ? { url, type: 'success' }
+        : result;
+    } catch {
+      return result;
     }
-  });
+  } else {
+    return result;
+  }
 }
 
 async function isAvailable(): Promise<boolean> {
