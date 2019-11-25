@@ -17,10 +17,10 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
-#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_13_0) && __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_13_0
-@interface RNInAppBrowser () <SFSafariViewControllerDelegate, UIAdaptivePresentationControllerDelegate>
-#else
+#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_13_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
 @interface RNInAppBrowser () <SFSafariViewControllerDelegate, ASWebAuthenticationPresentationContextProviding, UIAdaptivePresentationControllerDelegate>
+#else
+@interface RNInAppBrowser () <SFSafariViewControllerDelegate, UIAdaptivePresentationControllerDelegate>
 #endif
 @end
 #pragma clang diagnostic pop
