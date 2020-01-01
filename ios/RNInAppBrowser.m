@@ -172,6 +172,9 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
       safariVC.preferredControlTintColor = [RCTConvert UIColor:preferredControlTintColor];
     }
   }
+  // To disable "Swipe to dismiss" gesture which sometimes causes a bug where `safariViewControllerDidFinish` 
+  // is not called.
+  safariVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
 
   UIViewController *ctrl = RCTPresentedViewController();
   if (modalEnabled) {
