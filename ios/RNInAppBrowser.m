@@ -172,9 +172,6 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
       safariVC.preferredControlTintColor = [RCTConvert UIColor:preferredControlTintColor];
     }
   }
-  // To disable "Swipe to dismiss" gesture which sometimes causes a bug where `safariViewControllerDidFinish` 
-  // is not called.
-  safariVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
 
   UIViewController *ctrl = RCTPresentedViewController();
   if (modalEnabled) {
@@ -182,6 +179,9 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
     UINavigationController *safariHackVC = [[UINavigationController alloc] initWithRootViewController:safariVC];
     [safariHackVC setNavigationBarHidden:true animated:false];
 
+    // To disable "Swipe to dismiss" gesture which sometimes causes a bug where `safariViewControllerDidFinish` 
+    // is not called.
+    safariVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     safariHackVC.modalPresentationStyle = [self getPresentationStyle: modalPresentationStyle];
     if(animated) {
       safariHackVC.modalTransitionStyle = [self getTransitionStyle: modalTransitionStyle];
