@@ -22,6 +22,16 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.3.4] - 2020-01-07
+
+### Fixed
+- Disable swipe to dismiss gesture for modal by [@frankyjuang](https://github.com/frankyjuang) ([#134](https://github.com/proyecto26/react-native-inappbrowser/pull/134)).
+
+## [3.3.3] - 2019-11-25
+
+### Fixed
+- Remove build warnings with **iOS** 13 using [Pragmas](https://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
+
 ## [3.3.2] - 2019-11-15
 
 ### Fixed
@@ -135,7 +145,9 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.2...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.4...HEAD
+[3.3.4]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.3...v3.3.4
+[3.3.3]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.2...v3.3.3
 [3.3.2]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.1...v3.3.2
 [3.3.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.0...v3.3.1
 [3.3.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.2.0...v3.3.0

@@ -6,6 +6,3 @@
 
 @interface RNInAppBrowser : NSObject <RCTBridgeModule>
 @end
-  
-@interface ModalSafariViewController : UINavigationController <UINavigationControllerDelegate>
-@end

@@ -15,50 +15,15 @@
 #import <AuthenticationServices/AuthenticationServices.h>
 #endif
 
-#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_13_0
-@interface RNInAppBrowser () <SFSafariViewControllerDelegate, UIAdaptivePresentationControllerDelegate>
-@end
-#else
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_13_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
 @interface RNInAppBrowser () <SFSafariViewControllerDelegate, ASWebAuthenticationPresentationContextProviding, UIAdaptivePresentationControllerDelegate>
-@end
-#endif
-
-@interface ModalSafariViewController () <UINavigationControllerDelegate>
-@end
-
-@implementation ModalSafariViewController
-
-- (void)viewDidLoad {
-  [super viewDidLoad];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-  [super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotate {
-  return YES;
-}
-
-#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED < 90000
-- (NSUInteger)supportedInterfaceOrientations
 #else
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+@interface RNInAppBrowser () <SFSafariViewControllerDelegate, UIAdaptivePresentationControllerDelegate>
 #endif
-{
-  return UIInterfaceOrientationMaskAll;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-  UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-  return orientation;
-}
-
 @end
+#pragma clang diagnostic pop
 
 NSString *RNInAppBrowserErrorCode = @"RNInAppBrowser";
 
@@ -66,12 +31,12 @@ NSString *RNInAppBrowserErrorCode = @"RNInAppBrowser";
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
-static SFAuthenticationSession *sfAuthSession API_AVAILABLE(ios(11.0)) API_DEPRECATED("Use ASWebAuthenticationSession instead", ios(11.0, 12.0));
+static SFAuthenticationSession *authSession API_AVAILABLE(ios(11.0)) API_DEPRECATED("Use ASWebAuthenticationSession instead", ios(11.0, 12.0));
 #pragma clang diagnostic pop
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
-static ASWebAuthenticationSession *authSession API_AVAILABLE(ios(12.0));
+static ASWebAuthenticationSession *webAuthSession API_AVAILABLE(ios(12.0));
 #pragma clang diagnostic pop
 
 static SFSafariViewController *safariVC;
@@ -123,27 +88,29 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
     };
 
     if (@available(iOS 12.0, *)) {
-      authSession = [[ASWebAuthenticationSession alloc]
+      webAuthSession = [[ASWebAuthenticationSession alloc]
         initWithURL:url
         callbackURLScheme:redirectURL
         completionHandler:completionHandler];
     } else {
-      sfAuthSession = [[SFAuthenticationSession alloc]
+      authSession = [[SFAuthenticationSession alloc]
         initWithURL:url
         callbackURLScheme:redirectURL
         completionHandler:completionHandler];
     }
 
-#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_13_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
     if (@available(iOS 13.0, *)) {
-      authSession.presentationContextProvider = self;
+      webAuthSession.presentationContextProvider = self;
     }
 #endif
-
+#pragma clang diagnostic pop
     if (@available(iOS 12.0, *)) {
-      [authSession start];
+      [webAuthSession start];
     } else {
-      [sfAuthSession start];
+      [authSession start];
     }
   } else {
     resolve(@{
@@ -209,19 +176,25 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
   UIViewController *ctrl = RCTPresentedViewController();
   if (modalEnabled) {
     // This is a hack to present the SafariViewController modally
-    UINavigationController *safariHackVC = [[ModalSafariViewController alloc] initWithRootViewController:safariVC];
+    UINavigationController *safariHackVC = [[UINavigationController alloc] initWithRootViewController:safariVC];
     [safariHackVC setNavigationBarHidden:true animated:false];
 
+    // To disable "Swipe to dismiss" gesture which sometimes causes a bug where `safariViewControllerDidFinish` 
+    // is not called.
+    safariVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     safariHackVC.modalPresentationStyle = [self getPresentationStyle: modalPresentationStyle];
     if(animated) {
       safariHackVC.modalTransitionStyle = [self getTransitionStyle: modalTransitionStyle];
     }
     safariHackVC.presentationController.delegate = self;
-#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_13_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
     if (@available(iOS 13.0, *)) {
       [safariHackVC setModalInPresentation:TRUE];
     }
 #endif
+#pragma clang diagnostic pop
     [ctrl presentViewController:safariHackVC animated:animated completion:nil];
   }
   else {
@@ -268,9 +241,9 @@ RCT_EXPORT_METHOD(closeAuth) {
       [self flowDidFinish];
     }
     if (@available(iOS 12.0, *)) {
-      [authSession cancel];
+      [webAuthSession cancel];
     } else {
-      [sfAuthSession cancel];
+      [authSession cancel];
     }
   } else {
     [self close];
@@ -334,12 +307,15 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
     @"overCurrentContext": @(UIModalPresentationOverCurrentContext),
     @"popover": @(UIModalPresentationPopover)
   };
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
   UIModalPresentationStyle modalPresentationStyle = UIModalPresentationFullScreen;
-#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
+#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_13_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
   if (@available(iOS 13.0, *)) {
     modalPresentationStyle = UIModalPresentationAutomatic;
   }
 #endif
+#pragma clang diagnostic pop
   NSNumber *style = [styles objectForKey: styleKey];
   if (style != nil) {
     modalPresentationStyle = [style intValue];
