@@ -92,6 +92,10 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
         initWithURL:url
         callbackURLScheme:redirectURL
         completionHandler:completionHandler];
+      
+      if (@available(iOS 13.0, *)) {
+        webAuthSession.prefersEphemeralWebBrowserSession = true;
+      }
     } else {
       authSession = [[SFAuthenticationSession alloc]
         initWithURL:url
