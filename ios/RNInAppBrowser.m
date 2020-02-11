@@ -59,6 +59,7 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
                   redirectURL:(NSString *)redirectURL
+                  options:(NSDictionary *)options
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -66,6 +67,8 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
     return;
   }
 
+  BOOL ephemeralWebSession = [options[@"ephemeralWebSession"] boolValue];
+    
   if (@available(iOS 11, *)) {
     NSURL *url = [[NSURL alloc] initWithString: authURL];
     __weak typeof(self) weakSelf = self;
@@ -93,7 +96,8 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
         callbackURLScheme:redirectURL
         completionHandler:completionHandler];
       
-      if (@available(iOS 13.0, *)) {
+      if (@available(iOS 13.0, *) && ephemeralWebSession) {
+        //Prevent re-use cookie from last auth session
         webAuthSession.prefersEphemeralWebBrowserSession = true;
       }
     } else {

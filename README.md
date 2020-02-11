@@ -144,6 +144,7 @@ Property       | Description
 `modalTransitionStyle` (String)      | The transition style to use when presenting the view controller. [`coverVertical`/`flipHorizontal`/`crossDissolve`/`partialCurl`]
 `modalEnabled` (Boolean)             | Present the **SafariViewController** modally or as push instead. [`true`/`false`]
 `enableBarCollapsing` (Boolean)      | Determines whether the browser's tool bars will collapse or not. [`true`/`false`]
+`ephemeralWebSession` (Boolean)      | Prevent re-use cookies of previous session (openAuth only) [`true`/`false`]
 
 ### Android Options
 Property       | Description
@@ -296,6 +297,7 @@ import { getDeepLink } from './utilities'
         InAppBrowser.openAuth(url, deepLink, {
           // iOS Properties
           dismissButtonStyle: 'cancel',
+          ephemeralWebSession: false,
           // Android Properties
           showTitle: false,
           enableUrlBarHiding: true,
