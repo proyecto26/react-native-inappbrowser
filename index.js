@@ -48,7 +48,8 @@ type InAppBrowseriOSOptions = {
     | 'crossDissolve'
     | 'partialCurl',
   modalEnabled?: boolean,
-  enableBarCollapsing?: boolean
+  enableBarCollapsing?: boolean,
+  ephemeralWebSession?: boolean
 };
 
 type InAppBrowserAndroidOptions = {
@@ -103,10 +104,15 @@ async function openAuth(
   redirectUrl: string,
   options: InAppBrowserOptions = {}
 ): Promise<AuthSessionResult> {
+  const inAppBrowserOptions = {
+    ...options,
+    ephemeralWebSession: options.ephemeralWebSession !== undefined ? options.ephemeralWebSession : false,
+  };
+
   if (_authSessionIsNativelySupported()) {
-    return RNInAppBrowser.openAuth(url, redirectUrl);
+    return RNInAppBrowser.openAuth(url, redirectUrl, inAppBrowserOptions);
   } else {
-    return _openAuthSessionPolyfillAsync(url, redirectUrl, options);
+    return _openAuthSessionPolyfillAsync(url, redirectUrl, inAppBrowserOptions);
   }
 }
 
