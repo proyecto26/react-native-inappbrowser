@@ -105,7 +105,7 @@ async function openAuth(
 ): Promise<AuthSessionResult> {
   const inAppBrowserOptions = {
     ...options,
-    animated: options.ephemeralWebSession !== undefined ? options.ephemeralWebSession : false,
+    ephemeralWebSession: options.ephemeralWebSession !== undefined ? options.ephemeralWebSession : false,
   };
 
   if (_authSessionIsNativelySupported()) {
