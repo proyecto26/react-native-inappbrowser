@@ -35,7 +35,8 @@ declare module 'react-native-inappbrowser-reborn' {
       | 'crossDissolve'
       | 'partialCurl',
     modalEnabled?: boolean,
-    enableBarCollapsing?: boolean
+    enableBarCollapsing?: boolean,
+    ephemeralWebSession?: boolean
   }
 
   type InAppBrowserAndroidOptions = {

@@ -48,7 +48,8 @@ type InAppBrowseriOSOptions = {
     | 'crossDissolve'
     | 'partialCurl',
   modalEnabled?: boolean,
-  enableBarCollapsing?: boolean
+  enableBarCollapsing?: boolean,
+  ephemeralWebSession?: boolean
 };
 
 type InAppBrowserAndroidOptions = {
