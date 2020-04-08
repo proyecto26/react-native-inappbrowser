@@ -95,11 +95,6 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
         initWithURL:url
         callbackURLScheme:redirectURL
         completionHandler:completionHandler];
-      
-      if (@available(iOS 13.0, *) && ephemeralWebSession) {
-        //Prevent re-use cookie from last auth session
-        webAuthSession.prefersEphemeralWebBrowserSession = true;
-      }
     } else {
       authSession = [[SFAuthenticationSession alloc]
         initWithURL:url
@@ -111,6 +106,10 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
 #pragma clang diagnostic ignored "-Wpartial-availability"
 #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_13_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
     if (@available(iOS 13.0, *)) {
+      if (ephemeralWebSession) {
+        //Prevent re-use cookie from last auth session
+        webAuthSession.prefersEphemeralWebBrowserSession = true;
+      }
       webAuthSession.presentationContextProvider = self;
     }
 #endif

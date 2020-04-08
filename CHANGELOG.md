@@ -22,6 +22,14 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.4.0] - 2020-04-08
+
+### Added
+- Added `ephemeralWebSession` option to supports `ephemeralWebBrowserSession` on iOS 13 by [@avenner](https://github.com/avenner) ([#141](https://github.com/proyecto26/react-native-inappbrowser/pull/141)).
+
+### Fixed
+- Remove listener of `openAuth` when `closeAuth` is called.
+
 ## [3.3.4] - 2020-01-07
 
 ### Fixed

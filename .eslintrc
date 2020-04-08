@@ -1,7 +1,7 @@
 {
   "extends": "@react-native-community",
   "rules": {
-    "comma-dangle": ["error", {
+    "comma-dangle": ["error", "always-multiline", {
       "arrays": "never",
       "objects": "never",
       "imports": "never",

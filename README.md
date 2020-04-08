@@ -296,15 +296,16 @@ import { getDeepLink } from './utilities'
       if (await InAppBrowser.isAvailable()) {
         InAppBrowser.openAuth(url, deepLink, {
           // iOS Properties
-          dismissButtonStyle: 'cancel',
           ephemeralWebSession: false,
           // Android Properties
           showTitle: false,
           enableUrlBarHiding: true,
-          enableDefaultShare: true
+          enableDefaultShare: false
         }).then((response) => {
-          if (response.type === 'success' &&
-            response.url) {
+          if (
+            response.type === 'success' &&
+            response.url
+          ) {
             Linking.openURL(response.url)
           }
         })
