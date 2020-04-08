@@ -153,7 +153,8 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.4...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.4.0...HEAD
+[3.4.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.4...v3.4.0
 [3.3.4]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.3...v3.3.4
 [3.3.3]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.2...v3.3.3
 [3.3.2]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.1...v3.3.2
