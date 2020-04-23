@@ -464,7 +464,7 @@ Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
 
 Available as part of the Tidelift Subscription.
 
-The maintainers of react-native-inappbrowser and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. [Learn more.](https://tidelift.com/subscription/pkg/npm-react-native-inappbrowser-reborn?utm_source=npm-react-native-inappbrowser-reborn&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
+The maintainers of InAppBrowser for React Native and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. [Learn more.](https://tidelift.com/subscription/pkg/npm-react-native-inappbrowser-reborn?utm_source=npm-react-native-inappbrowser-reborn&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
 
 ## Security contact information 🚨
 To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
