@@ -1,11 +1,13 @@
 package com.proyecto26.inappbrowser;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -15,6 +17,8 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class ChromeTabsManagerActivity extends Activity {
   static final String KEY_BROWSER_INTENT = "browserIntent";
+  static final String CHROME_PACKAGE_NAME = "com.android.chrome";
+  static final String CHROME_CLASS_NAME = "com.google.android.apps.chrome.IntentDispatcher";
 
   private boolean mOpened = false;
 
@@ -44,7 +48,11 @@ public class ChromeTabsManagerActivity extends Activity {
     if (getIntent().hasExtra(KEY_BROWSER_INTENT)) {
       Intent browserIntent = getIntent().getParcelableExtra(KEY_BROWSER_INTENT);
       browserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-      startActivity(browserIntent);
+
+      ComponentName name = browserIntent.resolveActivity(getPackageManager());
+      if (name.getPackageName().equals(CHROME_PACKAGE_NAME) && name.getClassName().equals(CHROME_CLASS_NAME)){
+        startActivity(browserIntent);
+      }
     } else {
       finish();
     }
