@@ -19,6 +19,10 @@ public class ChromeTabsManagerActivity extends Activity {
   static final String KEY_BROWSER_INTENT = "browserIntent";
   static final String CHROME_PACKAGE_NAME = "com.android.chrome";
   static final String CHROME_CLASS_NAME = "com.google.android.apps.chrome.IntentDispatcher";
+  static final String FIREFOX_PACKAGE_NAME = "org.mozilla.firefox";
+  static final String FIREFOX_CLASS_NAME = "org.mozilla.firefox.App";
+  static final String YBROWSER_PACKAGE_NAME = "jp.co.yahoo.android.ybrowser";
+  static final String YBROWSER_CLASS_NAME = "jp.co.yahoo.android.ybrowser.YBrowserBrowserActivity";
 
   private boolean mOpened = false;
 
@@ -50,7 +54,9 @@ public class ChromeTabsManagerActivity extends Activity {
       browserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
       ComponentName name = browserIntent.resolveActivity(getPackageManager());
-      if (name.getPackageName().equals(CHROME_PACKAGE_NAME) && name.getClassName().equals(CHROME_CLASS_NAME)){
+      if (name.getPackageName().equals(CHROME_PACKAGE_NAME) && name.getClassName().equals(CHROME_CLASS_NAME)
+              || name.getPackageName().equals(FIREFOX_PACKAGE_NAME) && name.getClassName().equals(FIREFOX_CLASS_NAME)
+              || name.getPackageName().equals(YBROWSER_PACKAGE_NAME) && name.getClassName().equals(YBROWSER_CLASS_NAME)) {
         startActivity(browserIntent);
       }
     } else {
