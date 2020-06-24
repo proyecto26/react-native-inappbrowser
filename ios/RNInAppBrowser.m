@@ -286,9 +286,11 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
  */
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
 {
-  redirectResolve(@{
-    @"type": @"cancel",
-  });
+  if (redirectResolve) {
+    redirectResolve(@{
+      @"type": @"cancel",
+    });
+  }
   [self flowDidFinish];
   if (!animated) {
     [self dismissWithoutAnimation:controller];
