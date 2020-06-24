@@ -126,10 +126,10 @@ Linking the package manually is not required anymore with [Autolinking](https://
 Methods       | Action
 ------------- | ------
 `open`        | Opens the url with Safari in a modal on iOS using **SFSafariViewController**, and Chrome in a new custom tab on Android. On iOS, the modal Safari will not share cookies with the system Safari.
-`close`       | Dismisses the system's presented web browser
-`openAuth`    | Opens the url with Safari in a modal on iOS using **SFAuthenticationSession/ASWebAuthenticationSession**, and Chrome in a new custom tab on Android. On iOS, the user will be asked whether to allow the app to authenticate using the given url.
-`closeAuth`   | Dismisses the current authentication session
-`isAvailable` | Detect if the device supports this plugin
+`close`       | Dismisses the system's presented web browser.
+`openAuth`    | Opens the url with Safari in a modal on iOS using **SFAuthenticationSession/ASWebAuthenticationSession**, and Chrome in a new custom tab on Android. On iOS, the user will be asked whether to allow the app to authenticate using the given url **(OAuth flow with deep linking redirection)**.
+`closeAuth`   | Dismisses the current authentication session.
+`isAvailable` | Detect if the device supports this plugin.
 
 ### iOS Options
 
@@ -140,9 +140,11 @@ Property       | Description
 `preferredControlTintColor` (String) | The color to tint the control buttons on the navigation bar and the toolbar. [`gray`/`#808080`]
 `readerMode` (Boolean)               | A value that specifies whether Safari should enter Reader mode, if it is available. [`true`/`false`]
 `animated` (Boolean)                 | Animate the presentation. [`true`/`false`]
-`modalPresentationStyle` (String)    | The presentation style for modally presented view controllers. [`none`/`fullScreen`/`pageSheet`/`formSheet`/`currentContext`/`custom`/`overFullScreen`/`overCurrentContext`/`popover`]
+`modalPresentationStyle` (String)    | The presentation style for modally presented view controllers. [`automatic`/`none`/`fullScreen`/`pageSheet`/`formSheet`/`currentContext`/`custom`/`overFullScreen`/`overCurrentContext`/`popover`]
 `modalTransitionStyle` (String)      | The transition style to use when presenting the view controller. [`coverVertical`/`flipHorizontal`/`crossDissolve`/`partialCurl`]
 `modalEnabled` (Boolean)             | Present the **SafariViewController** modally or as push instead. [`true`/`false`]
+`enableBarCollapsing` (Boolean)      | Determines whether the browser's tool bars will collapse or not. [`true`/`false`]
+`ephemeralWebSession` (Boolean)      | Prevent re-use cookies of previous session (openAuth only) [`true`/`false`]
 
 ### Android Options
 Property       | Description
@@ -155,7 +157,6 @@ Property       | Description
 `animations` (Object)             | Sets the start and exit animations. [`{ startEnter, startExit, endEnter, endExit }`]
 `headers` (Object)                | The data are key/value pairs, they will be sent in the HTTP request headers for the provided url. [`{ 'Authorization': 'Bearer ...' }`]
 `forceCloseOnRedirection` (Boolean) | Open Custom Tab in a new task to avoid issues redirecting back to app scheme. [`true`/`false`]
-`waitForRedirectDelay` (Number)   | Sets a delay for wait the redirection using `openAuth` method.
 
 ### Demo
 
@@ -178,6 +179,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
           modalPresentationStyle: 'overFullScreen',
           modalTransitionStyle: 'partialCurl',
           modalEnabled: true,
+          enableBarCollapsing: false,
           // Android Properties
           showTitle: true,
           toolbarColor: '#6200EE',
@@ -195,8 +197,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
           },
           headers: {
             'my-custom-header': 'my custom header value'
-          },
-          waitForRedirectDelay: 0
+          }
         })
         Alert.alert(JSON.stringify(result))
       }
@@ -209,6 +210,36 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
 ```
 
 ### Authentication Flow using Deep Linking
+
+In order to redirect back to your application from a web browser, you must specify a unique URI to your app. To do this,
+define your app scheme and replace `my-scheme` and `my-host` with your info.
+
+- Enable deep linking (Android) - **[AndroidManifest.xml](https://github.com/proyecto26/react-native-inappbrowser/blob/master/example/android/app/src/main/AndroidManifest.xml#L23)**
+```
+<intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data android:scheme="my-scheme" android:host="my-host" android:pathPrefix="" />
+</intent-filter>
+```
+
+- Enable deep linking (iOS) - **[Info.plist](https://github.com/proyecto26/react-native-inappbrowser/blob/master/example/ios/example/Info.plist#L23)**
+```
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+    <key>CFBundleTypeRole</key>
+    <string>Editor</string>
+    <key>CFBundleURLName</key>
+    <string>my-scheme</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>my-scheme</string>
+    </array>
+  </dict>
+</array>
+```
 
 - utilities.js
 ```javascript
@@ -227,11 +258,12 @@ import { createStackNavigator } from 'react-navigation'
 
 const Main = createStackNavigator(
   {
+    SplashComponent: { screen: SplashComponent },
     LoginComponent: { screen: LoginComponent },
     HomeComponent: { screen: HomeComponent },
-    SplashComponent: { //Redirect users to the Home page if they are authenticated, otherwise to Login page...
-      screen: SplashComponent,
-      path: 'callback/' //Deep linking to get the auth_token
+    CallbackComponent: { //Redirect users to the Home page if they are authenticated, otherwise to Login page...
+      screen: CallbackComponent,
+      path: 'callback/' //Enable Deep linking redirection to get the auth_token
     }
   },
   {
@@ -264,15 +296,16 @@ import { getDeepLink } from './utilities'
       if (await InAppBrowser.isAvailable()) {
         InAppBrowser.openAuth(url, deepLink, {
           // iOS Properties
-          dismissButtonStyle: 'cancel',
+          ephemeralWebSession: false,
           // Android Properties
           showTitle: false,
           enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          waitForRedirectDelay: 1000
+          enableDefaultShare: false
         }).then((response) => {
-          if (response.type === 'success' &&
-            response.url) {
+          if (
+            response.type === 'success' &&
+            response.url
+          ) {
             Linking.openURL(response.url)
           }
         })
@@ -287,18 +320,39 @@ import { getDeepLink } from './utilities'
 - SplashComponent
 ```javascript
 ...
-  componentWillMount() {
+  async componentDidMount() {
+    // Play Lottie Animation :)
+    
+    // Validate the stored access token (Maybe with a request)
+    // Redirect the user to the Home page if the token is still valid
+    // Otherwise redirect to the Login page
+  }
+...
+```
+
+- CallbackComponent
+```javascript
+...
+  async componentDidMount() {
+    // Play Lottie Animation :)
+    try {
+      await this.loadUserInfo()
+      // Redirect to the Home page
+    } catch (error) {
+      // Show error and redirect the user to the Login page
+    }
+  }
+  
+  async loadUserInfo() {
     const { navigation } = this.props
     const { state: { params } } = navigation
-    const { access_token } = params || {}
+    const { code, error } = params || {}
 
-    if (access_token) {
-      // Opened by deep linking, the user is authenticated
-      // Redirect to the Home page
+    if (code) {
+      // Get and Save the access token request, user info...
     }
     else {
-      // Detect if the stored token is still valid
-      // And redirect the user to Home or Login page
+      return Promise.reject(new Error(error))
     }
   }
 ...
@@ -362,6 +416,10 @@ You can than restore the old bar style after the browser has been dismissed like
   })
 ```
 
+### Authentication
+
+Using in-app browser tabs (like SFAuthenticationSession/ASWebAuthenticationSession and Android Custom Tabs) where available. Embedded user-agents, known as web-views (like UIWebView and WKWebView), are explicitly not supported due to the usability and security reasons documented in [Section 8.12 of RFC 8252](https://tools.ietf.org/html/rfc8252#section-8.12).
+
 ## Credits 👍
 * **Expo:** [WebBrowser](https://docs.expo.io/versions/latest/sdk/webbrowser)
 * **React Native Custom Tabs:** [Chrome Custom Tabs for React Native](https://github.com/droibit/react-native-custom-tabs)
@@ -401,7 +459,12 @@ Support this project with your organization. Your logo will show up here with a 
 ## Supporting 🍻
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
-[Professionally supported react-native-inappbrowser-reborn is coming soon](https://tidelift.com/subscription/pkg/npm-react-native-inappbrowser-reborn?utm_source=npm-react-native-inappbrowser-reborn&utm_medium=referral&utm_campaign=readme)
+
+## Enterprise 💼
+
+Available as part of the Tidelift Subscription.
+
+The maintainers of InAppBrowser for React Native and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. [Learn more.](https://tidelift.com/subscription/pkg/npm-react-native-inappbrowser-reborn?utm_source=npm-react-native-inappbrowser-reborn&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
 
 ## Security contact information 🚨
 To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.

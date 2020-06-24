@@ -1,12 +1,17 @@
 {
   "name": "react-native-inappbrowser-reborn",
-  "version": "3.1.0",
+  "version": "3.4.0",
   "description": "InAppBrowser for React Native",
   "main": "index.js",
-  "readmeFilename": "README.md",
+  "files": [
+    "android/",
+    "ios/",
+    "index.d.ts",
+    "RNInAppBrowser.podspec"
+  ],
   "scripts": {
+    "flow": "flow check",
     "lint": "eslint index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "opencollective-postinstall || true"
   },
   "typings": "./index.d.ts",
@@ -19,11 +24,22 @@
   },
   "keywords": [
     "react-native",
-    "in",
-    "app",
+    "React Native",
+    "JavaScript",
+    "Android",
+    "iOS",
     "browser",
-    "inappbrowser",
-    "in-app-browser"
+    "InAppBrowser",
+    "in-app-browser",
+    "InAppBrowser",
+    "Chrome",
+    "Safari",
+    "Chrome Custom Tabs",
+    "SafariServices",
+    "AuthenticationServices",
+    "SFSafariViewController",
+    "CustomTabsIntent",
+    "ChromeTabsManagerActivity"
   ],
   "author": "Juan David Nicholls Cardona",
   "homepage": "https://github.com/proyecto26/react-native-inappbrowser",
@@ -36,10 +52,12 @@
     "opencollective-postinstall": "^2.0.2"
   },
   "devDependencies": {
-    "@react-native-community/eslint-config": "0.0.5",
+    "@react-native-community/eslint-config": "1.0.0",
     "babel-core": "^6.26.3",
-    "eslint": "^6.0.1",
-    "flow-bin": "^0.102.0"
+    "eslint": "^6.8.0",
+    "flow-bin": "^0.122.0",
+    "react": "16.11.0",
+    "react-native": "0.62.1"
   },
   "collective": {
     "type": "opencollective",

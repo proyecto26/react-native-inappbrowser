@@ -22,15 +22,63 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.4.0] - 2020-04-08
+
+### Added
+- Added `ephemeralWebSession` option to supports `ephemeralWebBrowserSession` on iOS 13 by [@avenner](https://github.com/avenner) ([#141](https://github.com/proyecto26/react-native-inappbrowser/pull/141)).
+- Add `@ReactModule` annotation by [@janicduplessis](https://github.com/janicduplessis) ([#94](https://github.com/proyecto26/react-native-inappbrowser/pull/94)).
+
+### Fixed
+- Remove listener of `openAuth` when `closeAuth` is called.
+
+## [3.3.4] - 2020-01-07
+
+### Fixed
+- Disable swipe to dismiss gesture for modal by [@frankyjuang](https://github.com/frankyjuang) ([#134](https://github.com/proyecto26/react-native-inappbrowser/pull/134)).
+
+## [3.3.3] - 2019-11-25
+
+### Fixed
+- Remove build warnings with **iOS** 13 using [Pragmas](https://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
+
+## [3.3.2] - 2019-11-15
+
+### Fixed
+- Validate if the **type** of the auth result is different to `cancel` before to check the url of the last redirection from **Android**.
+- Fixed issue getting the result of the auth redirection by using `AppState` to detect **Android** Activity `OnResume` event once.
+
+## [3.3.1] - 2019-11-13
+
+### Fixed
+- Exclude unnecessary file and folders from release distribution by [@SaeedZhiany](https://github.com/SaeedZhiany) ([#114](https://github.com/proyecto26/react-native-inappbrowser/pull/114)).
+- Update `.gitignore` to clean unnecessary files by [@friederbluemle](https://github.com/friederbluemle) ([#115](https://github.com/proyecto26/react-native-inappbrowser/pull/115)).
+- Use `yarn` instead of `npm` cli by [@friederbluemle](https://github.com/friederbluemle) ([#116](https://github.com/proyecto26/react-native-inappbrowser/pull/116)).
+- Update dev dependencies by [@friederbluemle](https://github.com/friederbluemle) ([#117](https://github.com/proyecto26/react-native-inappbrowser/pull/117)).
+
+## [3.3.0] - 2019-11-12
+
+### Fixed
+- Removed `waitForRedirectDelay` option and fixed race condition from **Android** to get the response of the redirection ([#36](https://github.com/proyecto26/react-native-inappbrowser/issues/36))
+- Fixed **Android** Activity issue closing the browser and restoring the state by using `onSaveInstanceState` ([#60](https://github.com/proyecto26/react-native-inappbrowser/issues/60)).
+
+## [3.2.0] - 2019-11-10
+
+### Added
+- Added support for `automatic` modal presentation style from **iOS**.
+- Added `enableBarCollapsing` option to determines whether the browser's tool bars will collapse or not from **iOS**.
+
+### Fixed
+- Fixed Browser crashes on iOS 13 when openAuth is used.
+
 ## [3.1.0] - 2019-09-03
 
 ### Added
-- Add `waitForRedirectDelay` option for **Android** to fix issues dismissing the browser before detecting the redirection with `Linking` ([817f6ec](https://github.com/proyecto26/react-native-inappbrowser/commit/817f6ece140c0f2f84e21a537d5030403e652bc1)).
+- Added `waitForRedirectDelay` option for **Android** to fix issues dismissing the browser before detecting the redirection with `Linking` ([817f6ec](https://github.com/proyecto26/react-native-inappbrowser/commit/817f6ece140c0f2f84e21a537d5030403e652bc1)).
 
 ## [3.0.1] - 2019-08-16
 
 ### Added
-- Add gradle backward-compatibility for Android Support with Jetifier ([#96](https://github.com/proyecto26/react-native-inappbrowser/pull/97)).
+- Added gradle backward-compatibility for Android Support with Jetifier ([#96](https://github.com/proyecto26/react-native-inappbrowser/pull/97)).
 - Added **androidXAnnotation** and **androidXBrowser** properties from **rootProject.ext** for **AndroidX** with backward compatibility using **supportLibVersion** property instead.
 
 ## [3.0.0] - 2019-07-27
@@ -106,7 +154,14 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.1.0...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.4.0...HEAD
+[3.4.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.4...v3.4.0
+[3.3.4]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.3...v3.3.4
+[3.3.3]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.2...v3.3.3
+[3.3.2]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.1...v3.3.2
+[3.3.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.0...v3.3.1
+[3.3.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.2.0...v3.3.0
+[3.2.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.0.1...v3.1.0
 [3.0.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/2.0.4...v3.0.0
