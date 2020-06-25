@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.provider.Browser;
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.regex.Pattern;
+import java.util.List;
 
 public class RNInAppBrowser {
   private final static String ERROR_CODE = "InAppBrowser";
@@ -160,6 +162,12 @@ public class RNInAppBrowser {
 
     currentActivity.startActivity(
         ChromeTabsManagerActivity.createDismissIntent(currentActivity));
+  }
+
+  public void isAvailable(Context context, final Promise promise) {
+    Intent serviceIntent = new Intent("android.support.customtabs.action.CustomTabsService");
+    List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentServices(serviceIntent, 0);
+    promise.resolve(!(resolveInfos == null || resolveInfos.isEmpty()));
   }
 
   @Subscribe
