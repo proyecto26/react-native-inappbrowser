@@ -1,6 +1,6 @@
 {
   "name": "react-native-inappbrowser-reborn",
-  "version": "3.3.4",
+  "version": "3.4.0",
   "description": "InAppBrowser for React Native",
   "main": "index.js",
   "files": [
@@ -52,12 +52,12 @@
     "opencollective-postinstall": "^2.0.2"
   },
   "devDependencies": {
-    "@react-native-community/eslint-config": "0.0.5",
+    "@react-native-community/eslint-config": "1.0.0",
     "babel-core": "^6.26.3",
-    "eslint": "^6.6.0",
-    "flow-bin": "^0.98.0",
-    "react": "16.8.6",
-    "react-native": "0.60.0"
+    "eslint": "^6.8.0",
+    "flow-bin": "^0.122.0",
+    "react": "16.11.0",
+    "react-native": "0.62.1"
   },
   "collective": {
     "type": "opencollective",

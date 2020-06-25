@@ -3,10 +3,10 @@
  * https://github.com/facebook/react-native
  *
  * @format
- * @flow
+ * @flow strict-local
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   Platform,
   StyleSheet,
@@ -16,7 +16,7 @@ import {
   Alert,
   TextInput,
   StatusBar,
-  Linking
+  Linking,
 } from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 
@@ -24,7 +24,7 @@ const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
     'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu'
+    'Shake or press menu button for dev menu',
 });
 
 export default class App extends Component {
@@ -33,16 +33,16 @@ export default class App extends Component {
 
     this.state = {
       url: 'https://www.google.com',
-      statusBarStyle: 'dark-content'
+      statusBarStyle: 'dark-content',
     };
   }
 
   sleep(timeout) {
-    return new Promise(resolve => setTimeout(resolve, timeout));
+    return new Promise((resolve) => setTimeout(resolve, timeout));
   }
 
   async openLink() {
-    const { url, statusBarStyle } = this.state;
+    const {url, statusBarStyle} = this.state;
     try {
       if (await InAppBrowser.isAvailable()) {
         // A delay to change the StatusBar when the browser is opened
@@ -73,11 +73,11 @@ export default class App extends Component {
             startEnter: 'slide_in_right',
             startExit: 'slide_out_left',
             endEnter: 'slide_in_left',
-            endExit: 'slide_out_right'
+            endExit: 'slide_out_right',
           },
           headers: {
-            'my-custom-header': 'my custom header value'
-          }
+            'my-custom-header': 'my custom header value',
+          },
         });
         // A delay to show an alert when the browser is closed
         await this.sleep(800);
@@ -107,13 +107,13 @@ export default class App extends Component {
     try {
       if (await InAppBrowser.isAvailable()) {
         const result = await InAppBrowser.openAuth(url, redirectUrl, {
-          showTitle: true,
-          toolbarColor: '#6200EE',
-          secondaryToolbarColor: 'black',
+          // iOS Properties
+          ephemeralWebSession: false,
+          // Android Properties
+          showTitle: false,
           enableUrlBarHiding: true,
-          enableDefaultShare: true
+          enableDefaultShare: false,
         });
-        await this.sleep(800);
         Alert.alert('Response', JSON.stringify(result));
       } else {
         Alert.alert('InAppBrowser is not supported :/');
@@ -124,7 +124,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { statusBarStyle } = this.state;
+    const {statusBarStyle} = this.state;
     return (
       <View style={styles.container}>
         <StatusBar barStyle={statusBarStyle} />
@@ -134,7 +134,7 @@ export default class App extends Component {
         <Text style={styles.instructions}>Type the url</Text>
         <TextInput
           style={styles.urlInput}
-          onChangeText={text => this.setState({ url: text })}
+          onChangeText={(text) => this.setState({url: text})}
           value={this.state.url}
         />
         <View style={styles.openButton}>
@@ -158,26 +158,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-    padding: 30
+    padding: 30,
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10
+    margin: 10,
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5
+    marginBottom: 5,
   },
   urlInput: {
     height: 40,
     width: '100%',
     borderColor: 'gray',
-    borderWidth: 1
+    borderWidth: 1,
   },
   openButton: {
     paddingTop: Platform.OS === 'ios' ? 0 : 20,
-    paddingBottom: Platform.OS === 'ios' ? 0 : 20
-  }
+    paddingBottom: Platform.OS === 'ios' ? 0 : 20,
+  },
 });

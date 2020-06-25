@@ -144,11 +144,13 @@ Property       | Description
 `modalTransitionStyle` (String)      | The transition style to use when presenting the view controller. [`coverVertical`/`flipHorizontal`/`crossDissolve`/`partialCurl`]
 `modalEnabled` (Boolean)             | Present the **SafariViewController** modally or as push instead. [`true`/`false`]
 `enableBarCollapsing` (Boolean)      | Determines whether the browser's tool bars will collapse or not. [`true`/`false`]
+`ephemeralWebSession` (Boolean)      | Prevent re-use cookies of previous session (openAuth only) [`true`/`false`]
 
 ### Android Options
 Property       | Description
 -------------- | ------
 `showTitle` (Boolean)   | Sets whether the title should be shown in the custom tab. [`true`/`false`]
+`hasBackButton` (Boolean)   | Sets a back arrow instead of the default X icon to close the custom tab. [`true`/`false`]
 `toolbarColor` (String)           | Sets the toolbar color. [`gray`/`#808080`]
 `secondaryToolbarColor` (String)  | Sets the color of the secondary toolbar. [`white`/`#FFFFFF`]
 `enableUrlBarHiding` (Boolean)    | Enables the url bar to hide as the user scrolls down on the page. [`true`/`false`]
@@ -175,7 +177,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
           preferredControlTintColor: 'white',
           readerMode: false,
           animated: true,
-          modalPresentationStyle: 'overFullScreen',
+          modalPresentationStyle: 'fullScreen',
           modalTransitionStyle: 'partialCurl',
           modalEnabled: true,
           enableBarCollapsing: false,
@@ -295,14 +297,16 @@ import { getDeepLink } from './utilities'
       if (await InAppBrowser.isAvailable()) {
         InAppBrowser.openAuth(url, deepLink, {
           // iOS Properties
-          dismissButtonStyle: 'cancel',
+          ephemeralWebSession: false,
           // Android Properties
           showTitle: false,
           enableUrlBarHiding: true,
-          enableDefaultShare: true
+          enableDefaultShare: false
         }).then((response) => {
-          if (response.type === 'success' &&
-            response.url) {
+          if (
+            response.type === 'success' &&
+            response.url
+          ) {
             Linking.openURL(response.url)
           }
         })
@@ -319,7 +323,7 @@ import { getDeepLink } from './utilities'
 ...
   async componentDidMount() {
     // Play Lottie Animation :)
-    
+
     // Validate the stored access token (Maybe with a request)
     // Redirect the user to the Home page if the token is still valid
     // Otherwise redirect to the Login page
@@ -339,7 +343,7 @@ import { getDeepLink } from './utilities'
       // Show error and redirect the user to the Login page
     }
   }
-  
+
   async loadUserInfo() {
     const { navigation } = this.props
     const { state: { params } } = navigation
@@ -456,7 +460,12 @@ Support this project with your organization. Your logo will show up here with a 
 ## Supporting 🍻
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
-[Professionally supported react-native-inappbrowser-reborn is coming soon](https://tidelift.com/subscription/pkg/npm-react-native-inappbrowser-reborn?utm_source=npm-react-native-inappbrowser-reborn&utm_medium=referral&utm_campaign=readme)
+
+## Enterprise 💼
+
+Available as part of the Tidelift Subscription.
+
+The maintainers of InAppBrowser for React Native and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. [Learn more.](https://tidelift.com/subscription/pkg/npm-react-native-inappbrowser-reborn?utm_source=npm-react-native-inappbrowser-reborn&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
 
 ## Security contact information 🚨
 To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.

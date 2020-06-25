@@ -7,8 +7,12 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.module.annotations.ReactModule;
 
+@ReactModule(name = RNInAppBrowserModule.NAME)
 public class RNInAppBrowserModule extends ReactContextBaseJavaModule {
+  public final static String NAME = "RNInAppBrowser";
+
   private final RNInAppBrowser inAppBrowser;
   private final ReactApplicationContext reactContext;
 
@@ -20,7 +24,7 @@ public class RNInAppBrowserModule extends ReactContextBaseJavaModule {
 
   @Override
   public String getName() {
-    return "RNInAppBrowser";
+    return NAME;
   }
 
   @ReactMethod
@@ -32,5 +36,10 @@ public class RNInAppBrowserModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void close() {
     inAppBrowser.close();
+  }
+
+  @ReactMethod
+  public void isAvailable(final Promise promise) {
+    inAppBrowser.isAvailable(this.reactContext, promise);
   }
 }

@@ -59,6 +59,7 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
                   redirectURL:(NSString *)redirectURL
+                  options:(NSDictionary *)options
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -66,6 +67,8 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
     return;
   }
 
+  BOOL ephemeralWebSession = [options[@"ephemeralWebSession"] boolValue];
+    
   if (@available(iOS 11, *)) {
     NSURL *url = [[NSURL alloc] initWithString: authURL];
     __weak typeof(self) weakSelf = self;
@@ -103,6 +106,10 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
 #pragma clang diagnostic ignored "-Wpartial-availability"
 #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_13_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
     if (@available(iOS 13.0, *)) {
+      if (ephemeralWebSession) {
+        //Prevent re-use cookie from last auth session
+        webAuthSession.prefersEphemeralWebBrowserSession = true;
+      }
       webAuthSession.presentationContextProvider = self;
     }
 #endif
@@ -279,9 +286,11 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
  */
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
 {
-  redirectResolve(@{
-    @"type": @"cancel",
-  });
+  if (redirectResolve) {
+    redirectResolve(@{
+      @"type": @"cancel",
+    });
+  }
   [self flowDidFinish];
   if (!animated) {
     [self dismissWithoutAnimation:controller];

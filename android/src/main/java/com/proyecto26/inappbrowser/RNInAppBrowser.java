@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.graphics.BitmapFactory;
 import android.provider.Browser;
 import androidx.annotation.Nullable;
 import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.graphics.ColorUtils;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -23,6 +26,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.regex.Pattern;
+import java.util.List;
 
 public class RNInAppBrowser {
   private final static String ERROR_CODE = "InAppBrowser";
@@ -38,8 +42,10 @@ public class RNInAppBrowser {
   private static final String KEY_ANIMATION_START_EXIT = "startExit";
   private static final String KEY_ANIMATION_END_ENTER = "endEnter";
   private static final String KEY_ANIMATION_END_EXIT = "endExit";
+  private static final String HASBACKBUTTON = "hasBackButton";
 
   private @Nullable Promise mOpenBrowserPromise;
+  private Boolean isLightTheme;
   private Activity currentActivity;
   private static final Pattern animationIdentifierPattern = Pattern.compile("^.+:.+/");
 
@@ -66,6 +72,7 @@ public class RNInAppBrowser {
       final String colorString = options.getString(KEY_TOOLBAR_COLOR);
       try {
         builder.setToolbarColor(Color.parseColor(colorString));
+        isLightTheme = toolbarIsLight(colorString);
       } catch (IllegalArgumentException e) {
         throw new JSApplicationIllegalArgumentException(
                 "Invalid toolbar color '" + colorString + "': " + e.getMessage());
@@ -91,6 +98,11 @@ public class RNInAppBrowser {
     if (options.hasKey(KEY_ANIMATIONS)) {
       final ReadableMap animations = options.getMap(KEY_ANIMATIONS);
       applyAnimation(context, builder, animations);
+    }
+    if (options.hasKey(HASBACKBUTTON) &&
+            options.getBoolean(HASBACKBUTTON)) {
+      builder.setCloseButtonIcon(BitmapFactory.decodeResource(
+            context.getResources(), isLightTheme ? R.drawable.ic_arrow_back_black : R.drawable.ic_arrow_back_white));
     }
 
     CustomTabsIntent customTabsIntent = builder.build();
@@ -162,6 +174,12 @@ public class RNInAppBrowser {
         ChromeTabsManagerActivity.createDismissIntent(currentActivity));
   }
 
+  public void isAvailable(Context context, final Promise promise) {
+    Intent serviceIntent = new Intent("android.support.customtabs.action.CustomTabsService");
+    List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentServices(serviceIntent, 0);
+    promise.resolve(!(resolveInfos == null || resolveInfos.isEmpty()));
+  }
+
   @Subscribe
   public void onEvent(ChromeTabsDismissedEvent event) {
     unRegisterEventBus();
@@ -217,5 +235,9 @@ public class RNInAppBrowser {
     if (EventBus.getDefault().isRegistered(this)) {
       EventBus.getDefault().unregister(this);
     }
+  }
+
+  private Boolean toolbarIsLight(String themeColor) {
+    return ColorUtils.calculateLuminance(Color.parseColor(themeColor)) > 0.5;
   }
 }

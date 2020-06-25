@@ -22,6 +22,15 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.4.0] - 2020-04-08
+
+### Added
+- Added `ephemeralWebSession` option to supports `ephemeralWebBrowserSession` on iOS 13 by [@avenner](https://github.com/avenner) ([#141](https://github.com/proyecto26/react-native-inappbrowser/pull/141)).
+- Add `@ReactModule` annotation by [@janicduplessis](https://github.com/janicduplessis) ([#94](https://github.com/proyecto26/react-native-inappbrowser/pull/94)).
+
+### Fixed
+- Remove listener of `openAuth` when `closeAuth` is called.
+
 ## [3.3.4] - 2020-01-07
 
 ### Fixed
@@ -145,7 +154,8 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.4...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.4.0...HEAD
+[3.4.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.4...v3.4.0
 [3.3.4]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.3...v3.3.4
 [3.3.3]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.2...v3.3.3
 [3.3.2]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.1...v3.3.2
