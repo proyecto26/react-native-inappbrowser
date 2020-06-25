@@ -176,7 +176,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
           preferredControlTintColor: 'white',
           readerMode: false,
           animated: true,
-          modalPresentationStyle: 'overFullScreen',
+          modalPresentationStyle: 'fullScreen',
           modalTransitionStyle: 'partialCurl',
           modalEnabled: true,
           enableBarCollapsing: false,
@@ -322,7 +322,7 @@ import { getDeepLink } from './utilities'
 ...
   async componentDidMount() {
     // Play Lottie Animation :)
-    
+
     // Validate the stored access token (Maybe with a request)
     // Redirect the user to the Home page if the token is still valid
     // Otherwise redirect to the Login page
@@ -342,7 +342,7 @@ import { getDeepLink } from './utilities'
       // Show error and redirect the user to the Login page
     }
   }
-  
+
   async loadUserInfo() {
     const { navigation } = this.props
     const { state: { params } } = navigation
