@@ -22,6 +22,14 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+### Added
+- Add `hasBackButton` property to sets a back arrow instead of the default X icon to close the custom tab by [@aitorct](https://github.com/aitorct) ([#109](https://github.com/proyecto26/react-native-inappbrowser/pull/109)).
+
+### Fixed
+- Android `isAvailable` method checks **Custom Tab** support by [@aitorct](https://github.com/aitorct) ([#108](https://github.com/proyecto26/react-native-inappbrowser/pull/108)).
+- Add a null check for `redirectResolve` in `safariViewControllerDidFinish` by [@ssuchanowski](https://github.com/ssuchanowski) ([#160](https://github.com/proyecto26/react-native-inappbrowser/pull/160)).
+- Fixed **README** updating `modalPresentationStyle` to **fullscreen** by [@Thomazella](https://github.com/Thomazella) ([#161](https://github.com/proyecto26/react-native-inappbrowser/pull/161)).
+
 ## [3.4.0] - 2020-04-08
 
 ### Added
