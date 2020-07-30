@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.BitmapFactory;
 import android.provider.Browser;
 import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsClient;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.graphics.ColorUtils;
 
@@ -25,6 +26,7 @@ import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.List;
 
@@ -43,6 +45,9 @@ public class RNInAppBrowser {
   private static final String KEY_ANIMATION_END_ENTER = "endEnter";
   private static final String KEY_ANIMATION_END_EXIT = "endExit";
   private static final String HASBACKBUTTON = "hasBackButton";
+
+  private static final String ACTION_CUSTOM_TABS_CONNECTION = "android.support.customtabs.action.CustomTabsService";
+  private static final String CHROME_PACKAGE = "com.android.chrome";
 
   private @Nullable Promise mOpenBrowserPromise;
   private Boolean isLightTheme;
@@ -136,8 +141,8 @@ public class RNInAppBrowser {
       customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
     }
-
     Intent intent = customTabsIntent.intent;
+    setDefaultBrowser(currentActivity, intent);
     intent.setData(Uri.parse(url));
     if (options.hasKey(KEY_SHOW_PAGE_TITLE)) {
       builder.setShowTitle(options.getBoolean(KEY_SHOW_PAGE_TITLE));
@@ -175,9 +180,28 @@ public class RNInAppBrowser {
   }
 
   public void isAvailable(Context context, final Promise promise) {
-    Intent serviceIntent = new Intent("android.support.customtabs.action.CustomTabsService");
-    List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentServices(serviceIntent, 0);
+    List<ResolveInfo> resolveInfos = getPreferedPackages(context);
     promise.resolve(!(resolveInfos == null || resolveInfos.isEmpty()));
+  }
+
+  private List<ResolveInfo> getPreferedPackages(Context context){
+    Intent serviceIntent = new Intent(ACTION_CUSTOM_TABS_CONNECTION);
+    List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentServices(serviceIntent, 0);
+    return  resolveInfos;
+  }
+
+  private void setDefaultBrowser(Context context, Intent intent){
+    List<ResolveInfo> resolveInfos = getPreferedPackages(context);
+    String packageName = CustomTabsClient.getPackageName(context, Arrays.asList(CHROME_PACKAGE));
+    if(packageName == null && resolveInfos != null && resolveInfos.size() > 0){
+      packageName = resolveInfos.get(0).serviceInfo.packageName;
+    }
+
+    try{
+      intent.setPackage(packageName);
+    }catch (Exception ex){
+      ex.printStackTrace();
+    }
   }
 
   @Subscribe
