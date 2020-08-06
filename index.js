@@ -194,6 +194,10 @@ function _waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
  */
 function AppStateActiveOnce(): Promise<void> {
   return new Promise(function (resolve) {
+    // Browser can be closed before handling AppState change
+    if (AppState.currentState === 'active') {
+      return resolve();
+    }
     function _handleAppStateChange(nextAppState: AppStateStatus) {
       if (nextAppState === 'active') {
         AppState.removeEventListener('change', _handleAppStateChange);
