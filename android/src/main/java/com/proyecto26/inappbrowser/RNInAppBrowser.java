@@ -47,7 +47,10 @@ public class RNInAppBrowser {
   private static final String HASBACKBUTTON = "hasBackButton";
 
   private static final String ACTION_CUSTOM_TABS_CONNECTION = "android.support.customtabs.action.CustomTabsService";
-  private static final String CHROME_PACKAGE = "com.android.chrome";
+  private static final String CHROME_PACKAGE_STABLE = "com.android.chrome";
+  private static final String CHROME_PACKAGE_BETA = "com.chrome.beta";
+  private static final String CHROME_PACKAGE_DEV = "com.chrome.dev";
+  private static final String LOCAL_PACKAGE = "com.google.android.apps.chrome";
 
   private @Nullable Promise mOpenBrowserPromise;
   private Boolean isLightTheme;
@@ -192,7 +195,7 @@ public class RNInAppBrowser {
 
   private void setDefaultBrowser(Context context, Intent intent){
     List<ResolveInfo> resolveInfos = getPreferedPackages(context);
-    String packageName = CustomTabsClient.getPackageName(context, Arrays.asList(CHROME_PACKAGE));
+    String packageName = CustomTabsClient.getPackageName(context, Arrays.asList(CHROME_PACKAGE_STABLE, CHROME_PACKAGE_BETA, CHROME_PACKAGE_DEV, LOCAL_PACKAGE));
     if(packageName == null && resolveInfos != null && resolveInfos.size() > 0){
       packageName = resolveInfos.get(0).serviceInfo.packageName;
     }
