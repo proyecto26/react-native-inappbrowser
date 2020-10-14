@@ -75,6 +75,18 @@ async function checkResultAndReturnUrl(
   }
 }
 
+function maybeProcessColor(color?: string | number) {
+  if (color == null || typeof color === 'number') {
+    return color;
+  } else {
+    const result = processColor(color);
+    if (__DEV__ && result == null) {
+      console.warn(`InAppBrowser: invalid color '${color}'`);
+    }
+    return result;
+  }
+}
+
 export async function openBrowserAsync(
   url: string,
   options?: InAppBrowserOptions = {
@@ -88,12 +100,14 @@ export async function openBrowserAsync(
   return RNInAppBrowser.open({
     ...options,
     url,
-    preferredBarTintColor:
-      options.preferredBarTintColor &&
-      processColor(options.preferredBarTintColor),
-    preferredControlTintColor:
-      options.preferredControlTintColor &&
-      processColor(options.preferredControlTintColor)
+    preferredBarTintColor: maybeProcessColor(options.preferredBarTintColor),
+    preferredControlTintColor: maybeProcessColor(
+      options.preferredControlTintColor
+    ),
+    toolbarColor: maybeProcessColor(options.toolbarColor),
+    secondaryToolbarColor: maybeProcessColor(options.secondaryToolbarColor),
+    navigationBarColor: maybeProcessColor(options.navigationBarColor),
+    navigationBarDividerColor: maybeProcessColor(options.navigationBarDividerColor)
   })
 }
 

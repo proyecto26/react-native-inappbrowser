@@ -1,6 +1,5 @@
 package com.proyecto26.inappbrowser;
 
-import android.R.anim;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -8,7 +7,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
-import android.graphics.Color;
 import android.graphics.BitmapFactory;
 import android.provider.Browser;
 import androidx.annotation.Nullable;
@@ -22,12 +20,10 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
-import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.List;
@@ -63,26 +59,6 @@ public class RNInAppBrowser {
   private Activity currentActivity;
   private static final Pattern animationIdentifierPattern = Pattern.compile("^.+:.+/");
 
-  public Integer setColor(CustomTabsIntent.Builder builder, final ReadableMap options, String key, String method, String colorName) {
-    String colorString = null;
-    Integer color = null;
-    try {
-      if (options.hasKey(key)) {
-        colorString = options.getString(key);
-        color = Color.parseColor(colorString);
-        Method findMethod = builder.getClass().getDeclaredMethod(method, int.class);
-        findMethod.invoke(builder, color);
-      }
-    } catch (Exception e) {
-      if (e instanceof IllegalArgumentException) {
-        throw new JSApplicationIllegalArgumentException(
-                "Invalid " + colorName + " color '" + colorString + "': " + e.getMessage());
-      }
-    } finally {
-      return color;
-    }
-  }
-
   public void open(Context context, final ReadableMap options, final Promise promise, Activity activity) {
     final String url = options.getString("url");
     currentActivity = activity;
@@ -103,15 +79,22 @@ public class RNInAppBrowser {
 
     CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
     isLightTheme = false;
-    final Integer toolbarColor = setColor(builder, options, KEY_TOOLBAR_COLOR, "setToolbarColor", "toolbar");
-    if (toolbarColor != null) {
+    if (options.hasKey(KEY_TOOLBAR_COLOR)) {
+      final Integer toolbarColor = options.getInt(KEY_TOOLBAR_COLOR);
+      builder.setToolbarColor(toolbarColor);
       isLightTheme = toolbarIsLight(toolbarColor);
     }
-    setColor(builder, options, KEY_SECONDARY_TOOLBAR_COLOR, "setSecondaryToolbarColor", "secondary toolbar");
-    setColor(builder, options, KEY_NAVIGATION_BAR_COLOR, "setNavigationBarColor", "navigation bar");
-    setColor(builder, options, KEY_NAVIGATION_BAR_DIVIDER_COLOR, "setNavigationBarDividerColor", "navigation bar divider");
+    if (options.hasKey(KEY_SECONDARY_TOOLBAR_COLOR)) {
+      builder.setSecondaryToolbarColor(options.getInt(KEY_SECONDARY_TOOLBAR_COLOR));
+    }
+    if (options.hasKey(KEY_NAVIGATION_BAR_COLOR)) {
+      builder.setNavigationBarColor(options.getInt(KEY_NAVIGATION_BAR_COLOR));
+    }
+    if (options.hasKey(KEY_NAVIGATION_BAR_DIVIDER_COLOR)) {
+      builder.setNavigationBarDividerColor(options.getInt(KEY_NAVIGATION_BAR_DIVIDER_COLOR));
+    }
 
-    if (options.hasKey(KEY_DEFAULT_SHARE_MENU_ITEM) && 
+    if (options.hasKey(KEY_DEFAULT_SHARE_MENU_ITEM) &&
         options.getBoolean(KEY_DEFAULT_SHARE_MENU_ITEM)) {
       builder.addDefaultShareMenuItem();
     }
@@ -164,7 +147,7 @@ public class RNInAppBrowser {
     }
 
     intent.putExtra(CustomTabsIntent.EXTRA_ENABLE_URLBAR_HIDING, (
-      options.hasKey(KEY_ENABLE_URL_BAR_HIDING) && 
+      options.hasKey(KEY_ENABLE_URL_BAR_HIDING) &&
       options.getBoolean(KEY_ENABLE_URL_BAR_HIDING)));
     try {
       if (options.hasKey(KEY_BROWSER_PACKAGE)) {
@@ -181,7 +164,7 @@ public class RNInAppBrowser {
     }
 
     registerEventBus();
-    
+
     intent.setData(Uri.parse(url));
     if (options.hasKey(KEY_SHOW_PAGE_TITLE)) {
       builder.setShowTitle(options.getBoolean(KEY_SHOW_PAGE_TITLE));
