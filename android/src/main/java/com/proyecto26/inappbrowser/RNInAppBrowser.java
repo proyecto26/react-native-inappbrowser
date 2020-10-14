@@ -1,6 +1,5 @@
 package com.proyecto26.inappbrowser;
 
-import android.R.anim;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +10,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.BitmapFactory;
 import android.provider.Browser;
 import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabColorSchemeParams;
 import androidx.browser.customtabs.CustomTabsClient;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.graphics.ColorUtils;
@@ -76,20 +76,22 @@ public class RNInAppBrowser {
       return;
     }
 
-    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+    CustomTabColorSchemeParams.Builder colorSchemeBuilder = new CustomTabColorSchemeParams.Builder();
     if (options.hasKey(KEY_TOOLBAR_COLOR)) {
       final int color = options.getInt(KEY_TOOLBAR_COLOR);
-      builder.setToolbarColor(color);
+      colorSchemeBuilder.setToolbarColor(color);
       isLightTheme = toolbarIsLight(color);
     }
     if (options.hasKey(KEY_SECONDARY_TOOLBAR_COLOR)) {
       final int color = options.getInt(KEY_SECONDARY_TOOLBAR_COLOR);
-      builder.setSecondaryToolbarColor(color);
+      colorSchemeBuilder.setSecondaryToolbarColor(color);
     }
-    if (options.hasKey(KEY_DEFAULT_SHARE_MENU_ITEM) &&
-        options.getBoolean(KEY_DEFAULT_SHARE_MENU_ITEM)) {
-      builder.addDefaultShareMenuItem();
-    }
+    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+    builder.setDefaultColorSchemeParams(colorSchemeBuilder.build());
+    builder.setShareState(
+        options.hasKey(KEY_DEFAULT_SHARE_MENU_ITEM) && options.getBoolean(KEY_DEFAULT_SHARE_MENU_ITEM) ?
+            CustomTabsIntent.SHARE_STATE_ON :
+            CustomTabsIntent.SHARE_STATE_OFF);
     if (options.hasKey(KEY_ANIMATIONS)) {
       final ReadableMap animations = options.getMap(KEY_ANIMATIONS);
       applyAnimation(context, builder, animations);
