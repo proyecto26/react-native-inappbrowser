@@ -52,14 +52,16 @@ declare module 'react-native-inappbrowser-reborn' {
       endEnter: string,
       endExit: string
     },
-    headers?: { [key: string]: string }
+    headers?: { [key: string]: string },
+    browserPackage?: string,
+    showInRecents?: boolean
   }
 
   export type InAppBrowserOptions = InAppBrowserAndroidOptions | InAppBrowseriOSOptions;
 
   type AuthSessionResult = RedirectResult | BrowserResult;
 
-  interface RNInAppBrowserClassMethods {
+  interface InAppBrowserClassMethods {
     open: (
       url: string,
       options?: InAppBrowserOptions,
@@ -74,7 +76,7 @@ declare module 'react-native-inappbrowser-reborn' {
     isAvailable: () => Promise<boolean>;
   }
 
-  const RNInAppBrowser: RNInAppBrowserClassMethods;
+  export const InAppBrowser: InAppBrowserClassMethods;
 
-  export default RNInAppBrowser;
+  export default InAppBrowser;
 }
