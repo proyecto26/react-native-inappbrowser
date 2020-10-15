@@ -18,7 +18,7 @@ import {
   StatusBar,
   Linking,
 } from 'react-native';
-import {InAppBrowser} from 'react-native-inappbrowser-reborn';
+import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -32,7 +32,7 @@ type ComponentState = {
   statusBarStyle: string
 }
 
-export default class App extends Component<> {
+export default class App extends Component<ComponentState> {
   constructor(props) {
     super(props);
 
