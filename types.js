@@ -62,6 +62,9 @@ type InAppBrowserAndroidOptions = {
   showInRecents?: boolean,
 };
 
-export type InAppBrowserOptions = InAppBrowserAndroidOptions | InAppBrowseriOSOptions;
+export type InAppBrowserOptions = {
+  ...InAppBrowserAndroidOptions,
+  ...InAppBrowseriOSOptions
+};
 
 export type AuthSessionResult = RedirectResult | BrowserResult;
