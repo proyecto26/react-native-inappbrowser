@@ -79,7 +79,11 @@ function maybeProcessColor(color?: string | number) {
   if (color == null || typeof color === 'number') {
     return color;
   } else {
-    return processColor(color);
+    const result = processColor(color);
+    if (__DEV__ && result == null) {
+      console.warn(`InAppBrowser: invalid color '${color}'`);
+    }
+    return result;
   }
 }
 
