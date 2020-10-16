@@ -22,7 +22,7 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
-## [3.5.0] - 2020-10-14
+## [3.5.0] - 2020-10-16
 
 ### Added
 - Added `hasBackButton` option to sets a back arrow instead of the default X icon to close the custom tab by [@aitorct](https://github.com/aitorct) ([#109](https://github.com/proyecto26/react-native-inappbrowser/pull/109)).
@@ -169,7 +169,7 @@ Missing tags for previous versions 🤷‍♂
 
 
 [Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.0...HEAD
-[3.4.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.4.0...v3.5.0
+[3.5.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.4...v3.4.0
 [3.3.4]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.3...v3.3.4
 [3.3.3]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.2...v3.3.3
