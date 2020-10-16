@@ -30,7 +30,7 @@
 <h4 align="center"><a href="https://developer.chrome.com/multidevice/android/customtabs#whatarethey">Chrome Custom Tabs</a> for Android & <a href="https://developer.apple.com/documentation/safariservices">SafariServices</a>/<a href="https://developer.apple.com/documentation/authenticationservices">AuthenticationServices</a> for iOS.</h4>
 
 <p align="center">
-  <img width="400px" src="https://github.com/proyecto26/react-native-inappbrowser/blob/main/img/inappbrowser.png?raw=true">
+  <img width="400px" src="img/inappbrowser.png">
 </p>
 
 ## Getting started

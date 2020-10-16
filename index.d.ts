@@ -53,7 +53,6 @@ declare module 'react-native-inappbrowser-reborn' {
       endExit: string
     },
     headers?: { [key: string]: string },
-    hasBackButton?: boolean,
     browserPackage?: string,
     showInRecents?: boolean
   }
