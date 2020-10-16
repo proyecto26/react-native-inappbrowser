@@ -57,7 +57,7 @@ type InAppBrowserAndroidOptions = {
     endExit: string,
   },
   headers?: { [key: string]: string },
-  hasBackButton?: Boolean,
+  hasBackButton?: boolean,
   browserPackage?: string,
   showInRecents?: boolean,
 };
