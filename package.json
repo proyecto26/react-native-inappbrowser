@@ -3,12 +3,6 @@
   "version": "3.5.0",
   "description": "InAppBrowser for React Native",
   "main": "index.js",
-  "files": [
-    "android/",
-    "ios/",
-    "index.d.ts",
-    "RNInAppBrowser.podspec"
-  ],
   "scripts": {
     "flow": "flow check",
     "lint": "eslint index.js",
