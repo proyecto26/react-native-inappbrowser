@@ -22,6 +22,13 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.5.1] - 2020-10-16
+
+### Fixed
+
+- Removed `files` option from **package.json** to use `.npmignore` instead.
+- Added `hasBackButton` to **index.d.ts** for typescript by [@sharifhh](https://github.com/sharifhh) ([#200](https://github.com/proyecto26/react-native-inappbrowser/pull/200)).
+
 ## [3.5.0] - 2020-10-16
 
 ### Added
@@ -168,7 +175,8 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.0...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.1...HEAD
+[3.5.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.0...v3.5.1
 [3.5.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.4...v3.4.0
 [3.3.4]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.3...v3.3.4
