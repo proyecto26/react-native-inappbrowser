@@ -18,7 +18,7 @@ import {
   StatusBar,
   Linking,
 } from 'react-native';
-import InAppBrowser from 'react-native-inappbrowser-reborn';
+import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -27,7 +27,12 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export default class App extends Component {
+type ComponentState = {
+  url: string,
+  statusBarStyle: string
+}
+
+export default class App extends Component<ComponentState> {
   constructor(props) {
     super(props);
 
@@ -37,7 +42,7 @@ export default class App extends Component {
     };
   }
 
-  sleep(timeout) {
+  sleep(timeout: number) {
     return new Promise((resolve) => setTimeout(resolve, timeout));
   }
 
@@ -54,12 +59,12 @@ export default class App extends Component {
           dismissButtonStyle: 'cancel',
           preferredBarTintColor: '#453AA4',
           preferredControlTintColor: 'white',
-          readerMode: false,
+          readerMode: true,
           animated,
           modalPresentationStyle: 'fullScreen',
-          modalTransitionStyle: 'partialCurl',
+          modalTransitionStyle: 'flipHorizontal',
           modalEnabled: true,
-          enableBarCollapsing: false,
+          enableBarCollapsing: true,
           // Android Properties
           showTitle: true,
           toolbarColor: '#6200EE',
@@ -78,6 +83,9 @@ export default class App extends Component {
           headers: {
             'my-custom-header': 'my custom header value',
           },
+          hasBackButton: true,
+          browserPackage: null,
+          showInRecents: false
         });
         // A delay to show an alert when the browser is closed
         await this.sleep(800);
@@ -86,6 +94,7 @@ export default class App extends Component {
         Linking.openURL(url);
       }
     } catch (error) {
+      console.error(error);
       Alert.alert(error.message);
     } finally {
       // Restore the previous StatusBar of the App
@@ -119,6 +128,7 @@ export default class App extends Component {
         Alert.alert('InAppBrowser is not supported :/');
       }
     } catch (error) {
+      console.error(error);
       Alert.alert('Something’s wrong with the app :(');
     }
   }

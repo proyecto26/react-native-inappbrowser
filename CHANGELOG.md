@@ -22,14 +22,28 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.5.0] - 2020-10-16
+
+### Added
+- Added `hasBackButton` option to sets a back arrow instead of the default X icon to close the custom tab by [@aitorct](https://github.com/aitorct) ([#109](https://github.com/proyecto26/react-native-inappbrowser/pull/109)).
+- Added default browser configuration for custom tab if any by [@thuongtv-vn](https://github.com/thuongtv-vn) ([#177](https://github.com/proyecto26/react-native-inappbrowser/pull/177)).
+- Added `browserPackage` option to use a Package name of a browser to be used to handle Custom Tabs.
+- Added `showInRecents` option to determine whether browsed website should be shown as separate entry in Android recents/multitasking view.
+
+### Fixed
+- Android `isAvailable` method checks **Custom Tab** support by [@aitorct](https://github.com/aitorct) ([#108](https://github.com/proyecto26/react-native-inappbrowser/pull/108)).
+- Added a null check for `redirectResolve` in `safariViewControllerDidFinish` by [@ssuchanowski](https://github.com/ssuchanowski) ([#160](https://github.com/proyecto26/react-native-inappbrowser/pull/160)).
+- Fixed **README** updating `modalPresentationStyle` to **fullscreen** by [@Thomazella](https://github.com/Thomazella) ([#161](https://github.com/proyecto26/react-native-inappbrowser/pull/161)).
+- Fixed `AppStateActiveOnce` event listener by [@logangouget](https://github.com/logangouget) ([#179](https://github.com/proyecto26/react-native-inappbrowser/pull/179)).
+
 ## [3.4.0] - 2020-04-08
 
 ### Added
 - Added `ephemeralWebSession` option to supports `ephemeralWebBrowserSession` on iOS 13 by [@avenner](https://github.com/avenner) ([#141](https://github.com/proyecto26/react-native-inappbrowser/pull/141)).
-- Add `@ReactModule` annotation by [@janicduplessis](https://github.com/janicduplessis) ([#94](https://github.com/proyecto26/react-native-inappbrowser/pull/94)).
+- Added `@ReactModule` annotation by [@janicduplessis](https://github.com/janicduplessis) ([#94](https://github.com/proyecto26/react-native-inappbrowser/pull/94)).
 
 ### Fixed
-- Remove listener of `openAuth` when `closeAuth` is called.
+- Removed listener of `openAuth` when `closeAuth` is called.
 
 ## [3.3.4] - 2020-01-07
 
@@ -39,7 +53,7 @@ in case of vulnerabilities.
 ## [3.3.3] - 2019-11-25
 
 ### Fixed
-- Remove build warnings with **iOS** 13 using [Pragmas](https://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
+- Removed build warnings with **iOS** 13 using [Pragmas](https://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
 
 ## [3.3.2] - 2019-11-15
 
@@ -91,7 +105,7 @@ in case of vulnerabilities.
 - Activating Open Collective ([#80](https://github.com/proyecto26/react-native-inappbrowser/pull/80)) and Create **CONTRIBUTING.md** to see how to contribute.
 - Added `animated`, `modalPresentationStyle` and `modalTransitionStyle` properties for iOS options ([86f7238](https://github.com/proyecto26/react-native-inappbrowser/commit/86f7238d8eb856b28fae9981ca7bb42b12c43e18)).
 - Present the **SafariViewController** modally or as push instead using the `modalEnabled` property ([4a0d57c](https://github.com/proyecto26/react-native-inappbrowser/commit/4a0d57c73eccaaf45a212853c50aa41520b550c8)).
-- Add workaround to dismiss **SafariViewController** without animation.
+- Added workaround to dismiss **SafariViewController** without animation.
 
 ### Removed
 - **com.facebook.infer.annotation** dependency is not required anymore to build for **Android** ([dcbfaef](https://github.com/proyecto26/react-native-inappbrowser/commit/dcbfaef49fa04fdabc281cd2c61124a11c6a7d29#diff-7ae5a9093507568eabbf35c3b0665732)).
@@ -115,7 +129,7 @@ in case of vulnerabilities.
 - README now contains the different options to open the browser.
 
 ### Fixed
-- Add `customTabsIntent.startAnimationBundle` when the `ChromeTabsManagerActivity` intent is created to fix **Android** animations by [@miktolon](https://github.com/miktolon) ([3f0cb35](https://github.com/proyecto26/react-native-inappbrowser/commit/3f0cb356733832a4578ebf1cb45377aa0d8d2806)).
+- Added `customTabsIntent.startAnimationBundle` when the `ChromeTabsManagerActivity` intent is created to fix **Android** animations by [@miktolon](https://github.com/miktolon) ([3f0cb35](https://github.com/proyecto26/react-native-inappbrowser/commit/3f0cb356733832a4578ebf1cb45377aa0d8d2806)).
 
 ### Changed
 - Using **Android** `AssertionError` instead of use `Assertion` lib of Facebook by [@SnaiNeR](https://github.com/SnaiNeR) ([e9a54d3](https://github.com/proyecto26/react-native-inappbrowser/commit/e9a54d3fe759380f992aa1ed7fbcf5d1299a7d73)).
@@ -146,7 +160,7 @@ Missing tags for previous versions 🤷‍♂
 - Include **supportLibVersion** definition to avoid collisions by [@maestor](https://github.com/maestor) ([332ceef](https://github.com/proyecto26/react-native-inappbrowser/commit/332ceefeba4e729237412954b8b941654263bfbd)).
 - Fix the repository URL for podspec file by [@adammcarth](https://github.com/adammcarth) ([7e4038c](https://github.com/proyecto26/react-native-inappbrowser/commit/7e4038c19a7e1a44ab01e9dcd762709ab854eb85)).
 - Provide example how to restore old status bar style by [@MrLoh](https://github.com/MrLoh) ([8cb9e75](https://github.com/proyecto26/react-native-inappbrowser/commit/8cb9e7535a3edb0d9919eab7813bf5f136f455ff)).
-- Add `com.facebook.infer.annotation` dependecy to fix build error by [Artem Emelyanov](mailto:snainer@gmail.com) ([80ff313](https://github.com/proyecto26/react-native-inappbrowser/commit/80ff313c36911d4d82d2885ad8424d7f0f72de29)).
+- Added `com.facebook.infer.annotation` dependecy to fix build error by [Artem Emelyanov](mailto:snainer@gmail.com) ([80ff313](https://github.com/proyecto26/react-native-inappbrowser/commit/80ff313c36911d4d82d2885ad8424d7f0f72de29)).
 - Clear `mOpenBrowserPromise` after sending a cancel by [@rbscott](https://github.com/rbscott) ([d9cc2a3](https://github.com/proyecto26/react-native-inappbrowser/commit/d9cc2a3183f84790deb22bf01f4f7658d67bc8ca)).
 - Fix README to import native package in `MainApplication` instead of `MainActivity` by [@mammad2c](https://github.com/mammad2c) ([ce3f5a9](https://github.com/proyecto26/react-native-inappbrowser/commit/ce3f5a93812a1a2dd7293092bb4a2972f4943268)).
 - Update the `isAvailable` method to return a boolean instead by [@kikketer](https://github.com/kikketer) ([1d75810](https://github.com/proyecto26/react-native-inappbrowser/commit/1d75810881cc6fd5a6913fbef986f897d366cdb9)).
@@ -154,7 +168,8 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.4.0...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.0...HEAD
+[3.5.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.4...v3.4.0
 [3.3.4]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.3...v3.3.4
 [3.3.3]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.2...v3.3.3

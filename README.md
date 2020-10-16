@@ -26,6 +26,7 @@
 </p>
 
 <h1 align="center">InAppBrowser for React Native</h1>
+<h3 align="center">Provides access to the system's web browser and supports handling redirects</h3>
 <h4 align="center"><a href="https://developer.chrome.com/multidevice/android/customtabs#whatarethey">Chrome Custom Tabs</a> for Android & <a href="https://developer.apple.com/documentation/safariservices">SafariServices</a>/<a href="https://developer.apple.com/documentation/authenticationservices">AuthenticationServices</a> for iOS.</h4>
 
 <p align="center">
@@ -150,7 +151,6 @@ Property       | Description
 Property       | Description
 -------------- | ------
 `showTitle` (Boolean)   | Sets whether the title should be shown in the custom tab. [`true`/`false`]
-`hasBackButton` (Boolean)   | Sets a back arrow instead of the default X icon to close the custom tab. [`true`/`false`]
 `toolbarColor` (String)           | Sets the toolbar color. [`gray`/`#808080`]
 `secondaryToolbarColor` (String)  | Sets the color of the secondary toolbar. [`white`/`#FFFFFF`]
 `enableUrlBarHiding` (Boolean)    | Enables the url bar to hide as the user scrolls down on the page. [`true`/`false`]
@@ -158,12 +158,15 @@ Property       | Description
 `animations` (Object)             | Sets the start and exit animations. [`{ startEnter, startExit, endEnter, endExit }`]
 `headers` (Object)                | The data are key/value pairs, they will be sent in the HTTP request headers for the provided url. [`{ 'Authorization': 'Bearer ...' }`]
 `forceCloseOnRedirection` (Boolean) | Open Custom Tab in a new task to avoid issues redirecting back to app scheme. [`true`/`false`]
+`hasBackButton` (Boolean)         | Sets a back arrow instead of the default `X` icon to close the custom tab. [`true`/`false`]
+`browserPackage` (String)         | Package name of a browser to be used to handle Custom Tabs.
+`showInRecents` (Boolean)         | Determining whether browsed website should be shown as separate entry in Android recents/multitasking view. [`true`/`false`]
 
 ### Demo
 
 ```javascript
 import { Linking } from 'react-native'
-import InAppBrowser from 'react-native-inappbrowser-reborn'
+import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 
 ...
   async openLink() {
@@ -178,7 +181,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
           readerMode: false,
           animated: true,
           modalPresentationStyle: 'fullScreen',
-          modalTransitionStyle: 'partialCurl',
+          modalTransitionStyle: 'coverVertical',
           modalEnabled: true,
           enableBarCollapsing: false,
           // Android Properties
@@ -287,7 +290,7 @@ const Main = createStackNavigator(
 - LoginComponent
 ```javascript
 import { Linking } from 'react-native'
-import InAppBrowser from 'react-native-inappbrowser-reborn'
+import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { getDeepLink } from './utilities'
 ...
   async onLogin() {
