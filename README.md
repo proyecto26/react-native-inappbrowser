@@ -33,6 +33,14 @@
   <img width="400px" src="https://github.com/proyecto26/react-native-inappbrowser/blob/main/img/inappbrowser.png?raw=true">
 </p>
 
+## Demo
+
+Do you want to see this package in action? Check these awesome projects, yay! 🎉
+- [MyApp](https://github.com/proyecto26/MyApp) - A template to create awesome Apps easily ⚡️
+- [OLIO](https://olioex.com) - Share more. Waste less.
+
+Let us know about your awesome project [here](https://github.com/proyecto26/react-native-inappbrowser/issues/164)! ❤️
+
 ## Getting started
 
 `$ npm install react-native-inappbrowser-reborn --save`
