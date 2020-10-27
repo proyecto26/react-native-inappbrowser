@@ -38,6 +38,7 @@
 Do you want to see this package in action? Check these awesome projects, yay! 🎉
 - [MyApp](https://github.com/proyecto26/MyApp) - A template to create awesome Apps easily ⚡️
 - [OLIO](https://olioex.com) - Share more. Waste less.
+- [Alpe Audio](https://www.alpeaudio.com) - Courses On The Go.
 
 Let us know about your awesome project [here](https://github.com/proyecto26/react-native-inappbrowser/issues/164)! ❤️
 
