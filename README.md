@@ -174,7 +174,7 @@ Property       | Description
 ### Demo
 
 ```javascript
-import { Linking } from 'react-native'
+import { Linking, Alert } from 'react-native'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 
 ...
