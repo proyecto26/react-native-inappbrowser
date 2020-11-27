@@ -155,7 +155,14 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
     SFSafariViewControllerConfiguration *config = [[SFSafariViewControllerConfiguration alloc] init];
     config.barCollapsingEnabled = enableBarCollapsing;
     config.entersReaderIfAvailable = readerMode;
-    safariVC = [[SFSafariViewController alloc] initWithURL:url configuration:config];
+    @try {
+      safariVC = [[SFSafariViewController alloc] initWithURL:url configuration:config];
+    }
+    @catch (NSException *exception) {
+      reject(RNInAppBrowserErrorCode, @"Unable to open url.", nil);
+      [self _close];
+      return;
+    }
   } else {
     safariVC = [[SFSafariViewController alloc] initWithURL:url entersReaderIfAvailable:readerMode];
   }
