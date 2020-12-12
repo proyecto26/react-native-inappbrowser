@@ -205,6 +205,7 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
     [ctrl presentViewController:safariHackVC animated:animated completion:nil];
   }
   else {
+    ctrl.view; // loads the view if not loaded yet (https://stackoverflow.com/a/57289613/1658268)
     [ctrl presentViewController:safariVC animated:animated completion:nil];
   }
 }
