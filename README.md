@@ -438,6 +438,11 @@ Using in-app browser tabs (like SFAuthenticationSession/ASWebAuthenticationSessi
 * **React Native Custom Tabs:** [Chrome Custom Tabs for React Native](https://github.com/droibit/react-native-custom-tabs)
 * **React Native Safari View:** [A React Native wrapper for Safari View Controller](https://github.com/naoufal/react-native-safari-view)
 
+## Contributing ✨
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.  
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** ❤️.  
+You can learn more about how you can contribute to this project in the [contribution guide](https://github.com/proyecto26/react-native-inappbrowser/blob/develop/CONTRIBUTING.md).
+
 ## Contributors ✨
 Please do contribute! Issues and pull requests are welcome.
 
@@ -481,6 +486,9 @@ The maintainers of InAppBrowser for React Native and thousands of other packages
 
 ## Security contact information 🚨
 To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
+
+## License ⚖️
+This repository is available under the [MIT License](https://github.com/proyecto26/react-native-inappbrowser/blob/develop/LICENSE).
 
 ## Happy coding 💯
 Made with ❤️
