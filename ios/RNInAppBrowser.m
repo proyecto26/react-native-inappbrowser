@@ -75,16 +75,18 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
     void (^completionHandler)(NSURL * _Nullable, NSError *_Nullable) = ^(NSURL* _Nullable callbackURL, NSError* _Nullable error) {
       __strong typeof(weakSelf) strongSelf = weakSelf;
       if (strongSelf) {
-        if (!error) {
-          NSString *url = callbackURL.absoluteString;
-          redirectResolve(@{
-            @"type" : @"success",
-            @"url" : url,
-          });
-        } else {
-          redirectResolve(@{
-            @"type" : @"cancel",
-          });
+        if (redirectResolve) {
+          if (!error) {
+            NSString *url = callbackURL.absoluteString;
+            redirectResolve(@{
+              @"type" : @"success",
+              @"url" : url,
+            });
+          } else {
+            redirectResolve(@{
+              @"type" : @"cancel",
+            });
+          }
         }
         [strongSelf flowDidFinish];
       }
