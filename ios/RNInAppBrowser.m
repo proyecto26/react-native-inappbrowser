@@ -79,13 +79,13 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
           if (!error) {
             NSString *url = callbackURL.absoluteString;
             redirectResolve(@{
-                @"type" : @"success",
-                  @"url" : url,
-                  });
+              @"type" : @"success",
+              @"url" : url,
+            });
           } else {
             redirectResolve(@{
-                @"type" : @"cancel",
-                  });
+              @"type" : @"cancel",
+            });
           }
         }
         [strongSelf flowDidFinish];
