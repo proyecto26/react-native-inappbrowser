@@ -90,15 +90,17 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
       }
     };
 
+    NSString *escapedRedirectURL = [redirectURL stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+
     if (@available(iOS 12.0, *)) {
       webAuthSession = [[ASWebAuthenticationSession alloc]
         initWithURL:url
-        callbackURLScheme:redirectURL
+        callbackURLScheme:escapedRedirectURL
         completionHandler:completionHandler];
     } else {
       authSession = [[SFAuthenticationSession alloc]
         initWithURL:url
-        callbackURLScheme:redirectURL
+        callbackURLScheme:escapedRedirectURL
         completionHandler:completionHandler];
     }
 
