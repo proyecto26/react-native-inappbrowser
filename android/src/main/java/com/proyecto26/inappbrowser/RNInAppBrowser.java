@@ -1,6 +1,5 @@
 package com.proyecto26.inappbrowser;
 
-import android.R.anim;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -8,10 +7,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
-import android.graphics.Color;
 import android.graphics.BitmapFactory;
 import android.provider.Browser;
 import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabColorSchemeParams;
 import androidx.browser.customtabs.CustomTabsClient;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.graphics.ColorUtils;
@@ -22,7 +21,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
-import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -78,30 +76,22 @@ public class RNInAppBrowser {
       return;
     }
 
-    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+    CustomTabColorSchemeParams.Builder colorSchemeBuilder = new CustomTabColorSchemeParams.Builder();
     if (options.hasKey(KEY_TOOLBAR_COLOR)) {
-      final String colorString = options.getString(KEY_TOOLBAR_COLOR);
-      try {
-        builder.setToolbarColor(Color.parseColor(colorString));
-        isLightTheme = toolbarIsLight(colorString);
-      } catch (IllegalArgumentException e) {
-        throw new JSApplicationIllegalArgumentException(
-                "Invalid toolbar color '" + colorString + "': " + e.getMessage());
-      }
+      final int color = options.getInt(KEY_TOOLBAR_COLOR);
+      colorSchemeBuilder.setToolbarColor(color);
+      isLightTheme = toolbarIsLight(color);
     }
     if (options.hasKey(KEY_SECONDARY_TOOLBAR_COLOR)) {
-      final String colorString = options.getString(KEY_SECONDARY_TOOLBAR_COLOR);
-      try {
-        builder.setSecondaryToolbarColor(Color.parseColor(colorString));
-      } catch (IllegalArgumentException e) {
-        throw new JSApplicationIllegalArgumentException(
-                "Invalid secondary toolbar color '" + colorString + "': " + e.getMessage());
-      }
+      final int color = options.getInt(KEY_SECONDARY_TOOLBAR_COLOR);
+      colorSchemeBuilder.setSecondaryToolbarColor(color);
     }
-    if (options.hasKey(KEY_DEFAULT_SHARE_MENU_ITEM) && 
-        options.getBoolean(KEY_DEFAULT_SHARE_MENU_ITEM)) {
-      builder.addDefaultShareMenuItem();
-    }
+    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+    builder.setDefaultColorSchemeParams(colorSchemeBuilder.build());
+    builder.setShareState(
+        options.hasKey(KEY_DEFAULT_SHARE_MENU_ITEM) && options.getBoolean(KEY_DEFAULT_SHARE_MENU_ITEM) ?
+            CustomTabsIntent.SHARE_STATE_ON :
+            CustomTabsIntent.SHARE_STATE_OFF);
     if (options.hasKey(KEY_ANIMATIONS)) {
       final ReadableMap animations = options.getMap(KEY_ANIMATIONS);
       applyAnimation(context, builder, animations);
@@ -151,7 +141,7 @@ public class RNInAppBrowser {
     }
 
     intent.putExtra(CustomTabsIntent.EXTRA_ENABLE_URLBAR_HIDING, (
-      options.hasKey(KEY_ENABLE_URL_BAR_HIDING) && 
+      options.hasKey(KEY_ENABLE_URL_BAR_HIDING) &&
       options.getBoolean(KEY_ENABLE_URL_BAR_HIDING)));
     try {
       if (options.hasKey(KEY_BROWSER_PACKAGE)) {
@@ -166,7 +156,7 @@ public class RNInAppBrowser {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    
+
     intent.setData(Uri.parse(url));
     if (options.hasKey(KEY_SHOW_PAGE_TITLE)) {
       builder.setShowTitle(options.getBoolean(KEY_SHOW_PAGE_TITLE));
@@ -266,8 +256,8 @@ public class RNInAppBrowser {
     }
   }
 
-  private Boolean toolbarIsLight(String themeColor) {
-    return ColorUtils.calculateLuminance(Color.parseColor(themeColor)) > 0.5;
+  private Boolean toolbarIsLight(int themeColor) {
+    return ColorUtils.calculateLuminance(themeColor) > 0.5;
   }
 
   private List<ResolveInfo> getPreferredPackages(Context context) {
