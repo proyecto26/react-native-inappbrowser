@@ -70,7 +70,7 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
   BOOL ephemeralWebSession = [options[@"ephemeralWebSession"] boolValue];
 
   if (@available(iOS 11, *)) {
-    NSURL *url = [[NSURL alloc] initWithString: authURL];
+    NSURL *url = [[NSURL alloc] initWithString:authURL];
     __weak typeof(self) weakSelf = self;
     void (^completionHandler)(NSURL * _Nullable, NSError *_Nullable) = ^(NSURL* _Nullable callbackURL, NSError* _Nullable error) {
       __strong typeof(weakSelf) strongSelf = weakSelf;
@@ -151,24 +151,24 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
   modalEnabled = [options[@"modalEnabled"] boolValue];
   animated = [options[@"animated"] boolValue];
 
-  // Safari View Controller to authorize request
-  NSURL *url = [[NSURL alloc] initWithString:authURL];
-  if (@available(iOS 11.0, *)) {
-    SFSafariViewControllerConfiguration *config = [[SFSafariViewControllerConfiguration alloc] init];
-    config.barCollapsingEnabled = enableBarCollapsing;
-    config.entersReaderIfAvailable = readerMode;
-    @try {
+  @try {
+    // Safari View Controller to authorize request
+    NSURL *url = [[NSURL alloc] initWithString:authURL];
+    if (@available(iOS 11.0, *)) {
+      SFSafariViewControllerConfiguration *config = [[SFSafariViewControllerConfiguration alloc] init];
+      config.barCollapsingEnabled = enableBarCollapsing;
+      config.entersReaderIfAvailable = readerMode;
       safariVC = [[SFSafariViewController alloc] initWithURL:url configuration:config];
+    } else {
+      safariVC = [[SFSafariViewController alloc] initWithURL:url entersReaderIfAvailable:readerMode];
     }
-    @catch (NSException *exception) {
-      reject(RNInAppBrowserErrorCode, @"Unable to open url.", nil);
-      [self _close];
-      NSLog(@"CRASH: %@", exception);
-      NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
-      return;
-    }
-  } else {
-    safariVC = [[SFSafariViewController alloc] initWithURL:url entersReaderIfAvailable:readerMode];
+  }
+  @catch (NSException *exception) {
+    reject(RNInAppBrowserErrorCode, @"Unable to open url.", nil);
+    [self _close];
+    NSLog(@"CRASH: %@", exception);
+    NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
+    return;
   }
   safariVC.delegate = self;
   if (@available(iOS 11.0, *)) {
