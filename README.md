@@ -236,12 +236,16 @@ define your app scheme and replace `my-scheme` and `my-host` with your info.
 
 - Enable deep linking (Android) - **[AndroidManifest.xml](https://github.com/proyecto26/react-native-inappbrowser/blob/master/example/android/app/src/main/AndroidManifest.xml#L23)**
 ```
-<intent-filter>
-    <action android:name="android.intent.action.VIEW" />
-    <category android:name="android.intent.category.DEFAULT" />
-    <category android:name="android.intent.category.BROWSABLE" />
-    <data android:scheme="my-scheme" android:host="my-host" android:pathPrefix="" />
-</intent-filter>
+<activity
+  ...
+  android:launchMode="singleTask">
+  <intent-filter>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <category android:name="android.intent.category.BROWSABLE" />
+      <data android:scheme="my-scheme" android:host="my-host" android:pathPrefix="" />
+  </intent-filter>
+</activity>
 ```
 
 - Enable deep linking (iOS) - **[Info.plist](https://github.com/proyecto26/react-native-inappbrowser/blob/master/example/ios/example/Info.plist#L23)**
