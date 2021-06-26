@@ -33,14 +33,17 @@
   <img width="400px" src="https://github.com/proyecto26/react-native-inappbrowser/blob/main/img/inappbrowser.png?raw=true">
 </p>
 
-## Demo
+## Who is using InAppBrowser?
 
 Do you want to see this package in action? Check these awesome projects, yay! 🎉
 - [MyApp](https://github.com/proyecto26/MyApp) - A template to create awesome Apps easily ⚡️
 - [OLIO](https://olioex.com) - Share more. Waste less.
 - [Alpe Audio](https://www.alpeaudio.com) - Courses On The Go.
+- [VibePay](https://vibepay.com) - A simple, smarter, better way to get paid.
+- [Opinio](https://opinio.media) - allows the population to be surveyed on social issues.
+- [medpex: Online Apotheke](https://www.medpex.de) - Online pharmacy for medicines & cosmetics with over 5 million customers.
 
-Let us know about your awesome project [here](https://github.com/proyecto26/react-native-inappbrowser/issues/164)! ❤️
+Share your awesome project [here](https://github.com/proyecto26/react-native-inappbrowser/issues/164)! ❤️
 
 ## Getting started
 
