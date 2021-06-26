@@ -25,7 +25,7 @@ in case of vulnerabilities.
 ## [3.6.0] - 2021-06-25
 
 ### Added
-- Add `navigationBarColor` and `navigationBarDividerColor` by [@jdnichollsc](https://github.com/jdnichollsc).
+- Add `navigationBarColor` and `navigationBarDividerColor` options by [@jdnichollsc](https://github.com/jdnichollsc).
 - Add try catch block to `Safari View Controller` logic by [@Opstrup](https://github.com/Opstrup) ([#216](https://github.com/proyecto26/react-native-inappbrowser/pull/216)).
 
 ### Fixed
