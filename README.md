@@ -234,7 +234,7 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 In order to redirect back to your application from a web browser, you must specify a unique URI to your app. To do this,
 define your app scheme and replace `my-scheme` and `my-host` with your info.
 
-- Enable deep linking (Android) - **[AndroidManifest.xml](https://github.com/proyecto26/react-native-inappbrowser/blob/master/example/android/app/src/main/AndroidManifest.xml#L23)**
+- Enable deep linking (Android) - **[AndroidManifest.xml](https://github.com/proyecto26/react-native-inappbrowser/blob/main/example/android/app/src/main/AndroidManifest.xml#L23)**
 ```
 <activity
   ...
@@ -248,7 +248,7 @@ define your app scheme and replace `my-scheme` and `my-host` with your info.
 </activity>
 ```
 
-- Enable deep linking (iOS) - **[Info.plist](https://github.com/proyecto26/react-native-inappbrowser/blob/master/example/ios/example/Info.plist#L23)**
+- Enable deep linking (iOS) - **[Info.plist](https://github.com/proyecto26/react-native-inappbrowser/blob/main/example/ios/example/Info.plist#L23)**
 ```
 <key>CFBundleURLTypes</key>
 <array>
