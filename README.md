@@ -273,8 +273,8 @@ export const getDeepLink = (path = "") => {
 - App.js ([Using react-navigation with Deep Linking](https://reactnavigation.org/docs/en/deep-linking.html))
 ```javascript
 import { Root } from 'native-base'
-import { getDeepLink } from './utilities'
 import { createStackNavigator } from 'react-navigation'
+import { getDeepLink } from './utilities'
 
 const Main = createStackNavigator(
   {
