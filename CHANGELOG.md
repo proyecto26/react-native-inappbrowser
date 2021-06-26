@@ -188,7 +188,7 @@ Missing tags for previous versions 🤷‍♂
 
 
 [Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.0...HEAD
-[3.5.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.1...v3.6.0
+[3.6.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.1...v3.6.0
 [3.5.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.0...v3.5.1
 [3.5.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.4...v3.4.0
