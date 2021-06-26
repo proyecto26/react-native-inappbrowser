@@ -22,7 +22,7 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
-## [3.6.0] - 2020-06-25
+## [3.6.0] - 2021-06-25
 
 ### Added
 - Add `navigationBarColor` and `navigationBarDividerColor` by [@jdnichollsc](https://github.com/jdnichollsc).
