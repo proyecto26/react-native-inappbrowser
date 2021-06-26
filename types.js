@@ -3,20 +3,20 @@
  * @flow strict-local
  */
 
-export type RedirectEvent = {
+export type RedirectEvent = {|
   url: 'string',
-};
+|};
 
-export type BrowserResult = {
+export type BrowserResult = {|
   type: 'cancel' | 'dismiss',
-};
+|};
 
-export type RedirectResult = {
+export type RedirectResult = {|
   type: 'success',
   url: string,
-};
+|};
 
-type InAppBrowseriOSOptions = {
+type InAppBrowseriOSOptions = {|
   dismissButtonStyle?: 'done' | 'close' | 'cancel',
   preferredBarTintColor?: string,
   preferredControlTintColor?: string,
@@ -41,12 +41,14 @@ type InAppBrowseriOSOptions = {
   modalEnabled?: boolean,
   enableBarCollapsing?: boolean,
   ephemeralWebSession?: boolean,
-};
+|};
 
-type InAppBrowserAndroidOptions = {
+type InAppBrowserAndroidOptions = {|
   showTitle?: boolean,
   toolbarColor?: string,
   secondaryToolbarColor?: string,
+  navigationBarColor?: string,
+  navigationBarDividerColor?: string,
   enableUrlBarHiding?: boolean,
   enableDefaultShare?: boolean,
   forceCloseOnRedirection?: boolean,
@@ -60,7 +62,7 @@ type InAppBrowserAndroidOptions = {
   hasBackButton?: boolean,
   browserPackage?: string,
   showInRecents?: boolean,
-};
+|};
 
 export type InAppBrowserOptions = {
   ...InAppBrowserAndroidOptions,

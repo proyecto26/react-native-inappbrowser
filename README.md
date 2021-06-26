@@ -33,6 +33,15 @@
   <img width="400px" src="https://github.com/proyecto26/react-native-inappbrowser/blob/main/img/inappbrowser.png?raw=true">
 </p>
 
+## Demo
+
+Do you want to see this package in action? Check these awesome projects, yay! 🎉
+- [MyApp](https://github.com/proyecto26/MyApp) - A template to create awesome Apps easily ⚡️
+- [OLIO](https://olioex.com) - Share more. Waste less.
+- [Alpe Audio](https://www.alpeaudio.com) - Courses On The Go.
+
+Let us know about your awesome project [here](https://github.com/proyecto26/react-native-inappbrowser/issues/164)! ❤️
+
 ## Getting started
 
 `$ npm install react-native-inappbrowser-reborn --save`
@@ -153,6 +162,8 @@ Property       | Description
 `showTitle` (Boolean)   | Sets whether the title should be shown in the custom tab. [`true`/`false`]
 `toolbarColor` (String)           | Sets the toolbar color. [`gray`/`#808080`]
 `secondaryToolbarColor` (String)  | Sets the color of the secondary toolbar. [`white`/`#FFFFFF`]
+`navigationBarColor` (String)     | Sets the navigation bar color. [`gray`/`#808080`]
+`navigationBarDividerColor` (String) | Sets the navigation bar divider color.  [`white`/`#FFFFFF`]
 `enableUrlBarHiding` (Boolean)    | Enables the url bar to hide as the user scrolls down on the page. [`true`/`false`]
 `enableDefaultShare` (Boolean)    | Adds a default share item to the menu. [`true`/`false`]
 `animations` (Object)             | Sets the start and exit animations. [`{ startEnter, startExit, endEnter, endExit }`]
@@ -165,13 +176,13 @@ Property       | Description
 ### Demo
 
 ```javascript
-import { Linking } from 'react-native'
+import { Linking, Alert } from 'react-native'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 
 ...
   async openLink() {
     try {
-      const url = 'https://www.google.com'
+      const url = 'https://www.proyecto26.com'
       if (await InAppBrowser.isAvailable()) {
         const result = await InAppBrowser.open(url, {
           // iOS Properties
@@ -188,6 +199,8 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
           showTitle: true,
           toolbarColor: '#6200EE',
           secondaryToolbarColor: 'black',
+          navigationBarColor: 'black',
+          navigationBarDividerColor: 'white',
           enableUrlBarHiding: true,
           enableDefaultShare: true,
           forceCloseOnRedirection: false,
@@ -429,6 +442,11 @@ Using in-app browser tabs (like SFAuthenticationSession/ASWebAuthenticationSessi
 * **React Native Custom Tabs:** [Chrome Custom Tabs for React Native](https://github.com/droibit/react-native-custom-tabs)
 * **React Native Safari View:** [A React Native wrapper for Safari View Controller](https://github.com/naoufal/react-native-safari-view)
 
+## Contributing ✨
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.  
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** ❤️.  
+You can learn more about how you can contribute to this project in the [contribution guide](https://github.com/proyecto26/react-native-inappbrowser/blob/develop/CONTRIBUTING.md).
+
 ## Contributors ✨
 Please do contribute! Issues and pull requests are welcome.
 
@@ -472,6 +490,9 @@ The maintainers of InAppBrowser for React Native and thousands of other packages
 
 ## Security contact information 🚨
 To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
+
+## License ⚖️
+This repository is available under the [MIT License](https://github.com/proyecto26/react-native-inappbrowser/blob/develop/LICENSE).
 
 ## Happy coding 💯
 Made with ❤️

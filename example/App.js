@@ -18,7 +18,7 @@ import {
   StatusBar,
   Linking,
 } from 'react-native';
-import { InAppBrowser } from 'react-native-inappbrowser-reborn';
+import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -29,15 +29,15 @@ const instructions = Platform.select({
 
 type ComponentState = {
   url: string,
-  statusBarStyle: string
-}
+  statusBarStyle: string,
+};
 
 export default class App extends Component<ComponentState> {
   constructor(props) {
     super(props);
 
     this.state = {
-      url: 'https://www.google.com',
+      url: 'https://www.proyecto26.com',
       statusBarStyle: 'dark-content',
     };
   }
@@ -69,6 +69,8 @@ export default class App extends Component<ComponentState> {
           showTitle: true,
           toolbarColor: '#6200EE',
           secondaryToolbarColor: 'black',
+          navigationBarColor: 'black',
+          navigationBarDividerColor: 'white',
           enableUrlBarHiding: true,
           enableDefaultShare: true,
           forceCloseOnRedirection: false,
@@ -85,7 +87,7 @@ export default class App extends Component<ComponentState> {
           },
           hasBackButton: true,
           browserPackage: null,
-          showInRecents: false
+          showInRecents: false,
         });
         // A delay to show an alert when the browser is closed
         await this.sleep(800);

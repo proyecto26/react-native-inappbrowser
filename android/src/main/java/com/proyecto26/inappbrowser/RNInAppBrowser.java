@@ -35,6 +35,8 @@ public class RNInAppBrowser {
   private final static String ERROR_CODE = "InAppBrowser";
   private static final String KEY_TOOLBAR_COLOR = "toolbarColor";
   private static final String KEY_SECONDARY_TOOLBAR_COLOR = "secondaryToolbarColor";
+  private static final String KEY_NAVIGATION_BAR_COLOR = "navigationBarColor";
+  private static final String KEY_NAVIGATION_BAR_DIVIDER_COLOR = "navigationBarDividerColor";
   private static final String KEY_ENABLE_URL_BAR_HIDING = "enableUrlBarHiding";
   private static final String KEY_SHOW_PAGE_TITLE = "showTitle";
   private static final String KEY_DEFAULT_SHARE_MENU_ITEM = "enableDefaultShare";
@@ -79,6 +81,7 @@ public class RNInAppBrowser {
     }
 
     CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+    isLightTheme = false;
     if (options.hasKey(KEY_TOOLBAR_COLOR)) {
       final String colorString = options.getString(KEY_TOOLBAR_COLOR);
       try {
@@ -96,6 +99,24 @@ public class RNInAppBrowser {
       } catch (IllegalArgumentException e) {
         throw new JSApplicationIllegalArgumentException(
                 "Invalid secondary toolbar color '" + colorString + "': " + e.getMessage());
+      }
+    }
+    if (options.hasKey(KEY_NAVIGATION_BAR_COLOR)) {
+      final String colorString = options.getString(KEY_NAVIGATION_BAR_COLOR);
+      try {
+        builder.setNavigationBarColor(Color.parseColor(colorString));
+      } catch (IllegalArgumentException e) {
+        throw new JSApplicationIllegalArgumentException(
+                "Invalid navigation bar color '" + colorString + "': " + e.getMessage());
+      }
+    }
+    if (options.hasKey(KEY_NAVIGATION_BAR_DIVIDER_COLOR)) {
+      final String colorString = options.getString(KEY_NAVIGATION_BAR_DIVIDER_COLOR);
+      try {
+        builder.setNavigationBarDividerColor(Color.parseColor(colorString));
+      } catch (IllegalArgumentException e) {
+        throw new JSApplicationIllegalArgumentException(
+                "Invalid navigation bar divider color '" + colorString + "': " + e.getMessage());
       }
     }
     if (options.hasKey(KEY_DEFAULT_SHARE_MENU_ITEM) && 
