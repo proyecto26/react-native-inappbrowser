@@ -22,6 +22,18 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.6.0] - 2020-06-25
+
+### Added
+- Add `navigationBarColor` and `navigationBarDividerColor` by [@jdnichollsc](https://github.com/jdnichollsc).
+- Add try catch block to `Safari View Controller` logic by [@Opstrup](https://github.com/Opstrup) ([#216](https://github.com/proyecto26/react-native-inappbrowser/pull/216)).
+
+### Fixed
+- Fix invalid scheme with iOS 14.5 by [@SimonIT](https://github.com/SimonIT) ([#262](https://github.com/proyecto26/react-native-inappbrowser/pull/262)).
+- Make InAppBrowserOptions exact typed by [@ronal2do](https://github.com/ronal2do) ([#258](https://github.com/proyecto26/react-native-inappbrowser/pull/258)).
+- Fix `openAuth` crashed when going to be closed and then press the cancel button by [@hikouki](https://github.com/hikouki) ([#250](https://github.com/proyecto26/react-native-inappbrowser/pull/250)).
+- Import `Alert` component for example code block by [@orcuntuna](https://github.com/orcuntuna) ([#209](https://github.com/proyecto26/react-native-inappbrowser/pull/209)).
+
 ## [3.5.1] - 2020-10-16
 
 ### Fixed
@@ -175,7 +187,8 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.1...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.0...HEAD
+[3.5.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.1...v3.6.0
 [3.5.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.0...v3.5.1
 [3.5.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.3.4...v3.4.0
