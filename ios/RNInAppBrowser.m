@@ -163,6 +163,8 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
     @catch (NSException *exception) {
       reject(RNInAppBrowserErrorCode, @"Unable to open url.", nil);
       [self _close];
+      NSLog(@"CRASH: %@", exception);
+      NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
       return;
     }
   } else {

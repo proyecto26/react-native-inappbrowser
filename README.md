@@ -162,6 +162,8 @@ Property       | Description
 `showTitle` (Boolean)   | Sets whether the title should be shown in the custom tab. [`true`/`false`]
 `toolbarColor` (String)           | Sets the toolbar color. [`gray`/`#808080`]
 `secondaryToolbarColor` (String)  | Sets the color of the secondary toolbar. [`white`/`#FFFFFF`]
+`navigationBarColor` (String)     | Sets the navigation bar color. [`gray`/`#808080`]
+`navigationBarDividerColor` (String) | Sets the navigation bar divider color.  [`white`/`#FFFFFF`]
 `enableUrlBarHiding` (Boolean)    | Enables the url bar to hide as the user scrolls down on the page. [`true`/`false`]
 `enableDefaultShare` (Boolean)    | Adds a default share item to the menu. [`true`/`false`]
 `animations` (Object)             | Sets the start and exit animations. [`{ startEnter, startExit, endEnter, endExit }`]
@@ -180,7 +182,7 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 ...
   async openLink() {
     try {
-      const url = 'https://www.google.com'
+      const url = 'https://www.proyecto26.com'
       if (await InAppBrowser.isAvailable()) {
         const result = await InAppBrowser.open(url, {
           // iOS Properties
@@ -197,6 +199,8 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
           showTitle: true,
           toolbarColor: '#6200EE',
           secondaryToolbarColor: 'black',
+          navigationBarColor: 'black',
+          navigationBarDividerColor: 'white',
           enableUrlBarHiding: true,
           enableDefaultShare: true,
           forceCloseOnRedirection: false,

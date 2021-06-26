@@ -43,6 +43,8 @@ declare module 'react-native-inappbrowser-reborn' {
     showTitle?: boolean,
     toolbarColor?: string,
     secondaryToolbarColor?: string,
+    navigationBarColor?: string,
+    navigationBarDividerColor?: string,
     enableUrlBarHiding?: boolean,
     enableDefaultShare?: boolean,
     forceCloseOnRedirection?: boolean,

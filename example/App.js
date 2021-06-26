@@ -37,7 +37,7 @@ export default class App extends Component<ComponentState> {
     super(props);
 
     this.state = {
-      url: 'https://www.google.com',
+      url: 'https://www.proyecto26.com',
       statusBarStyle: 'dark-content',
     };
   }
@@ -69,6 +69,8 @@ export default class App extends Component<ComponentState> {
           showTitle: true,
           toolbarColor: '#6200EE',
           secondaryToolbarColor: 'black',
+          navigationBarColor: 'black',
+          navigationBarDividerColor: 'white',
           enableUrlBarHiding: true,
           enableDefaultShare: true,
           forceCloseOnRedirection: false,

@@ -47,6 +47,8 @@ type InAppBrowserAndroidOptions = {|
   showTitle?: boolean,
   toolbarColor?: string,
   secondaryToolbarColor?: string,
+  navigationBarColor?: string,
+  navigationBarDividerColor?: string,
   enableUrlBarHiding?: boolean,
   enableDefaultShare?: boolean,
   forceCloseOnRedirection?: boolean,
@@ -62,6 +64,9 @@ type InAppBrowserAndroidOptions = {|
   showInRecents?: boolean,
 |};
 
-export type InAppBrowserOptions = InAppBrowserAndroidOptions | InAppBrowseriOSOptions;
+export type InAppBrowserOptions = {
+  ...InAppBrowserAndroidOptions,
+  ...InAppBrowseriOSOptions
+};
 
 export type AuthSessionResult = RedirectResult | BrowserResult;
