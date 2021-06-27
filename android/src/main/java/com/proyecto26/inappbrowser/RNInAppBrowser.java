@@ -187,6 +187,8 @@ public class RNInAppBrowser {
     } catch (Exception e) {
       e.printStackTrace();
     }
+
+    registerEventBus();
     
     intent.setData(Uri.parse(url));
     if (options.hasKey(KEY_SHOW_PAGE_TITLE)) {
@@ -195,8 +197,6 @@ public class RNInAppBrowser {
     else {
       intent.putExtra(CustomTabsIntent.EXTRA_TITLE_VISIBILITY_STATE, CustomTabsIntent.NO_TITLE);
     }
-
-    registerEventBus();
 
     currentActivity.startActivity(
         ChromeTabsManagerActivity.createStartIntent(currentActivity, intent),
@@ -243,6 +243,7 @@ public class RNInAppBrowser {
     } else {
       WritableMap result = Arguments.createMap();
       result.putString("type", event.resultType);
+      result.putString("message", event.message);
       mOpenBrowserPromise.resolve(result);
     }
     mOpenBrowserPromise = null;

@@ -96,7 +96,8 @@ export default class App extends Component<ComponentState> {
         Linking.openURL(url);
       }
     } catch (error) {
-      Alert.alert(error.message);
+      console.error(error);
+      Alert.alert(error.message || error);
     } finally {
       // Restore the previous StatusBar of the App
       StatusBar.setBarStyle(statusBarStyle);

@@ -20,6 +20,7 @@ public class ChromeTabsManagerActivity extends Activity {
 
   private boolean mOpened = false;
   private String resultType = null;
+  private boolean isError = false;
 
   public static Intent createStartIntent(Context context, Intent authIntent) {
     Intent intent = createBaseIntent(context);
@@ -56,7 +57,8 @@ public class ChromeTabsManagerActivity extends Activity {
         finish();
       }
     } catch (Exception e) {
-      EventBus.getDefault().post(new ChromeTabsDismissedEvent("Unable to open url.", "cancel", true));
+      isError = true;
+      EventBus.getDefault().post(new ChromeTabsDismissedEvent("Unable to open url.", resultType, isError));
       finish();
       e.printStackTrace();
     }
@@ -82,10 +84,10 @@ public class ChromeTabsManagerActivity extends Activity {
     if (resultType != null) {
       switch (resultType) {
         case "cancel":
-          EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity closed", resultType, false));
+          EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity closed", resultType, isError));
           break;
         default:
-          EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity destroyed", DEFAULT_RESULT_TYPE, false));
+          EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity destroyed", DEFAULT_RESULT_TYPE, isError));
           break;
       }
       resultType = null;
