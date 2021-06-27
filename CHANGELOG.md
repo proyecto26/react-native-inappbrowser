@@ -24,6 +24,7 @@ in case of vulnerabilities.
 
 ## [3.6.1] - 2021-06-27
 
+### Added
 - Add try catch block to `CustomTabs` logic to validate the url.
 
 ## [3.6.0] - 2021-06-25
