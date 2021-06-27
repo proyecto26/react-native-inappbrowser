@@ -40,7 +40,7 @@ Do you want to see this package in action? Check these awesome projects, yay! �
 - [OLIO](https://olioex.com) - Share more. Waste less.
 - [Alpe Audio](https://www.alpeaudio.com) - Courses On The Go.
 - [VibePay](https://vibepay.com) - A simple, smarter, better way to get paid.
-- [Opinio](https://opinio.media) - allows the population to be surveyed on social issues.
+- [Opinio](https://opinio.media) - Allows the population to be surveyed on social issues.
 - [medpex: Online Apotheke](https://www.medpex.de) - Online pharmacy for medicines & cosmetics with over 5 million customers.
 
 Share your awesome project [here](https://github.com/proyecto26/react-native-inappbrowser/issues/164)! ❤️
