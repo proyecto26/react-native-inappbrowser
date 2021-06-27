@@ -37,7 +37,7 @@ export default class App extends Component<ComponentState> {
     super(props);
 
     this.state = {
-      url: 'https://www.proyecto26.com',
+      url: 'https://reactnative.dev',
       statusBarStyle: 'dark-content',
     };
   }

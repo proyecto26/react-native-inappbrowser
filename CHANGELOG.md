@@ -22,6 +22,10 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.6.1] - 2021-06-27
+
+- Add try catch block to `CustomTabs` logic to validate the url.
+
 ## [3.6.0] - 2021-06-25
 
 ### Added
@@ -187,7 +191,8 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.0...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.1...HEAD
+[3.6.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.0...v3.6.1
 [3.6.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.1...v3.6.0
 [3.5.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.0...v3.5.1
 [3.5.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.4.0...v3.5.0

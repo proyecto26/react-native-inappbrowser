@@ -238,9 +238,13 @@ public class RNInAppBrowser {
       throw new AssertionError();
     }
 
-    WritableMap result = Arguments.createMap();
-    result.putString("type", event.resultType);
-    mOpenBrowserPromise.resolve(result);
+    if (event.isError) {
+      mOpenBrowserPromise.reject(ERROR_CODE, event.message);
+    } else {
+      WritableMap result = Arguments.createMap();
+      result.putString("type", event.resultType);
+      mOpenBrowserPromise.resolve(result);
+    }
     mOpenBrowserPromise = null;
   }
 

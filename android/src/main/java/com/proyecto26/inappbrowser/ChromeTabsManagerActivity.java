@@ -39,20 +39,26 @@ public class ChromeTabsManagerActivity extends Activity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    try {
+      super.onCreate(savedInstanceState);
 
-    // This activity gets opened in 2 different ways. If the extra KEY_BROWSER_INTENT is present we
-    // start that intent and if it is not it means this activity was started with FLAG_ACTIVITY_CLEAR_TOP
-    // in order to close the intent that was started previously so we just close this.
-    if (getIntent().hasExtra(KEY_BROWSER_INTENT)
-      && (savedInstanceState == null || savedInstanceState.getString(BROWSER_RESULT_TYPE) == null)
-    ) {
-      Intent browserIntent = getIntent().getParcelableExtra(KEY_BROWSER_INTENT);
-      browserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-      startActivity(browserIntent);
-      resultType = DEFAULT_RESULT_TYPE;
-    } else {
+      // This activity gets opened in 2 different ways. If the extra KEY_BROWSER_INTENT is present we
+      // start that intent and if it is not it means this activity was started with FLAG_ACTIVITY_CLEAR_TOP
+      // in order to close the intent that was started previously so we just close this.
+      if (getIntent().hasExtra(KEY_BROWSER_INTENT)
+        && (savedInstanceState == null || savedInstanceState.getString(BROWSER_RESULT_TYPE) == null)
+      ) {
+        Intent browserIntent = getIntent().getParcelableExtra(KEY_BROWSER_INTENT);
+        browserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(browserIntent);
+        resultType = DEFAULT_RESULT_TYPE;
+      } else {
+        finish();
+      }
+    } catch (Exception e) {
+      EventBus.getDefault().post(new ChromeTabsDismissedEvent("Unable to open url.", "cancel", true));
       finish();
+      e.printStackTrace();
     }
   }
 
@@ -76,10 +82,10 @@ public class ChromeTabsManagerActivity extends Activity {
     if (resultType != null) {
       switch (resultType) {
         case "cancel":
-          EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity closed", resultType));
+          EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity closed", resultType, false));
           break;
         default:
-          EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity destroyed", DEFAULT_RESULT_TYPE));
+          EventBus.getDefault().post(new ChromeTabsDismissedEvent("chrome tabs activity destroyed", DEFAULT_RESULT_TYPE, false));
           break;
       }
       resultType = null;
