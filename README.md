@@ -33,14 +33,17 @@
   <img width="400px" src="https://github.com/proyecto26/react-native-inappbrowser/blob/main/img/inappbrowser.png?raw=true">
 </p>
 
-## Demo
+## Who is using InAppBrowser?
 
 Do you want to see this package in action? Check these awesome projects, yay! 🎉
 - [MyApp](https://github.com/proyecto26/MyApp) - A template to create awesome Apps easily ⚡️
 - [OLIO](https://olioex.com) - Share more. Waste less.
 - [Alpe Audio](https://www.alpeaudio.com) - Courses On The Go.
+- [VibePay](https://vibepay.com) - A simple, smarter, better way to get paid.
+- [Opinio](https://opinio.media) - Allows the population to be surveyed on social issues.
+- [medpex: Online Apotheke](https://www.medpex.de) - Online pharmacy for medicines & cosmetics with over 5 million customers.
 
-Let us know about your awesome project [here](https://github.com/proyecto26/react-native-inappbrowser/issues/164)! ❤️
+Share your awesome project [here](https://github.com/proyecto26/react-native-inappbrowser/issues/164)! ❤️
 
 ## Getting started
 
@@ -67,7 +70,7 @@ Linking the package manually is not required anymore with [Autolinking](https://
       minSdkVersion = 16
       compileSdkVersion = 28
       targetSdkVersion = 28
-      # Only using Android Support libraries
+      // Only using Android Support libraries
       supportLibVersion = "28.0.0"
     }
   ```
@@ -82,7 +85,7 @@ Linking the package manually is not required anymore with [Autolinking](https://
       minSdkVersion = 16
       compileSdkVersion = 28
       targetSdkVersion = 28
-      # Remove 'supportLibVersion' property and put specific versions for AndroidX libraries
+      // Remove 'supportLibVersion' property and put specific versions for AndroidX libraries
       androidXAnnotation = "1.1.0"
       androidXBrowser = "1.0.0"
       // Put here other AndroidX dependencies
@@ -231,17 +234,21 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 In order to redirect back to your application from a web browser, you must specify a unique URI to your app. To do this,
 define your app scheme and replace `my-scheme` and `my-host` with your info.
 
-- Enable deep linking (Android) - **[AndroidManifest.xml](https://github.com/proyecto26/react-native-inappbrowser/blob/master/example/android/app/src/main/AndroidManifest.xml#L23)**
+- Enable deep linking (Android) - **[AndroidManifest.xml](https://github.com/proyecto26/react-native-inappbrowser/blob/main/example/android/app/src/main/AndroidManifest.xml#L23)**
 ```
-<intent-filter>
-    <action android:name="android.intent.action.VIEW" />
-    <category android:name="android.intent.category.DEFAULT" />
-    <category android:name="android.intent.category.BROWSABLE" />
-    <data android:scheme="my-scheme" android:host="my-host" android:pathPrefix="" />
-</intent-filter>
+<activity
+  ...
+  android:launchMode="singleTask">
+  <intent-filter>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <category android:name="android.intent.category.BROWSABLE" />
+      <data android:scheme="my-scheme" android:host="my-host" android:pathPrefix="" />
+  </intent-filter>
+</activity>
 ```
 
-- Enable deep linking (iOS) - **[Info.plist](https://github.com/proyecto26/react-native-inappbrowser/blob/master/example/ios/example/Info.plist#L23)**
+- Enable deep linking (iOS) - **[Info.plist](https://github.com/proyecto26/react-native-inappbrowser/blob/main/example/ios/example/Info.plist#L23)**
 ```
 <key>CFBundleURLTypes</key>
 <array>
@@ -270,8 +277,8 @@ export const getDeepLink = (path = "") => {
 - App.js ([Using react-navigation with Deep Linking](https://reactnavigation.org/docs/en/deep-linking.html))
 ```javascript
 import { Root } from 'native-base'
-import { getDeepLink } from './utilities'
 import { createStackNavigator } from 'react-navigation'
+import { getDeepLink } from './utilities'
 
 const Main = createStackNavigator(
   {
@@ -481,6 +488,14 @@ Support this project with your organization. Your logo will show up here with a 
 ## Supporting 🍻
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
+
+Donate **Ethereum**, **ADA**, **BNB**, **SHIBA**, **USDT**, **DOGE**:
+
+![Wallet address](https://user-images.githubusercontent.com/2154886/123501719-84bf1900-d60c-11eb-882c-98a499cea323.png)
+
+> Wallet address: 0x3F9fA8021B43ACe578C2352861Cf335449F33427
+
+Please let us know your contributions! 🙏
 
 ## Enterprise 💼
 

@@ -37,7 +37,7 @@ export default class App extends Component<ComponentState> {
     super(props);
 
     this.state = {
-      url: 'https://www.proyecto26.com',
+      url: 'https://reactnative.dev',
       statusBarStyle: 'dark-content',
     };
   }
@@ -97,7 +97,7 @@ export default class App extends Component<ComponentState> {
       }
     } catch (error) {
       console.error(error);
-      Alert.alert(error.message);
+      Alert.alert(error.message || error);
     } finally {
       // Restore the previous StatusBar of the App
       StatusBar.setBarStyle(statusBarStyle);

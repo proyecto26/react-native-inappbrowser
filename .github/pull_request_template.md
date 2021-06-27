@@ -9,7 +9,7 @@ To help the rest of the community review your change, please follow the instruct
 
 ## PR Checklist
 
-- [ ] The PR title follows our guidelines: https://github.com/proyecto26/react-native-inappbrowser/blob/master/CONTRIBUTING.md#pull-request-process.
+- [ ] The PR title follows our guidelines: https://github.com/proyecto26/react-native-inappbrowser/blob/main/CONTRIBUTING.md#pull-request-process.
 - [ ] There is an issue for the bug/feature this PR is for. To avoid wasting your time, it's best to open a suggestion issue first and wait for approval before working on it.
 - [ ] All existing tests are passing
 - [ ] Tests for the changes are included
