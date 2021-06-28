@@ -235,7 +235,7 @@ public class RNInAppBrowser {
     unRegisterEventBus();
 
     if (mOpenBrowserPromise == null) {
-      throw new AssertionError();
+      return;
     }
 
     if (event.isError) {
