@@ -22,6 +22,9 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+### Fixed
+- Fix `Build failed. Error cannot find symbol builder.setNavigationBarColor` error for Android Support ([#281](https://github.com/proyecto26/react-native-inappbrowser/pull/281)).
+
 ## [3.6.1] - 2021-06-27
 
 ### Added
