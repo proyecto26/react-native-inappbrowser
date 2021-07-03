@@ -63,30 +63,23 @@ public class RNInAppBrowser {
   private Activity currentActivity;
   private static final Pattern animationIdentifierPattern = Pattern.compile("^.+:.+/");
 
-  public void setNavigationColors(CustomTabsIntent.Builder builder, final ReadableMap options) {
-    if (options.hasKey(KEY_NAVIGATION_BAR_COLOR)) {
-      final String colorString = options.getString(KEY_NAVIGATION_BAR_COLOR);
-      try {
-        Method setNavigationBarColor = builder.getClass().getDeclaredMethod("setNavigationBarColor", int.class);
-        setNavigationBarColor.invoke(builder, Color.parseColor(colorString));
-      } catch (Exception e) {
-        if (e instanceof IllegalArgumentException) {
-          throw new JSApplicationIllegalArgumentException(
-                  "Invalid navigation bar color '" + colorString + "': " + e.getMessage());
-        }
+  public Integer setColor(CustomTabsIntent.Builder builder, final ReadableMap options, String key, String method, String colorName) {
+    String colorString = "";
+    Integer color = null;
+    try {
+      if (options.hasKey(key)) {
+        colorString = options.getString(key);
+        color = Color.parseColor(colorString);
+        Method findMethod = builder.getClass().getDeclaredMethod(method, int.class);
+        findMethod.invoke(builder, color);
       }
-    }
-    if (options.hasKey(KEY_NAVIGATION_BAR_DIVIDER_COLOR)) {
-      final String colorString = options.getString(KEY_NAVIGATION_BAR_DIVIDER_COLOR);
-      try {
-        Method setNavigationBarDividerColor = builder.getClass().getDeclaredMethod("setNavigationBarDividerColor", int.class);
-        setNavigationBarDividerColor.invoke(builder, Color.parseColor(colorString));
-      } catch (Exception e) {
-        if (e instanceof IllegalArgumentException) {
-          throw new JSApplicationIllegalArgumentException(
-                "Invalid navigation bar divider color '" + colorString + "': " + e.getMessage());
-        }
+    } catch (Exception e) {
+      if (e instanceof IllegalArgumentException) {
+        throw new JSApplicationIllegalArgumentException(
+                "Invalid " + colorName + " color '" + colorString + "': " + e.getMessage());
       }
+    } finally {
+      return color;
     }
   }
 
@@ -110,26 +103,13 @@ public class RNInAppBrowser {
 
     CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
     isLightTheme = false;
-    if (options.hasKey(KEY_TOOLBAR_COLOR)) {
-      final String colorString = options.getString(KEY_TOOLBAR_COLOR);
-      try {
-        builder.setToolbarColor(Color.parseColor(colorString));
-        isLightTheme = toolbarIsLight(colorString);
-      } catch (IllegalArgumentException e) {
-        throw new JSApplicationIllegalArgumentException(
-                "Invalid toolbar color '" + colorString + "': " + e.getMessage());
-      }
+    final Integer toolBarColor = setColor(builder, options, KEY_TOOLBAR_COLOR, "setToolbarColor", "toolbar");
+    if (toolBarColor != null) {
+      isLightTheme = toolbarIsLight(toolBarColor);
     }
-    if (options.hasKey(KEY_SECONDARY_TOOLBAR_COLOR)) {
-      final String colorString = options.getString(KEY_SECONDARY_TOOLBAR_COLOR);
-      try {
-        builder.setSecondaryToolbarColor(Color.parseColor(colorString));
-      } catch (IllegalArgumentException e) {
-        throw new JSApplicationIllegalArgumentException(
-                "Invalid secondary toolbar color '" + colorString + "': " + e.getMessage());
-      }
-    }
-    setNavigationColors(builder, options);
+    setColor(builder, options, KEY_SECONDARY_TOOLBAR_COLOR, "setSecondaryToolbarColor", "secondary toolbar");
+    setColor(builder, options, KEY_NAVIGATION_BAR_COLOR, "setNavigationBarColor", "navigation bar");
+    setColor(builder, options, KEY_NAVIGATION_BAR_DIVIDER_COLOR, "setNavigationBarDividerColor", "navigation bar divider");
 
     if (options.hasKey(KEY_DEFAULT_SHARE_MENU_ITEM) && 
         options.getBoolean(KEY_DEFAULT_SHARE_MENU_ITEM)) {
@@ -304,8 +284,8 @@ public class RNInAppBrowser {
     }
   }
 
-  private Boolean toolbarIsLight(String themeColor) {
-    return ColorUtils.calculateLuminance(Color.parseColor(themeColor)) > 0.5;
+  private Boolean toolbarIsLight(int themeColor) {
+    return ColorUtils.calculateLuminance(themeColor) > 0.5;
   }
 
   private List<ResolveInfo> getPreferredPackages(Context context) {
