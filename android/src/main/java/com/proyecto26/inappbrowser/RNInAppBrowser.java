@@ -27,6 +27,7 @@ import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.List;
@@ -61,6 +62,33 @@ public class RNInAppBrowser {
   private Boolean isLightTheme;
   private Activity currentActivity;
   private static final Pattern animationIdentifierPattern = Pattern.compile("^.+:.+/");
+
+  public void setNavigationColors(CustomTabsIntent.Builder builder, final ReadableMap options) {
+    if (options.hasKey(KEY_NAVIGATION_BAR_COLOR)) {
+      final String colorString = options.getString(KEY_NAVIGATION_BAR_COLOR);
+      try {
+        Method setNavigationBarColor = builder.getClass().getDeclaredMethod("setNavigationBarColor", int.class);
+        setNavigationBarColor.invoke(builder, Color.parseColor(colorString));
+      } catch (Exception e) {
+        if (e instanceof IllegalArgumentException) {
+          throw new JSApplicationIllegalArgumentException(
+                  "Invalid navigation bar color '" + colorString + "': " + e.getMessage());
+        }
+      }
+    }
+    if (options.hasKey(KEY_NAVIGATION_BAR_DIVIDER_COLOR)) {
+      final String colorString = options.getString(KEY_NAVIGATION_BAR_DIVIDER_COLOR);
+      try {
+        Method setNavigationBarDividerColor = builder.getClass().getDeclaredMethod("setNavigationBarDividerColor", int.class);
+        setNavigationBarDividerColor.invoke(builder, Color.parseColor(colorString));
+      } catch (Exception e) {
+        if (e instanceof IllegalArgumentException) {
+          throw new JSApplicationIllegalArgumentException(
+                "Invalid navigation bar divider color '" + colorString + "': " + e.getMessage());
+        }
+      }
+    }
+  }
 
   public void open(Context context, final ReadableMap options, final Promise promise, Activity activity) {
     final String url = options.getString("url");
@@ -101,24 +129,8 @@ public class RNInAppBrowser {
                 "Invalid secondary toolbar color '" + colorString + "': " + e.getMessage());
       }
     }
-    if (options.hasKey(KEY_NAVIGATION_BAR_COLOR)) {
-      final String colorString = options.getString(KEY_NAVIGATION_BAR_COLOR);
-      try {
-        builder.setNavigationBarColor(Color.parseColor(colorString));
-      } catch (IllegalArgumentException e) {
-        throw new JSApplicationIllegalArgumentException(
-                "Invalid navigation bar color '" + colorString + "': " + e.getMessage());
-      }
-    }
-    if (options.hasKey(KEY_NAVIGATION_BAR_DIVIDER_COLOR)) {
-      final String colorString = options.getString(KEY_NAVIGATION_BAR_DIVIDER_COLOR);
-      try {
-        builder.setNavigationBarDividerColor(Color.parseColor(colorString));
-      } catch (IllegalArgumentException e) {
-        throw new JSApplicationIllegalArgumentException(
-                "Invalid navigation bar divider color '" + colorString + "': " + e.getMessage());
-      }
-    }
+    setNavigationColors(builder, options);
+
     if (options.hasKey(KEY_DEFAULT_SHARE_MENU_ITEM) && 
         options.getBoolean(KEY_DEFAULT_SHARE_MENU_ITEM)) {
       builder.addDefaultShareMenuItem();
