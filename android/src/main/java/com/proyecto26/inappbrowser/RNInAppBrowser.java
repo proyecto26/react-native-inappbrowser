@@ -103,9 +103,9 @@ public class RNInAppBrowser {
 
     CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
     isLightTheme = false;
-    final Integer toolBarColor = setColor(builder, options, KEY_TOOLBAR_COLOR, "setToolbarColor", "toolbar");
-    if (toolBarColor != null) {
-      isLightTheme = toolbarIsLight(toolBarColor);
+    final Integer toolbarColor = setColor(builder, options, KEY_TOOLBAR_COLOR, "setToolbarColor", "toolbar");
+    if (toolbarColor != null) {
+      isLightTheme = toolbarIsLight(toolbarColor);
     }
     setColor(builder, options, KEY_SECONDARY_TOOLBAR_COLOR, "setSecondaryToolbarColor", "secondary toolbar");
     setColor(builder, options, KEY_NAVIGATION_BAR_COLOR, "setNavigationBarColor", "navigation bar");
