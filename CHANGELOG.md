@@ -22,6 +22,11 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.6.2] - 2021-07-03
+
+### Fixed
+- Fix `Build failed. Error cannot find symbol builder.setNavigationBarColor` error for Android Support by [@reberthkss](https://github.com/reberthkss) and [@jdnichollsc](https://github.com/jdnichollsc) ([#281](https://github.com/proyecto26/react-native-inappbrowser/pull/281)).
+
 ## [3.6.1] - 2021-06-27
 
 ### Added
@@ -192,7 +197,8 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.1...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.2...HEAD
+[3.6.2]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.1...v3.6.2
 [3.6.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.0...v3.6.1
 [3.6.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.1...v3.6.0
 [3.5.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.0...v3.5.1

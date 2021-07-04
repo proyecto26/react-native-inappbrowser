@@ -27,6 +27,7 @@ import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.List;
@@ -62,6 +63,25 @@ public class RNInAppBrowser {
   private Activity currentActivity;
   private static final Pattern animationIdentifierPattern = Pattern.compile("^.+:.+/");
 
+  public Integer setColor(CustomTabsIntent.Builder builder, final ReadableMap options, String key, String method, String colorName) {
+    String colorString = options.getString(key);
+    Integer color = null;
+    try {
+      if (colorString != null) {
+        color = Color.parseColor(colorString);
+        Method findMethod = builder.getClass().getDeclaredMethod(method, int.class);
+        findMethod.invoke(builder, color);
+      }
+    } catch (Exception e) {
+      if (e instanceof IllegalArgumentException) {
+        throw new JSApplicationIllegalArgumentException(
+                "Invalid " + colorName + " color '" + colorString + "': " + e.getMessage());
+      }
+    } finally {
+      return color;
+    }
+  }
+
   public void open(Context context, final ReadableMap options, final Promise promise, Activity activity) {
     final String url = options.getString("url");
     currentActivity = activity;
@@ -82,43 +102,14 @@ public class RNInAppBrowser {
 
     CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
     isLightTheme = false;
-    if (options.hasKey(KEY_TOOLBAR_COLOR)) {
-      final String colorString = options.getString(KEY_TOOLBAR_COLOR);
-      try {
-        builder.setToolbarColor(Color.parseColor(colorString));
-        isLightTheme = toolbarIsLight(colorString);
-      } catch (IllegalArgumentException e) {
-        throw new JSApplicationIllegalArgumentException(
-                "Invalid toolbar color '" + colorString + "': " + e.getMessage());
-      }
+    final Integer toolbarColor = setColor(builder, options, KEY_TOOLBAR_COLOR, "setToolbarColor", "toolbar");
+    if (toolbarColor != null) {
+      isLightTheme = toolbarIsLight(toolbarColor);
     }
-    if (options.hasKey(KEY_SECONDARY_TOOLBAR_COLOR)) {
-      final String colorString = options.getString(KEY_SECONDARY_TOOLBAR_COLOR);
-      try {
-        builder.setSecondaryToolbarColor(Color.parseColor(colorString));
-      } catch (IllegalArgumentException e) {
-        throw new JSApplicationIllegalArgumentException(
-                "Invalid secondary toolbar color '" + colorString + "': " + e.getMessage());
-      }
-    }
-    if (options.hasKey(KEY_NAVIGATION_BAR_COLOR)) {
-      final String colorString = options.getString(KEY_NAVIGATION_BAR_COLOR);
-      try {
-        builder.setNavigationBarColor(Color.parseColor(colorString));
-      } catch (IllegalArgumentException e) {
-        throw new JSApplicationIllegalArgumentException(
-                "Invalid navigation bar color '" + colorString + "': " + e.getMessage());
-      }
-    }
-    if (options.hasKey(KEY_NAVIGATION_BAR_DIVIDER_COLOR)) {
-      final String colorString = options.getString(KEY_NAVIGATION_BAR_DIVIDER_COLOR);
-      try {
-        builder.setNavigationBarDividerColor(Color.parseColor(colorString));
-      } catch (IllegalArgumentException e) {
-        throw new JSApplicationIllegalArgumentException(
-                "Invalid navigation bar divider color '" + colorString + "': " + e.getMessage());
-      }
-    }
+    setColor(builder, options, KEY_SECONDARY_TOOLBAR_COLOR, "setSecondaryToolbarColor", "secondary toolbar");
+    setColor(builder, options, KEY_NAVIGATION_BAR_COLOR, "setNavigationBarColor", "navigation bar");
+    setColor(builder, options, KEY_NAVIGATION_BAR_DIVIDER_COLOR, "setNavigationBarDividerColor", "navigation bar divider");
+
     if (options.hasKey(KEY_DEFAULT_SHARE_MENU_ITEM) && 
         options.getBoolean(KEY_DEFAULT_SHARE_MENU_ITEM)) {
       builder.addDefaultShareMenuItem();
@@ -235,7 +226,7 @@ public class RNInAppBrowser {
     unRegisterEventBus();
 
     if (mOpenBrowserPromise == null) {
-      throw new AssertionError();
+      return;
     }
 
     if (event.isError) {
@@ -292,8 +283,8 @@ public class RNInAppBrowser {
     }
   }
 
-  private Boolean toolbarIsLight(String themeColor) {
-    return ColorUtils.calculateLuminance(Color.parseColor(themeColor)) > 0.5;
+  private Boolean toolbarIsLight(int themeColor) {
+    return ColorUtils.calculateLuminance(themeColor) > 0.5;
   }
 
   private List<ResolveInfo> getPreferredPackages(Context context) {

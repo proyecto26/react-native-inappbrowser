@@ -86,8 +86,8 @@ Linking the package manually is not required anymore with [Autolinking](https://
       compileSdkVersion = 28
       targetSdkVersion = 28
       // Remove 'supportLibVersion' property and put specific versions for AndroidX libraries
-      androidXAnnotation = "1.1.0"
-      androidXBrowser = "1.0.0"
+      androidXAnnotation = "1.2.0"
+      androidXBrowser = "1.3.0"
       // Put here other AndroidX dependencies
     }
   ```

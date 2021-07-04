@@ -28,7 +28,5 @@
             <data android:scheme="my-demo" android:host="demo" />
         </intent-filter>
       </activity>
-      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
-
 </manifest>
