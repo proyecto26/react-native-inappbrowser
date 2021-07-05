@@ -24,6 +24,7 @@ in case of vulnerabilities.
 
 ## [3.6.3] - 2021-07-05
 
+### Fixed
 - fix(android): Fix error com.facebook.react.bridge.NoSuchKeyException by [@thuongtv-vn](https://github.com/thuongtv-vn) ([#283](https://github.com/proyecto26/react-native-inappbrowser/pull/283)).
 
 ## [3.6.2] - 2021-07-03
