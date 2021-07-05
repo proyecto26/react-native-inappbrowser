@@ -22,6 +22,11 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.6.3] - 2021-07-05
+
+### Fixed
+- fix(android): Fix error com.facebook.react.bridge.NoSuchKeyException by [@thuongtv-vn](https://github.com/thuongtv-vn) ([#283](https://github.com/proyecto26/react-native-inappbrowser/pull/283)).
+
 ## [3.6.2] - 2021-07-03
 
 ### Fixed
@@ -197,7 +202,8 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.2...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.3...HEAD
+[3.6.3]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.2...v3.6.3
 [3.6.2]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.1...v3.6.2
 [3.6.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.0...v3.6.1
 [3.6.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.5.1...v3.6.0
