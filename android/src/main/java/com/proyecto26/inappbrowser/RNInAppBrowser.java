@@ -64,10 +64,11 @@ public class RNInAppBrowser {
   private static final Pattern animationIdentifierPattern = Pattern.compile("^.+:.+/");
 
   public Integer setColor(CustomTabsIntent.Builder builder, final ReadableMap options, String key, String method, String colorName) {
-    String colorString = options.getString(key);
+    String colorString = null;
     Integer color = null;
     try {
-      if (colorString != null) {
+      if (options.hasKey(key)) {
+        colorString = options.getString(key);
         color = Color.parseColor(colorString);
         Method findMethod = builder.getClass().getDeclaredMethod(method, int.class);
         findMethod.invoke(builder, color);
