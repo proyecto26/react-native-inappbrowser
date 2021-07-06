@@ -90,7 +90,10 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
       }
     };
 
-    NSString *escapedRedirectURL = [[NSURL alloc] initWithString:redirectURL].scheme;
+    NSString *escapedRedirectURL = nil;
+    if (redirectURL) {
+        escapedRedirectURL = [[NSURL alloc] initWithString:redirectURL].scheme;
+    }
 
     if (@available(iOS 12.0, *)) {
       webAuthSession = [[ASWebAuthenticationSession alloc]
