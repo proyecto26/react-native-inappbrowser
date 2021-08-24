@@ -9,7 +9,8 @@ import {
   Linking,
   Platform,
   AppState,
-  NativeModules
+  NativeModules,
+  EmitterSubscription
 } from 'react-native';
 import type {
   BrowserResult,
@@ -21,19 +22,22 @@ import type {
 
 export const RNInAppBrowser = NativeModules.RNInAppBrowser;
 
-let _redirectHandler: ?(event: RedirectEvent) => void;
+let _linkingEventSubscription: ?EmitterSubscription;
 
 type AppStateStatus = typeof AppState.currentState
 
 function waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
   return new Promise(function (resolve) {
-    _redirectHandler = (event: RedirectEvent) => {
+    const redirectHandler = (event: RedirectEvent) => {
       if (event.url && event.url.startsWith(returnUrl)) {
         resolve({ url: event.url, type: 'success' });
       }
     };
 
-    Linking.addEventListener('url', _redirectHandler);
+    _linkingEventSubscription = Linking.addEventListener(
+      'url',
+      redirectHandler
+    );
   });
 }
 
@@ -46,13 +50,21 @@ function handleAppStateActiveOnce(): Promise<void> {
     if (AppState.currentState === 'active') {
       return resolve();
     }
+    let appStateEventSubscription: ?EmitterSubscription;
+
     function handleAppStateChange(nextAppState: AppStateStatus) {
       if (nextAppState === 'active') {
-        AppState.removeEventListener('change', handleAppStateChange);
+        if (appStateEventSubscription) {
+          appStateEventSubscription.remove();
+        }
         resolve();
       }
     }
-    AppState.addEventListener('change', handleAppStateChange);
+
+    appStateEventSubscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange
+    );
   });
 }
 
@@ -117,8 +129,8 @@ export async function openAuthSessionPolyfillAsync(
   options?: InAppBrowserOptions
 ): Promise<AuthSessionResult> {
   invariant(
-    !_redirectHandler,
-    'InAppBrowser.openAuth is in a bad state. _redirectHandler is defined when it should not be.'
+    !_linkingEventSubscription,
+    'InAppBrowser.openAuth is in a bad state. _linkingEventSubscription is defined when it should not be.'
   );
   let response = null;
   try {
@@ -136,9 +148,9 @@ export async function openAuthSessionPolyfillAsync(
 }
 
 export function closeAuthSessionPolyfillAsync(): void {
-  if (_redirectHandler) {
-    Linking.removeEventListener('url', _redirectHandler);
-    _redirectHandler = null;
+  if (_linkingEventSubscription) {
+    _linkingEventSubscription.remove();
+    _linkingEventSubscription = null;
   }
 }
 
