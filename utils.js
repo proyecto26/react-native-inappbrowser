@@ -22,13 +22,14 @@ import type {
 
 export const RNInAppBrowser = NativeModules.RNInAppBrowser;
 
+let _redirectHandler: ?(event: RedirectEvent) => void;
 let _linkingEventSubscription: ?EmitterSubscription;
 
 type AppStateStatus = typeof AppState.currentState
 
 function waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
   return new Promise(function (resolve) {
-    const redirectHandler = (event: RedirectEvent) => {
+    _redirectHandler = (event: RedirectEvent) => {
       if (event.url && event.url.startsWith(returnUrl)) {
         resolve({ url: event.url, type: 'success' });
       }
@@ -36,7 +37,7 @@ function waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
 
     _linkingEventSubscription = Linking.addEventListener(
       'url',
-      redirectHandler
+      _redirectHandler
     );
   });
 }
@@ -54,8 +55,13 @@ function handleAppStateActiveOnce(): Promise<void> {
 
     function handleAppStateChange(nextAppState: AppStateStatus) {
       if (nextAppState === 'active') {
-        if (appStateEventSubscription) {
+        if (
+          appStateEventSubscription &&
+          appStateEventSubscription.remove !== undefined
+        ) {
           appStateEventSubscription.remove();
+        } else {
+          AppState.removeEventListener('change', handleAppStateChange);
         }
         resolve();
       }
@@ -129,8 +135,8 @@ export async function openAuthSessionPolyfillAsync(
   options?: InAppBrowserOptions
 ): Promise<AuthSessionResult> {
   invariant(
-    !_linkingEventSubscription,
-    'InAppBrowser.openAuth is in a bad state. _linkingEventSubscription is defined when it should not be.'
+    !_redirectHandler,
+    'InAppBrowser.openAuth is in a bad state. _redirectHandler is defined when it should not be.'
   );
   let response = null;
   try {
@@ -148,9 +154,17 @@ export async function openAuthSessionPolyfillAsync(
 }
 
 export function closeAuthSessionPolyfillAsync(): void {
-  if (_linkingEventSubscription) {
-    _linkingEventSubscription.remove();
-    _linkingEventSubscription = null;
+  if (_redirectHandler) {
+    if (
+      _linkingEventSubscription &&
+      _linkingEventSubscription.remove !== undefined
+    ) {
+      _linkingEventSubscription.remove();
+      _linkingEventSubscription = null;
+    } else {
+      Linking.removeEventListener('url', _redirectHandler);
+    }
+    _redirectHandler = null;
   }
 }
 
