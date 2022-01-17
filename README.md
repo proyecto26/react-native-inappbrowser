@@ -390,7 +390,7 @@ Starting with React Native 0.59 onwards, there is a simpler way of handling this
 ```javascript
   async openInBrowser(url) {
     try {
-      const oldStyle = StatusBar.pushStackEntry({ barStyle: 'dark-content', animate: false });
+      const oldStyle = StatusBar.pushStackEntry({ barStyle: 'dark-content', animated: false });
       await InAppBrowser.open(url)
       StatusBar.popStackEntry(oldStyle);
     } catch (error) {
