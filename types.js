@@ -16,7 +16,7 @@ export type RedirectResult = {|
   url: string,
 |};
 
-type InAppBrowseriOSOptions = {|
+export type InAppBrowseriOSOptions = {|
   dismissButtonStyle?: 'done' | 'close' | 'cancel',
   preferredBarTintColor?: string,
   preferredControlTintColor?: string,
@@ -43,7 +43,7 @@ type InAppBrowseriOSOptions = {|
   ephemeralWebSession?: boolean,
 |};
 
-type InAppBrowserAndroidOptions = {|
+export type InAppBrowserAndroidOptions = {|
   showTitle?: boolean,
   toolbarColor?: string,
   secondaryToolbarColor?: string,
