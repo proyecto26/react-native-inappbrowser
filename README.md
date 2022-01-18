@@ -81,10 +81,11 @@ Linking the package manually is not required anymore with [Autolinking](https://
   ```
   buildscript {
     ext {
-      buildToolsVersion = "28.0.3"
-      minSdkVersion = 16
-      compileSdkVersion = 28
-      targetSdkVersion = 28
+      buildToolsVersion = "30.0.2"
+      minSdkVersion = 21
+      compileSdkVersion = 30
+      targetSdkVersion = 30
+      ndkVersion = "21.4.7075529"
       // Remove 'supportLibVersion' property and put specific versions for AndroidX libraries
       androidXAnnotation = "1.2.0"
       androidXBrowser = "1.3.0"
@@ -450,8 +451,8 @@ Using in-app browser tabs (like SFAuthenticationSession/ASWebAuthenticationSessi
 * **React Native Safari View:** [A React Native wrapper for Safari View Controller](https://github.com/naoufal/react-native-safari-view)
 
 ## Contributing ✨
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.  
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** ❤️.  
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** ❤️.
 You can learn more about how you can contribute to this project in the [contribution guide](https://github.com/proyecto26/react-native-inappbrowser/blob/develop/CONTRIBUTING.md).
 
 ## Contributors ✨
