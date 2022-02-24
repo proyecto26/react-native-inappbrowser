@@ -36,7 +36,8 @@ declare module 'react-native-inappbrowser-reborn' {
       | 'partialCurl',
     modalEnabled?: boolean,
     enableBarCollapsing?: boolean,
-    ephemeralWebSession?: boolean
+    ephemeralWebSession?: boolean,
+    formSheetContentSize?: { width: number, height: number },
   }
 
   export type InAppBrowserAndroidOptions = {
