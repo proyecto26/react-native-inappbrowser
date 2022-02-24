@@ -148,6 +148,7 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
   NSNumber* preferredControlTintColor = [options valueForKey:@"preferredControlTintColor"];
   NSString* modalPresentationStyle = [options valueForKey:@"modalPresentationStyle"];
   NSString* modalTransitionStyle = [options valueForKey:@"modalTransitionStyle"];
+  NSDictionary* formSheetContentSize = [options valueForKey:@"formSheetContentSize"];
 
   BOOL readerMode = [options[@"readerMode"] boolValue];
   BOOL enableBarCollapsing = [options[@"enableBarCollapsing"] boolValue];
@@ -207,6 +208,16 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
     if(animated) {
       safariHackVC.modalTransitionStyle = [self getTransitionStyle: modalTransitionStyle];
     }
+      
+    if([modalPresentationStyle isEqualToString:@"formSheet"] && formSheetContentSize){
+      NSNumber *width = [formSheetContentSize valueForKey:@"width"];
+      NSNumber *height = [formSheetContentSize valueForKey:@"height"];
+      
+      if(width && height){
+        safariHackVC.preferredContentSize = CGSizeMake([width doubleValue], [height doubleValue]);
+      }
+    }
+    
     safariHackVC.presentationController.delegate = self;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
