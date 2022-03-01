@@ -22,6 +22,11 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.7.0] - 2022-03-01
+
+### Added
+- iOS: Add formSheetPreferredContentSize prop to allow for custom sized formSheet modals by [@ShaneMckenna23](https://github.com/ShaneMckenna23) ([#331](https://github.com/proyecto26/react-native-inappbrowser/pull/331)).
+
 ## [3.6.3] - 2021-07-05
 
 ### Fixed
