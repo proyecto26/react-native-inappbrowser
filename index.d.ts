@@ -37,7 +37,7 @@ declare module 'react-native-inappbrowser-reborn' {
     modalEnabled?: boolean,
     enableBarCollapsing?: boolean,
     ephemeralWebSession?: boolean,
-    formSheetContentSize?: { width: number, height: number },
+    formSheetPreferredContentSize?: { width: number, height: number },
   }
 
   export type InAppBrowserAndroidOptions = {

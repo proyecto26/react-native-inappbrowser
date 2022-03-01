@@ -148,7 +148,7 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
   NSNumber* preferredControlTintColor = [options valueForKey:@"preferredControlTintColor"];
   NSString* modalPresentationStyle = [options valueForKey:@"modalPresentationStyle"];
   NSString* modalTransitionStyle = [options valueForKey:@"modalTransitionStyle"];
-  NSDictionary* formSheetContentSize = [options valueForKey:@"formSheetContentSize"];
+  NSDictionary* formSheetPreferredContentSize = [options valueForKey:@"formSheetPreferredContentSize"];
 
   BOOL readerMode = [options[@"readerMode"] boolValue];
   BOOL enableBarCollapsing = [options[@"enableBarCollapsing"] boolValue];
@@ -209,9 +209,9 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
       safariHackVC.modalTransitionStyle = [self getTransitionStyle: modalTransitionStyle];
     }
       
-    if([modalPresentationStyle isEqualToString:@"formSheet"] && formSheetContentSize){
-      NSNumber *width = [formSheetContentSize valueForKey:@"width"];
-      NSNumber *height = [formSheetContentSize valueForKey:@"height"];
+    if([modalPresentationStyle isEqualToString:@"formSheet"] && formSheetPreferredContentSize){
+      NSNumber *width = [formSheetPreferredContentSize valueForKey:@"width"];
+      NSNumber *height = [formSheetPreferredContentSize valueForKey:@"height"];
       
       if(width && height){
         safariHackVC.preferredContentSize = CGSizeMake([width doubleValue], [height doubleValue]);
