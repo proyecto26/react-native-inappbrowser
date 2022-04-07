@@ -9,7 +9,8 @@ import {
   Linking,
   Platform,
   AppState,
-  NativeModules
+  NativeModules,
+  EmitterSubscription
 } from 'react-native';
 import type {
   BrowserResult,
@@ -22,6 +23,7 @@ import type {
 export const RNInAppBrowser = NativeModules.RNInAppBrowser;
 
 let _redirectHandler: ?(event: RedirectEvent) => void;
+let _linkingEventSubscription: ?EmitterSubscription;
 
 type AppStateStatus = typeof AppState.currentState
 
@@ -33,7 +35,10 @@ function waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
       }
     };
 
-    Linking.addEventListener('url', _redirectHandler);
+    _linkingEventSubscription = Linking.addEventListener(
+      'url',
+      _redirectHandler
+    );
   });
 }
 
@@ -46,13 +51,26 @@ function handleAppStateActiveOnce(): Promise<void> {
     if (AppState.currentState === 'active') {
       return resolve();
     }
+    let appStateEventSubscription: ?EmitterSubscription;
+
     function handleAppStateChange(nextAppState: AppStateStatus) {
       if (nextAppState === 'active') {
-        AppState.removeEventListener('change', handleAppStateChange);
+        if (
+          appStateEventSubscription &&
+          appStateEventSubscription.remove !== undefined
+        ) {
+          appStateEventSubscription.remove();
+        } else {
+          AppState.removeEventListener('change', handleAppStateChange);
+        }
         resolve();
       }
     }
-    AppState.addEventListener('change', handleAppStateChange);
+
+    appStateEventSubscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange
+    );
   });
 }
 
@@ -137,7 +155,15 @@ export async function openAuthSessionPolyfillAsync(
 
 export function closeAuthSessionPolyfillAsync(): void {
   if (_redirectHandler) {
-    Linking.removeEventListener('url', _redirectHandler);
+    if (
+      _linkingEventSubscription &&
+      _linkingEventSubscription.remove !== undefined
+    ) {
+      _linkingEventSubscription.remove();
+      _linkingEventSubscription = null;
+    } else {
+      Linking.removeEventListener('url', _redirectHandler);
+    }
     _redirectHandler = null;
   }
 }
