@@ -1,6 +1,7 @@
 package com.example;
 
 import com.facebook.react.ReactActivity;
+import com.proyecto26.inappbrowser.RNInAppBrowserModule;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +12,11 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "example";
+  }
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+   RNInAppBrowserModule.onStart(this);
   }
 }

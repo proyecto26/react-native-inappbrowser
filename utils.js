@@ -151,3 +151,5 @@ export function authSessionIsNativelySupported(): boolean {
   const versionNumber = parseInt(Platform.Version, 10);
   return versionNumber >= 11;
 }
+
+export const isAndroid = Platform.OS === 'android';

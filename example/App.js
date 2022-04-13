@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {useCallback, useState} from 'react';
+import React, {useEffect, useCallback, useState} from 'react';
 import {
   Platform,
   StatusBar,
@@ -17,6 +17,7 @@ import {
   Button,
 } from 'react-native';
 import {openLink, tryDeepLinking} from './utils';
+import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -28,6 +29,10 @@ const instructions = Platform.select({
 const App = () => {
   const [url, setUrl] = useState('https://reactnative.dev');
   const [statusBarStyle] = useState('dark-content');
+
+  useEffect(() => {
+    InAppBrowser.mayLaunchUrl('https://reactnative.dev', []);
+  }, []);
 
   const onOpenLink = useCallback(async () => {
     await openLink(url, statusBarStyle);

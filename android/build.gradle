@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.3'
+    }
+}
+
 apply plugin: 'com.android.library'
 
 buildscript {
@@ -45,7 +55,12 @@ android {
 }
 
 repositories {
-  mavenCentral()
+    maven {
+        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+        url("$rootDir/../node_modules/react-native/android")
+    }
+    google()
+    mavenCentral()
 }
 
 dependencies {

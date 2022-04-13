@@ -1,36 +1,44 @@
 package com.proyecto26.inappbrowser;
 
-import android.R.anim;
-import android.net.Uri;
-import android.os.Bundle;
-import android.text.TextUtils;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
-import android.graphics.Color;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Bundle;
 import android.provider.Browser;
+import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsCallback;
 import androidx.browser.customtabs.CustomTabsClient;
 import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.browser.customtabs.CustomTabsService;
+import androidx.browser.customtabs.CustomTabsServiceConnection;
+import androidx.browser.customtabs.CustomTabsSession;
 import androidx.core.graphics.ColorUtils;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.ReadableType;
-import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
+import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
+import com.facebook.react.bridge.ReadableType;
+import com.facebook.react.bridge.WritableMap;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.regex.Pattern;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class RNInAppBrowser {
   private final static String ERROR_CODE = "InAppBrowser";
@@ -62,6 +70,18 @@ public class RNInAppBrowser {
   private Boolean isLightTheme;
   private Activity currentActivity;
   private static final Pattern animationIdentifierPattern = Pattern.compile("^.+:.+/");
+
+  @Nullable
+  private CustomTabsClient customTabsClient;
+
+  private static RNInAppBrowser _inAppBrowser;
+
+  public static RNInAppBrowser getInstance() {
+    if (_inAppBrowser == null) {
+      _inAppBrowser = new RNInAppBrowser();
+    }
+    return _inAppBrowser;
+  }
 
   public Integer setColor(CustomTabsIntent.Builder builder, final ReadableMap options, String key, String method, String colorName) {
     String colorString = null;
@@ -302,5 +322,58 @@ public class RNInAppBrowser {
       packageName = resolveInfos.get(0).serviceInfo.packageName;
     }
     return packageName;
+  }
+
+  public void onStart(Activity activity) {
+    Context applicationContext = activity.getApplicationContext();
+    CustomTabsServiceConnection connection = new CustomTabsServiceConnection() {
+      @Override
+      public void onCustomTabsServiceConnected(@NonNull ComponentName name, @NonNull CustomTabsClient client) {
+        customTabsClient = client;
+        if (!customTabsClient.warmup(0L)) {
+          System.err.println("Couldn't warmup custom tabs client");
+        }
+        applicationContext.unbindService(this);
+      }
+
+      @Override
+      public void onServiceDisconnected(ComponentName name) {
+        customTabsClient = null;
+      }
+    };
+
+    final String packageName = getDefaultBrowser(applicationContext);
+    if (packageName != null) {
+      CustomTabsClient.bindCustomTabsService(applicationContext, packageName, connection);
+    } else {
+      System.err.println("No browser supported to bind custom tab service");
+    }
+  }
+
+  public void warmup(final Promise promise) {
+    if (customTabsClient != null) {
+      promise.resolve(customTabsClient.warmup(0L));
+    }
+    promise.resolve(false);
+  }
+
+  public void mayLaunchUrl(String mostLikelyUrl, ReadableArray otherUrls) {
+    if (customTabsClient != null) {
+      final CustomTabsSession customTabsSession = customTabsClient.newSession(new CustomTabsCallback());
+      if (customTabsSession != null) {
+        final ArrayList<Bundle> otherUrlBundles = new ArrayList<>(otherUrls.size());
+
+        for (int index = 0; index < otherUrls.size(); index++) {
+          String link = otherUrls.getString(index);
+          if (link != null) {
+            final Bundle bundle = new Bundle();
+            bundle.putParcelable(CustomTabsService.KEY_URL, Uri.parse(link));
+            otherUrlBundles.add(bundle);
+          }
+        }
+
+        customTabsSession.mayLaunchUrl(Uri.parse(mostLikelyUrl), null, otherUrlBundles);
+      }
+    }
   }
 }
