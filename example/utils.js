@@ -43,6 +43,7 @@ export const openLink = async (url, statusBarStyle, animated = true) => {
         hasBackButton: true,
         browserPackage: null,
         showInRecents: false,
+        includeReferrer: true,
       });
       // A delay to show an alert when the browser is closed
       await sleep(800);

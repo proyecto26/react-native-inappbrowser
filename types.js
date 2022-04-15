@@ -62,6 +62,7 @@ export type InAppBrowserAndroidOptions = {|
   hasBackButton?: boolean,
   browserPackage?: string,
   showInRecents?: boolean,
+  includeReferrer?: boolean,
 |};
 
 export type InAppBrowserOptions = {
