@@ -6,7 +6,8 @@
 
     <application>
         <activity
-        android:name=".ChromeTabsManagerActivity">
+        android:name=".ChromeTabsManagerActivity"
+        android:exported="false">
         </activity>
     </application>
     <queries>

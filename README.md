@@ -159,6 +159,7 @@ Property       | Description
 `modalEnabled` (Boolean)             | Present the **SafariViewController** modally or as push instead. [`true`/`false`]
 `enableBarCollapsing` (Boolean)      | Determines whether the browser's tool bars will collapse or not. [`true`/`false`]
 `ephemeralWebSession` (Boolean)      | Prevent re-use cookies of previous session (openAuth only) [`true`/`false`]
+`formSheetPreferredContentSize` (Object)      | Custom size for iPad `formSheet` modals [`{width: 400, height: 500}`]
 
 ### Android Options
 Property       | Description
@@ -176,6 +177,7 @@ Property       | Description
 `hasBackButton` (Boolean)         | Sets a back arrow instead of the default `X` icon to close the custom tab. [`true`/`false`]
 `browserPackage` (String)         | Package name of a browser to be used to handle Custom Tabs.
 `showInRecents` (Boolean)         | Determining whether browsed website should be shown as separate entry in Android recents/multitasking view. [`true`/`false`]
+`includeReferrer` (Boolean)         | Determining whether to include your package name as referrer for the website to track. [`true`/`false`]
 
 ### Demo
 

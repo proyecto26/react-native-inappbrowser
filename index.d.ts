@@ -36,7 +36,8 @@ declare module 'react-native-inappbrowser-reborn' {
       | 'partialCurl',
     modalEnabled?: boolean,
     enableBarCollapsing?: boolean,
-    ephemeralWebSession?: boolean
+    ephemeralWebSession?: boolean,
+    formSheetPreferredContentSize?: { width: number, height: number },
   }
 
   export type InAppBrowserAndroidOptions = {
@@ -58,6 +59,7 @@ declare module 'react-native-inappbrowser-reborn' {
     hasBackButton?: boolean,
     browserPackage?: string,
     showInRecents?: boolean
+    includeReferrer?: boolean,
   }
 
   export type InAppBrowserOptions = InAppBrowserAndroidOptions | InAppBrowseriOSOptions;
