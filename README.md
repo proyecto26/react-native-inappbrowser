@@ -42,6 +42,7 @@ Do you want to see this package in action? Check these awesome projects, yay! �
 - [VibePay](https://vibepay.com) - A simple, smarter, better way to get paid.
 - [Opinio](https://opinio.media) - Allows the population to be surveyed on social issues.
 - [medpex: Online Apotheke](https://www.medpex.de) - Online pharmacy for medicines & cosmetics with over 5 million customers.
+- [CONTACT Software](https://www.contact-software.com/) - Energizing your digital business.
 
 Share your awesome project [here](https://github.com/proyecto26/react-native-inappbrowser/issues/164)! ❤️
 
@@ -186,9 +187,12 @@ import { Linking, Alert } from 'react-native'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 
 ...
+  async sleep(timeout) {
+    return new Promise(resolve => setTimeout(resolve, timeout))
+  }
   async openLink() {
     try {
-      const url = 'https://www.proyecto26.com'
+      const url = 'https://github.com/proyecto26'
       if (await InAppBrowser.isAvailable()) {
         const result = await InAppBrowser.open(url, {
           // iOS Properties
@@ -222,6 +226,7 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
             'my-custom-header': 'my custom header value'
           }
         })
+        await this.sleep(800);
         Alert.alert(JSON.stringify(result))
       }
       else Linking.openURL(url)
@@ -244,7 +249,7 @@ public class MainActivity extends ReactActivity {
   @Override
   protected void onStart() {
     super.onStart();
-   RNInAppBrowserModule.onStart(this);
+    RNInAppBrowserModule.onStart(this);
   }
 
 }
@@ -298,7 +303,7 @@ define your app scheme and replace `my-scheme` and `my-host` with your info.
 - utilities.js
 ```javascript
 import { Platform } from 'react-native'
-export const getDeepLink = (path = "") => {
+export const getDeepLink = (path = '') => {
   const scheme = 'my-scheme'
   const prefix = Platform.OS == 'android' ? `${scheme}://my-host/` : `${scheme}://`
   return prefix + path
@@ -344,7 +349,7 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { getDeepLink } from './utilities'
 ...
   async onLogin() {
-    const deepLink = getDeepLink("callback")
+    const deepLink = getDeepLink('callback)
     const url = `https://my-auth-login-page.com?redirect_uri=${deepLink}`
     try {
       if (await InAppBrowser.isAvailable()) {
