@@ -41,6 +41,7 @@ export type InAppBrowseriOSOptions = {|
   modalEnabled?: boolean,
   enableBarCollapsing?: boolean,
   ephemeralWebSession?: boolean,
+  formSheetPreferredContentSize?: { width: number, height: number },
 |};
 
 export type InAppBrowserAndroidOptions = {|
