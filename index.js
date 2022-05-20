@@ -12,6 +12,7 @@ import type {
   InAppBrowserOptions,
 } from './types';
 import {
+  isAndroid,
   RNInAppBrowser,
   openBrowserAsync,
   openAuthSessionAsync,
@@ -43,6 +44,22 @@ function close(): void {
   RNInAppBrowser.close();
 }
 
+function warmup(): Promise<boolean> {
+  if (isAndroid) {
+    return RNInAppBrowser.warmup();
+  }
+  return Promise.resolve(false);
+}
+
+function mayLaunchUrl(
+  mostLikelyUrl: string,
+  otherUrls: Array<string> = []
+): void {
+  if (isAndroid) {
+    RNInAppBrowser.mayLaunchUrl(mostLikelyUrl, otherUrls);
+  }
+}
+
 function closeAuth(): void {
   closeAuthSessionPolyfillAsync();
   if (authSessionIsNativelySupported()) {
@@ -62,6 +79,8 @@ export const InAppBrowser = {
   close,
   closeAuth,
   isAvailable,
+  warmup,
+  mayLaunchUrl,
 };
 
 export default InAppBrowser;

@@ -232,6 +232,33 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 ...
 ```
 
+### Android Optimizations
+
+On Android, you can warmup the in app browser client to make it launch siginificantly faster. To do so, add the following to your `MainActivity`
+
+```java
+import com.proyecto26.inappbrowser.RNInAppBrowserModule;
+
+public class MainActivity extends ReactActivity {
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+   RNInAppBrowserModule.onStart(this);
+  }
+
+}
+```
+
+ You can further optimize performance and pre-render pages [by providing the urls that the user is likely to open](https://developer.chrome.com/docs/android/custom-tabs/best-practices/#pre-render-content).
+
+```javascript
+// Do not call this every time the component render
+useEffect(() => {
+  InAppBrowser.mayLaunchUrl("Url user has high chance to open", ["Other urls that user might open ordered by priority"]);
+}, []);
+```
+
 ### Authentication Flow using Deep Linking
 
 In order to redirect back to your application from a web browser, you must specify a unique URI to your app. To do this,

@@ -72,6 +72,8 @@ declare module 'react-native-inappbrowser-reborn' {
       options?: InAppBrowserOptions,
     ) => Promise<BrowserResult>;
     close: () => void;
+    warmup: () => Promise<boolean>;
+    mayLaunchUrl: (mostLikelyUrl: string, otherUrls: Array<string>) => void;
     openAuth: (
       url: string,
       redirectUrl: string,
