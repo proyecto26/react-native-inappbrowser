@@ -58,6 +58,7 @@ declare module 'react-native-inappbrowser-reborn' {
     hasBackButton?: boolean,
     browserPackage?: string,
     showInRecents?: boolean
+    includeReferrer?: boolean,
   }
 
   export type InAppBrowserOptions = InAppBrowserAndroidOptions | InAppBrowseriOSOptions;

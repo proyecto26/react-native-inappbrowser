@@ -1,7 +1,7 @@
 package com.proyecto26.inappbrowser;
 
-import android.R.anim;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.app.Activity;
@@ -31,7 +31,6 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.List;
-
 public class RNInAppBrowser {
   private final static String ERROR_CODE = "InAppBrowser";
   private static final String KEY_TOOLBAR_COLOR = "toolbarColor";
@@ -51,6 +50,7 @@ public class RNInAppBrowser {
   private static final String KEY_HAS_BACK_BUTTON = "hasBackButton";
   private static final String KEY_BROWSER_PACKAGE = "browserPackage";
   private static final String KEY_SHOW_IN_RECENTS = "showInRecents";
+  private static final String KEY_INCLUDE_REFERRER = "includeReferrer";
 
   private static final String ACTION_CUSTOM_TABS_CONNECTION = "android.support.customtabs.action.CustomTabsService";
   private static final String CHROME_PACKAGE_STABLE = "com.android.chrome";
@@ -181,13 +181,19 @@ public class RNInAppBrowser {
     }
 
     registerEventBus();
-    
+
     intent.setData(Uri.parse(url));
     if (options.hasKey(KEY_SHOW_PAGE_TITLE)) {
       builder.setShowTitle(options.getBoolean(KEY_SHOW_PAGE_TITLE));
     }
     else {
       intent.putExtra(CustomTabsIntent.EXTRA_TITLE_VISIBILITY_STATE, CustomTabsIntent.NO_TITLE);
+    }
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && options.hasKey(KEY_INCLUDE_REFERRER)
+        && options.getBoolean(KEY_INCLUDE_REFERRER)) {
+      intent.putExtra(Intent.EXTRA_REFERRER,
+          Uri.parse("android-app://" + context.getApplicationContext().getPackageName()));
     }
 
     currentActivity.startActivity(

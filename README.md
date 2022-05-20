@@ -176,6 +176,7 @@ Property       | Description
 `hasBackButton` (Boolean)         | Sets a back arrow instead of the default `X` icon to close the custom tab. [`true`/`false`]
 `browserPackage` (String)         | Package name of a browser to be used to handle Custom Tabs.
 `showInRecents` (Boolean)         | Determining whether browsed website should be shown as separate entry in Android recents/multitasking view. [`true`/`false`]
+`includeReferrer` (Boolean)         | Determining whether to include your package name as referrer for the website to track. [`true`/`false`]
 
 ### Demo
 
