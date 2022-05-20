@@ -17,6 +17,6 @@ public class MainActivity extends ReactActivity {
   @Override
   protected void onStart() {
     super.onStart();
-   RNInAppBrowserModule.onStart(this);
+    RNInAppBrowserModule.onStart(this);
   }
 }

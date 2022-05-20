@@ -82,6 +82,7 @@ export const tryDeepLinking = async () => {
         enableUrlBarHiding: true,
         enableDefaultShare: false,
       });
+      await sleep(800);
       Alert.alert('Response', JSON.stringify(result));
     } else {
       Alert.alert('InAppBrowser is not supported :/');
