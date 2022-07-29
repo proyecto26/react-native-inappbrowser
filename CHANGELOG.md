@@ -25,24 +25,24 @@ in case of vulnerabilities.
 ## [3.7.0] - 2022-07-29
 
 ### Added
-- Add custom size option to iOS formSheet Modal by @ShaneMckenna23 (#331).
-- Add `warmup` and `mayLaunchUrl` functions for optimization in Android by @vincent-paing (#341).
-- Add `includeReferrer` to allow adding android package name as referrer for website to track by @vincent-paing (#342).
+- Add custom size option to iOS formSheet Modal by [@ShaneMckenna23](https://github.com/ShaneMckenna23) ([#331](https://github.com/proyecto26/react-native-inappbrowser/pull/331)).
+- Add `warmup` and `mayLaunchUrl` functions for optimizati on in Android by [@vincent-paing](https://github.com/vincent-paing) ([#341](https://github.com/proyecto26/react-native-inappbrowser/pull/341)).
+- Add `includeReferrer` to allow adding android package name as referrer for website to track by [@vincent-paing](https://github.com/vincent-paing) ([#342](https://github.com/proyecto26/react-native-inappbrowser/pull/342)).
 
 ### Changed
-- Export options types by @rrebase (#324).
-- Upgrade build configuration to use sdk 31 instead by @vincent-paing (#340).
-- Upgraded dependency `org.greenrobot:eventbus` to 3.1.0 due to build issue by @chrismerino (#347).
+- Export options types by [@rrebase](https://github.com/rrebase) ([#324](https://github.com/proyecto26/react-native-inappbrowser/pull/324)).
+- Upgrade build configuration to use sdk 31 instead by [@vincent-paing](https://github.com/vincent-paing) ([#340](https://github.com/proyecto26/react-native-inappbrowser/pull/340)).
+- Upgraded dependency `org.greenrobot:eventbus` to 3.1.0 due to build issue by [@chrismerino](https://github.com/chrismerino) ([#347](https://github.com/proyecto26/react-native-inappbrowser/pull/347)).
 
 ### Fixed
-- Avoid stringifying null redirect url by @rmartin48 (#286).
-- Replaced **jCenter** with **Maven** by @matteodanelli (#320).
-- Fix **StatusBar** prop name in README example @rrebase (#322).
-- Fix redirection logic and update example project by @jdnichollsc (#371).
+- Avoid stringifying null redirect url by [@rmartin48](https://github.com/rmartin48) ([#286](https://github.com/proyecto26/react-native-inappbrowser/pull/286)).
+- Replaced **jCenter** with **Maven** by [@matteodanelli](https://github.com/matteodanelli) ([#320](https://github.com/proyecto26/react-native-inappbrowser/pull/320)).
+- Fix **StatusBar** prop name in README example [@rrebase](https://github.com/rrebase) ([#322](https://github.com/proyecto26/react-native-inappbrowser/pull/322)).
+- Fix redirection logic and update example project by [@jdnichollsc](https://github.com/jdnichollsc) ([#371](https://github.com/proyecto26/react-native-inappbrowser/pull/371)).
 
 ### Removed
-- Remove deprecated `removeEventListener()` calls by @TheWirv (#297).
-- Remove `QUERY_ALL_PACKAGES` permission by @androideveloper (#335).
+- Remove deprecated `removeEventListener()` calls by [@TheWirv](https://github.com/TheWirv) ([#297](https://github.com/proyecto26/react-native-inappbrowser/pull/297)).
+- Remove `QUERY_ALL_PACKAGES` permission by [@androideveloper](https://github.com/androideveloper) ([#335](https://github.com/proyecto26/react-native-inappbrowser/pull/335)).
 
 ## [3.6.3] - 2021-07-05
 
