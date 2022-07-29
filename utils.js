@@ -10,22 +10,30 @@ import {
   Platform,
   AppState,
   NativeModules,
-  EmitterSubscription
 } from 'react-native';
 import type {
   BrowserResult,
   RedirectEvent,
   RedirectResult,
   AuthSessionResult,
-  InAppBrowserOptions
+  InAppBrowserOptions,
 } from './types';
 
 export const RNInAppBrowser = NativeModules.RNInAppBrowser;
 
+type EmitterSubscription = {
+  remove(): void,
+};
+
 let _redirectHandler: ?(event: RedirectEvent) => void;
 let _linkingEventSubscription: ?EmitterSubscription;
+// If the initial AppState.currentState is null, we assume that the first call to
+// AppState#change event is not actually triggered by a real change,
+// is triggered instead by the bridge capturing the current state
+// (https://reactnative.dev/docs/appstate#basic-usage)
+let _isAppStateAvailable = AppState.currentState !== null;
 
-type AppStateStatus = typeof AppState.currentState
+type AppStateStatus = typeof AppState.currentState;
 
 function waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
   return new Promise(function (resolve) {
@@ -47,13 +55,14 @@ function waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
  */
 function handleAppStateActiveOnce(): Promise<void> {
   return new Promise(function (resolve) {
-    // Browser can be closed before handling AppState change
-    if (AppState.currentState === 'active') {
-      return resolve();
-    }
     let appStateEventSubscription: ?EmitterSubscription;
 
     function handleAppStateChange(nextAppState: AppStateStatus) {
+      if (!_isAppStateAvailable) {
+        _isAppStateAvailable = true;
+        return;
+      }
+
       if (nextAppState === 'active') {
         if (
           appStateEventSubscription &&
@@ -82,9 +91,7 @@ async function checkResultAndReturnUrl(
     try {
       await handleAppStateActiveOnce();
       const url = await Linking.getInitialURL();
-      return url && url.startsWith(returnUrl)
-        ? { url, type: 'success' }
-        : result;
+      return url && url.startsWith(returnUrl) ? { url, type: 'success' } : result;
     } catch {
       return result;
     }
@@ -100,7 +107,7 @@ export async function openBrowserAsync(
     modalEnabled: true,
     dismissButtonStyle: 'close',
     readerMode: false,
-    enableBarCollapsing: false
+    enableBarCollapsing: false,
   }
 ): Promise<BrowserResult> {
   return RNInAppBrowser.open({
@@ -111,22 +118,18 @@ export async function openBrowserAsync(
       processColor(options.preferredBarTintColor),
     preferredControlTintColor:
       options.preferredControlTintColor &&
-      processColor(options.preferredControlTintColor)
-  })
+      processColor(options.preferredControlTintColor),
+  });
 }
 
 export async function openAuthSessionAsync(
   url: string,
   redirectUrl: string,
   options?: InAppBrowserOptions = {
-    ephemeralWebSession: false
+    ephemeralWebSession: false,
   }
 ): Promise<AuthSessionResult> {
-  return RNInAppBrowser.openAuth(
-    url,
-    redirectUrl,
-    options
-  );
+  return RNInAppBrowser.openAuth(url, redirectUrl, options);
 }
 
 export async function openAuthSessionPolyfillAsync(
@@ -138,19 +141,17 @@ export async function openAuthSessionPolyfillAsync(
     !_redirectHandler,
     'InAppBrowser.openAuth is in a bad state. _redirectHandler is defined when it should not be.'
   );
-  let response = null;
   try {
-    response = await Promise.race([
-      waitForRedirectAsync(returnUrl),
+    return await Promise.race([
       openBrowserAsync(startUrl, options).then(function (result) {
         return checkResultAndReturnUrl(returnUrl, result);
       }),
+      waitForRedirectAsync(returnUrl),
     ]);
   } finally {
     closeAuthSessionPolyfillAsync();
     RNInAppBrowser.close();
   }
-  return response;
 }
 
 export function closeAuthSessionPolyfillAsync(): void {

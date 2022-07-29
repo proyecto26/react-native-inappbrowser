@@ -1,9 +1,5 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
  * @format
- * @flow strict-local
  */
 
 import React, {useEffect, useCallback, useState} from 'react';
@@ -15,9 +11,14 @@ import {
   TextInput,
   View,
   Button,
+  SafeAreaView,
+  StatusBarStyle,
+  useColorScheme,
+  ScrollView,
 } from 'react-native';
 import {openLink, tryDeepLinking} from './utils';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -28,7 +29,7 @@ const instructions = Platform.select({
 
 const App = () => {
   const [url, setUrl] = useState('https://reactnative.dev');
-  const [statusBarStyle] = useState('dark-content');
+  const [statusBarStyle] = useState<StatusBarStyle>('dark-content');
 
   useEffect(() => {
     InAppBrowser.mayLaunchUrl('https://reactnative.dev', []);
@@ -38,26 +39,40 @@ const App = () => {
     await openLink(url, statusBarStyle);
   }, [url, statusBarStyle]);
 
+  const isDarkMode = useColorScheme() === 'dark';
+
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    flex: 1,
+    height: '100%',
+  };
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={statusBarStyle} />
-      <Text style={styles.welcome}>
-        {'Welcome InAppBrowser\nfor React Native!'}
-      </Text>
-      <Text style={styles.instructions}>Type the url</Text>
-      <TextInput
-        style={styles.urlInput}
-        onChangeText={text => setUrl(text)}
-        value={url}
-      />
-      <View style={styles.openButton}>
-        <Button title="Open link" onPress={onOpenLink} />
-      </View>
-      <View style={styles.openButton}>
-        <Button title="Try deep linking" onPress={tryDeepLinking} />
-      </View>
-      <Text style={styles.instructions}>{instructions}</Text>
-    </View>
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        contentContainerStyle={backgroundStyle}>
+        <View style={styles.container}>
+          <Text style={styles.welcome}>
+            {'Welcome InAppBrowser\nfor React Native!'}
+          </Text>
+          <Text style={styles.instructions}>Type the url</Text>
+          <TextInput
+            style={styles.urlInput}
+            onChangeText={text => setUrl(text)}
+            value={url}
+          />
+          <View style={styles.openButton}>
+            <Button title="Open link" onPress={onOpenLink} />
+          </View>
+          <View style={styles.openButton}>
+            <Button title="Try deep linking" onPress={tryDeepLinking} />
+          </View>
+          <Text style={styles.instructions}>{instructions}</Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -68,6 +83,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
     padding: 30,
+    height: '100%',
   },
   welcome: {
     fontSize: 20,

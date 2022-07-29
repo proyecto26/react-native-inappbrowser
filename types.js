@@ -68,7 +68,7 @@ export type InAppBrowserAndroidOptions = {|
 
 export type InAppBrowserOptions = {
   ...InAppBrowserAndroidOptions,
-  ...InAppBrowseriOSOptions
+  ...InAppBrowseriOSOptions,
 };
 
 export type AuthSessionResult = RedirectResult | BrowserResult;
