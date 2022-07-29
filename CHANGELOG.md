@@ -22,10 +22,27 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
-## [3.7.0] - 2022-03-01
+## [3.7.0] - 2022-07-29
 
 ### Added
-- iOS: Add formSheetPreferredContentSize prop to allow for custom sized formSheet modals by [@ShaneMckenna23](https://github.com/ShaneMckenna23) ([#331](https://github.com/proyecto26/react-native-inappbrowser/pull/331)).
+- Add custom size option to iOS formSheet Modal by @ShaneMckenna23 (#331).
+- Add `warmup` and `mayLaunchUrl` functions for optimization in Android by @vincent-paing (#341).
+- Add `includeReferrer` to allow adding android package name as referrer for website to track by @vincent-paing (#342).
+
+### Changed
+- Export options types by @rrebase (#324).
+- Upgrade build configuration to use sdk 31 instead by @vincent-paing (#340).
+- Upgraded dependency `org.greenrobot:eventbus` to 3.1.0 due to build issue by @chrismerino (#347).
+
+### Fixed
+- Avoid stringifying null redirect url by @rmartin48 (#286).
+- Replaced **jCenter** with **Maven** by @matteodanelli (#320).
+- Fix **StatusBar** prop name in README example @rrebase (#322).
+- Fix redirection logic and update example project by @jdnichollsc (#371).
+
+### Removed
+- Remove deprecated `removeEventListener()` calls by @TheWirv (#297).
+- Remove `QUERY_ALL_PACKAGES` permission by @androideveloper (#335).
 
 ## [3.6.3] - 2021-07-05
 
@@ -207,7 +224,8 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.3...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.7.0...HEAD
+[3.7.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.3...v3.7.0
 [3.6.3]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.2...v3.6.3
 [3.6.2]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.1...v3.6.2
 [3.6.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.0...v3.6.1
