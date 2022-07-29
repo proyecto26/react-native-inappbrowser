@@ -38,7 +38,7 @@ type AppStateStatus = typeof AppState.currentState;
 function waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
   return new Promise(function (resolve) {
     _redirectHandler = (event: RedirectEvent) => {
-      if (event.url && event.url.includes(returnUrl)) {
+      if (event.url && event.url.startsWith(returnUrl)) {
         resolve({ url: event.url, type: 'success' });
       }
     };
@@ -91,7 +91,7 @@ async function checkResultAndReturnUrl(
     try {
       await handleAppStateActiveOnce();
       const url = await Linking.getInitialURL();
-      return url && url.includes(returnUrl) ? { url, type: 'success' } : result;
+      return url && url.startsWith(returnUrl) ? { url, type: 'success' } : result;
     } catch {
       return result;
     }
