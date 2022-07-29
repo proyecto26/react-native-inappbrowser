@@ -58,8 +58,8 @@ export const openLink = async (
           'my-custom-header': 'my custom header value',
         },
         hasBackButton: true,
-        browserPackage: null,
-        showInRecents: false,
+        browserPackage: undefined,
+        showInRecents: true,
         includeReferrer: true,
       });
       // A delay to show an alert when the browser is closed
