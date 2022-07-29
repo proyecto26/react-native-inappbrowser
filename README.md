@@ -255,7 +255,7 @@ public class MainActivity extends ReactActivity {
 }
 ```
 
- You can further optimize performance and pre-render pages [by providing the urls that the user is likely to open](https://developer.chrome.com/docs/android/custom-tabs/best-practices/#pre-render-content).
+You can further optimize performance and pre-render pages [by providing the urls that the user is likely to open](https://developer.chrome.com/docs/android/custom-tabs/best-practices/#pre-render-content).
 
 ```javascript
 // Do not call this every time the component render

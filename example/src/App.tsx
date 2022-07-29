@@ -1,9 +1,5 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
  * @format
- * @flow strict-local
  */
 
 import React, {useEffect, useCallback, useState} from 'react';
@@ -15,6 +11,7 @@ import {
   TextInput,
   View,
   Button,
+  StatusBarStyle,
 } from 'react-native';
 import {openLink, tryDeepLinking} from './utils';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
@@ -28,7 +25,7 @@ const instructions = Platform.select({
 
 const App = () => {
   const [url, setUrl] = useState('https://reactnative.dev');
-  const [statusBarStyle] = useState('dark-content');
+  const [statusBarStyle] = useState<StatusBarStyle>('dark-content');
 
   useEffect(() => {
     InAppBrowser.mayLaunchUrl('https://reactnative.dev', []);

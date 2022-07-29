@@ -1,9 +1,20 @@
-import {Alert, Platform, StatusBar, Linking} from 'react-native';
+import {
+  Alert,
+  Platform,
+  StatusBar,
+  Linking,
+  StatusBarStyle,
+} from 'react-native';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 
-const sleep = timeout => new Promise(resolve => setTimeout(resolve, timeout));
+const sleep = (timeout: number) =>
+  new Promise<void>(resolve => setTimeout(resolve, timeout));
 
-export const openLink = async (url, statusBarStyle, animated = true) => {
+export const openLink = async (
+  url: string,
+  statusBarStyle: StatusBarStyle,
+  animated = true,
+) => {
   try {
     if (await InAppBrowser.isAvailable()) {
       // A delay to change the StatusBar when the browser is opened
@@ -53,7 +64,7 @@ export const openLink = async (url, statusBarStyle, animated = true) => {
     }
   } catch (error) {
     await sleep(50);
-    const errorMessage = error.message || error;
+    const errorMessage = (error as Error).message || (error as string);
     Alert.alert(errorMessage);
   } finally {
     // Restore the previous StatusBar of the App
