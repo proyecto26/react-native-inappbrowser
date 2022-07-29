@@ -41,7 +41,7 @@ in case of vulnerabilities.
 - Fix redirection logic and update example project by [@jdnichollsc](https://github.com/jdnichollsc) ([#371](https://github.com/proyecto26/react-native-inappbrowser/pull/371)).
 
 ### Removed
-- Remove deprecated `removeEventListener()` calls by [@TheWirv](https://github.com/TheWirv) ([#297](https://github.com/proyecto26/react-native-inappbrowser/pull/297)).
+- Remove deprecated `removeEventListener()` calls with backward compatibility by [@TheWirv](https://github.com/TheWirv) ([#297](https://github.com/proyecto26/react-native-inappbrowser/pull/297)).
 - Remove `QUERY_ALL_PACKAGES` permission by [@androideveloper](https://github.com/androideveloper) ([#335](https://github.com/proyecto26/react-native-inappbrowser/pull/335)).
 
 ## [3.6.3] - 2021-07-05
