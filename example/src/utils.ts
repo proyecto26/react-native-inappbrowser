@@ -4,6 +4,7 @@ import {
   StatusBar,
   Linking,
   StatusBarStyle,
+  Dimensions,
 } from 'react-native';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 
@@ -16,6 +17,7 @@ export const openLink = async (
   animated = true,
 ) => {
   try {
+    const {width, height} = Dimensions.get('window');
     if (await InAppBrowser.isAvailable()) {
       // A delay to change the StatusBar when the browser is opened
       const delay = animated && Platform.OS === 'ios' ? 400 : 0;
@@ -27,10 +29,14 @@ export const openLink = async (
         preferredControlTintColor: 'white',
         readerMode: true,
         animated,
-        modalPresentationStyle: 'fullScreen',
+        modalPresentationStyle: 'formSheet',
         modalTransitionStyle: 'flipHorizontal',
         modalEnabled: true,
         enableBarCollapsing: true,
+        formSheetPreferredContentSize: {
+          width: width - width / 6,
+          height: height - height / 6,
+        },
         // Android Properties
         showTitle: true,
         toolbarColor: '#6200EE',
