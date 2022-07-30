@@ -1,6 +1,6 @@
 {
   "name": "react-native-inappbrowser-reborn",
-  "version": "3.6.3",
+  "version": "3.7.0",
   "description": "InAppBrowser for React Native",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "browser",
     "InAppBrowser",
     "in-app-browser",
-    "InAppBrowser",
+    "AppBrowser",
     "Chrome",
     "Safari",
     "Chrome Custom Tabs",
@@ -43,15 +43,15 @@
   },
   "dependencies": {
     "invariant": "^2.2.4",
-    "opencollective-postinstall": "^2.0.2"
+    "opencollective-postinstall": "^2.0.3"
   },
   "devDependencies": {
-    "@react-native-community/eslint-config": "2.0.0",
-    "babel-core": "^6.26.3",
-    "eslint": "^7.11.0",
-    "flow-bin": "^0.135.0",
-    "react": "16.13.1",
-    "react-native": "0.63.3"
+    "@babel/eslint-parser": "^7.18.9",
+    "@react-native-community/eslint-config": "^3.0.3",
+    "eslint": "^8.20.0",
+    "flow-bin": "^0.183.1",
+    "prettier": "^2.7.1",
+    "react-native": "^0.69.3"
   },
   "collective": {
     "type": "opencollective",

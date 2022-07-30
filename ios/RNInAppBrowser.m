@@ -90,7 +90,10 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
       }
     };
 
-    NSString *escapedRedirectURL = [[NSURL alloc] initWithString:redirectURL].scheme;
+    NSString *escapedRedirectURL = nil;
+    if (redirectURL) {
+        escapedRedirectURL = [[NSURL alloc] initWithString:redirectURL].scheme;
+    }
 
     if (@available(iOS 12.0, *)) {
       webAuthSession = [[ASWebAuthenticationSession alloc]
@@ -145,6 +148,7 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
   NSNumber* preferredControlTintColor = [options valueForKey:@"preferredControlTintColor"];
   NSString* modalPresentationStyle = [options valueForKey:@"modalPresentationStyle"];
   NSString* modalTransitionStyle = [options valueForKey:@"modalTransitionStyle"];
+  NSDictionary* formSheetPreferredContentSize = [options valueForKey:@"formSheetPreferredContentSize"];
 
   BOOL readerMode = [options[@"readerMode"] boolValue];
   BOOL enableBarCollapsing = [options[@"enableBarCollapsing"] boolValue];
@@ -204,6 +208,16 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
     if(animated) {
       safariHackVC.modalTransitionStyle = [self getTransitionStyle: modalTransitionStyle];
     }
+      
+    if([modalPresentationStyle isEqualToString:@"formSheet"] && formSheetPreferredContentSize){
+      NSNumber *width = [formSheetPreferredContentSize valueForKey:@"width"];
+      NSNumber *height = [formSheetPreferredContentSize valueForKey:@"height"];
+      
+      if(width && height){
+        safariHackVC.preferredContentSize = CGSizeMake([width doubleValue], [height doubleValue]);
+      }
+    }
+    
     safariHackVC.presentationController.delegate = self;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"

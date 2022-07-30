@@ -42,6 +42,7 @@ Do you want to see this package in action? Check these awesome projects, yay! �
 - [VibePay](https://vibepay.com) - A simple, smarter, better way to get paid.
 - [Opinio](https://opinio.media) - Allows the population to be surveyed on social issues.
 - [medpex: Online Apotheke](https://www.medpex.de) - Online pharmacy for medicines & cosmetics with over 5 million customers.
+- [CONTACT Software](https://www.contact-software.com/) - Energizing your digital business.
 
 Share your awesome project [here](https://github.com/proyecto26/react-native-inappbrowser/issues/164)! ❤️
 
@@ -81,10 +82,11 @@ Linking the package manually is not required anymore with [Autolinking](https://
   ```
   buildscript {
     ext {
-      buildToolsVersion = "28.0.3"
-      minSdkVersion = 16
-      compileSdkVersion = 28
-      targetSdkVersion = 28
+      buildToolsVersion = "30.0.2"
+      minSdkVersion = 21
+      compileSdkVersion = 30
+      targetSdkVersion = 30
+      ndkVersion = "21.4.7075529"
       // Remove 'supportLibVersion' property and put specific versions for AndroidX libraries
       androidXAnnotation = "1.2.0"
       androidXBrowser = "1.3.0"
@@ -158,6 +160,7 @@ Property       | Description
 `modalEnabled` (Boolean)             | Present the **SafariViewController** modally or as push instead. [`true`/`false`]
 `enableBarCollapsing` (Boolean)      | Determines whether the browser's tool bars will collapse or not. [`true`/`false`]
 `ephemeralWebSession` (Boolean)      | Prevent re-use cookies of previous session (openAuth only) [`true`/`false`]
+`formSheetPreferredContentSize` (Object)      | Custom size for iPad `formSheet` modals [`{width: 400, height: 500}`]
 
 ### Android Options
 Property       | Description
@@ -175,6 +178,7 @@ Property       | Description
 `hasBackButton` (Boolean)         | Sets a back arrow instead of the default `X` icon to close the custom tab. [`true`/`false`]
 `browserPackage` (String)         | Package name of a browser to be used to handle Custom Tabs.
 `showInRecents` (Boolean)         | Determining whether browsed website should be shown as separate entry in Android recents/multitasking view. [`true`/`false`]
+`includeReferrer` (Boolean)         | Determining whether to include your package name as referrer for the website to track. [`true`/`false`]
 
 ### Demo
 
@@ -183,9 +187,12 @@ import { Linking, Alert } from 'react-native'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 
 ...
+  async sleep(timeout) {
+    return new Promise(resolve => setTimeout(resolve, timeout))
+  }
   async openLink() {
     try {
-      const url = 'https://www.proyecto26.com'
+      const url = 'https://github.com/proyecto26'
       if (await InAppBrowser.isAvailable()) {
         const result = await InAppBrowser.open(url, {
           // iOS Properties
@@ -219,6 +226,7 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
             'my-custom-header': 'my custom header value'
           }
         })
+        await this.sleep(800);
         Alert.alert(JSON.stringify(result))
       }
       else Linking.openURL(url)
@@ -227,6 +235,33 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
     }
   }
 ...
+```
+
+### Android Optimizations
+
+On Android, you can warmup the in app browser client to make it launch siginificantly faster. To do so, add the following to your `MainActivity`
+
+```java
+import com.proyecto26.inappbrowser.RNInAppBrowserModule;
+
+public class MainActivity extends ReactActivity {
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    RNInAppBrowserModule.onStart(this);
+  }
+
+}
+```
+
+You can further optimize performance and pre-render pages [by providing the urls that the user is likely to open](https://developer.chrome.com/docs/android/custom-tabs/best-practices/#pre-render-content).
+
+```javascript
+// Do not call this every time the component render
+useEffect(() => {
+  InAppBrowser.mayLaunchUrl("Url user has high chance to open", ["Other urls that user might open ordered by priority"]);
+}, []);
 ```
 
 ### Authentication Flow using Deep Linking
@@ -268,7 +303,7 @@ define your app scheme and replace `my-scheme` and `my-host` with your info.
 - utilities.js
 ```javascript
 import { Platform } from 'react-native'
-export const getDeepLink = (path = "") => {
+export const getDeepLink = (path = '') => {
   const scheme = 'my-scheme'
   const prefix = Platform.OS == 'android' ? `${scheme}://my-host/` : `${scheme}://`
   return prefix + path
@@ -314,7 +349,7 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { getDeepLink } from './utilities'
 ...
   async onLogin() {
-    const deepLink = getDeepLink("callback")
+    const deepLink = getDeepLink('callback)
     const url = `https://my-auth-login-page.com?redirect_uri=${deepLink}`
     try {
       if (await InAppBrowser.isAvailable()) {
@@ -390,7 +425,7 @@ Starting with React Native 0.59 onwards, there is a simpler way of handling this
 ```javascript
   async openInBrowser(url) {
     try {
-      const oldStyle = StatusBar.pushStackEntry({ barStyle: 'dark-content', animate: false });
+      const oldStyle = StatusBar.pushStackEntry({ barStyle: 'dark-content', animated: false });
       await InAppBrowser.open(url)
       StatusBar.popStackEntry(oldStyle);
     } catch (error) {
@@ -450,8 +485,8 @@ Using in-app browser tabs (like SFAuthenticationSession/ASWebAuthenticationSessi
 * **React Native Safari View:** [A React Native wrapper for Safari View Controller](https://github.com/naoufal/react-native-safari-view)
 
 ## Contributing ✨
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.  
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** ❤️.  
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** ❤️.
 You can learn more about how you can contribute to this project in the [contribution guide](https://github.com/proyecto26/react-native-inappbrowser/blob/develop/CONTRIBUTING.md).
 
 ## Contributors ✨

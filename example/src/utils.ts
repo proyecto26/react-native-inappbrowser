@@ -1,10 +1,23 @@
-import {Alert, Platform, StatusBar, Linking} from 'react-native';
+import {
+  Alert,
+  Platform,
+  StatusBar,
+  Linking,
+  StatusBarStyle,
+  Dimensions,
+} from 'react-native';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 
-const sleep = timeout => new Promise(resolve => setTimeout(resolve, timeout));
+const sleep = (timeout: number) =>
+  new Promise<void>(resolve => setTimeout(resolve, timeout));
 
-export const openLink = async (url, statusBarStyle, animated = true) => {
+export const openLink = async (
+  url: string,
+  statusBarStyle: StatusBarStyle,
+  animated = true,
+) => {
   try {
+    const {width, height} = Dimensions.get('window');
     if (await InAppBrowser.isAvailable()) {
       // A delay to change the StatusBar when the browser is opened
       const delay = animated && Platform.OS === 'ios' ? 400 : 0;
@@ -16,10 +29,14 @@ export const openLink = async (url, statusBarStyle, animated = true) => {
         preferredControlTintColor: 'white',
         readerMode: true,
         animated,
-        modalPresentationStyle: 'fullScreen',
+        modalPresentationStyle: 'formSheet',
         modalTransitionStyle: 'flipHorizontal',
         modalEnabled: true,
         enableBarCollapsing: true,
+        formSheetPreferredContentSize: {
+          width: width - width / 6,
+          height: height - height / 6,
+        },
         // Android Properties
         showTitle: true,
         toolbarColor: '#6200EE',
@@ -41,8 +58,9 @@ export const openLink = async (url, statusBarStyle, animated = true) => {
           'my-custom-header': 'my custom header value',
         },
         hasBackButton: true,
-        browserPackage: null,
-        showInRecents: false,
+        browserPackage: undefined,
+        showInRecents: true,
+        includeReferrer: true,
       });
       // A delay to show an alert when the browser is closed
       await sleep(800);
@@ -52,7 +70,7 @@ export const openLink = async (url, statusBarStyle, animated = true) => {
     }
   } catch (error) {
     await sleep(50);
-    const errorMessage = error.message || error;
+    const errorMessage = (error as Error).message || (error as string);
     Alert.alert(errorMessage);
   } finally {
     // Restore the previous StatusBar of the App
@@ -81,6 +99,7 @@ export const tryDeepLinking = async () => {
         enableUrlBarHiding: true,
         enableDefaultShare: false,
       });
+      await sleep(800);
       Alert.alert('Response', JSON.stringify(result));
     } else {
       Alert.alert('InAppBrowser is not supported :/');

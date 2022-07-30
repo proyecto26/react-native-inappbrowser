@@ -1,13 +1,19 @@
 {
-  "extends": "@react-native-community",
+  "parser": "@babel/eslint-parser",
+  "extends": [
+    "@react-native-community",
+    "plugin:flowtype/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "flowtype"
+  ],
   "rules": {
-    "comma-dangle": ["error", "always-multiline", {
-      "arrays": "never",
-      "objects": "never",
-      "imports": "never",
-      "exports": "never",
-      "functions": "never"
-    }],
-    "prettier/prettier": ["error", { "singleQuote": true }]
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true
+      }
+    ]
   }
 }
