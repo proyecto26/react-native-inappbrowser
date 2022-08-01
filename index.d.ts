@@ -1,75 +1,77 @@
-declare module 'react-native-inappbrowser-reborn' {
+declare module "react-native-inappbrowser-reborn" {
   export interface RedirectEvent {
-    url: 'string';
+    url: "string";
   }
 
   export interface BrowserResult {
-    type: 'cancel' | 'dismiss';
+    type: "cancel" | "dismiss";
   }
 
   export interface RedirectResult {
-    type: 'success';
+    type: "success";
     url: string;
   }
 
   export type InAppBrowseriOSOptions = {
-    dismissButtonStyle?: 'done' | 'close' | 'cancel',
-    preferredBarTintColor?: string,
-    preferredControlTintColor?: string,
-    readerMode?: boolean,
-    animated?: boolean,
+    dismissButtonStyle?: "done" | "close" | "cancel";
+    preferredBarTintColor?: string;
+    preferredControlTintColor?: string;
+    readerMode?: boolean;
+    animated?: boolean;
     modalPresentationStyle?:
-      | 'automatic'
-      | 'fullScreen'
-      | 'pageSheet'
-      | 'formSheet'
-      | 'currentContext'
-      | 'custom'
-      | 'overFullScreen'
-      | 'overCurrentContext'
-      | 'popover'
-      | 'none',
+      | "automatic"
+      | "fullScreen"
+      | "pageSheet"
+      | "formSheet"
+      | "currentContext"
+      | "custom"
+      | "overFullScreen"
+      | "overCurrentContext"
+      | "popover"
+      | "none";
     modalTransitionStyle?:
-      | 'coverVertical'
-      | 'flipHorizontal'
-      | 'crossDissolve'
-      | 'partialCurl',
-    modalEnabled?: boolean,
-    enableBarCollapsing?: boolean,
-    ephemeralWebSession?: boolean,
-    formSheetPreferredContentSize?: { width: number, height: number },
-  }
+      | "coverVertical"
+      | "flipHorizontal"
+      | "crossDissolve"
+      | "partialCurl";
+    modalEnabled?: boolean;
+    enableBarCollapsing?: boolean;
+    ephemeralWebSession?: boolean;
+    formSheetPreferredContentSize?: { width: number; height: number };
+  };
 
   export type InAppBrowserAndroidOptions = {
-    showTitle?: boolean,
-    toolbarColor?: string,
-    secondaryToolbarColor?: string,
-    navigationBarColor?: string,
-    navigationBarDividerColor?: string,
-    enableUrlBarHiding?: boolean,
-    enableDefaultShare?: boolean,
-    forceCloseOnRedirection?: boolean,
+    showTitle?: boolean;
+    toolbarColor?: string;
+    secondaryToolbarColor?: string;
+    navigationBarColor?: string;
+    navigationBarDividerColor?: string;
+    enableUrlBarHiding?: boolean;
+    enableDefaultShare?: boolean;
+    forceCloseOnRedirection?: boolean;
     animations?: {
-      startEnter: string,
-      startExit: string,
-      endEnter: string,
-      endExit: string
-    },
-    headers?: { [key: string]: string },
-    hasBackButton?: boolean,
-    browserPackage?: string,
-    showInRecents?: boolean
-    includeReferrer?: boolean,
-  }
+      startEnter: string;
+      startExit: string;
+      endEnter: string;
+      endExit: string;
+    };
+    headers?: { [key: string]: string };
+    hasBackButton?: boolean;
+    browserPackage?: string;
+    showInRecents?: boolean;
+    includeReferrer?: boolean;
+  };
 
-  export type InAppBrowserOptions = InAppBrowserAndroidOptions | InAppBrowseriOSOptions;
+  export type InAppBrowserOptions =
+    | InAppBrowserAndroidOptions
+    | InAppBrowseriOSOptions;
 
   type AuthSessionResult = RedirectResult | BrowserResult;
 
   interface InAppBrowserClassMethods {
     open: (
       url: string,
-      options?: InAppBrowserOptions,
+      options?: InAppBrowserOptions
     ) => Promise<BrowserResult>;
     close: () => void;
     warmup: () => Promise<boolean>;
@@ -77,7 +79,7 @@ declare module 'react-native-inappbrowser-reborn' {
     openAuth: (
       url: string,
       redirectUrl: string,
-      options?: InAppBrowserOptions,
+      options?: InAppBrowserOptions
     ) => Promise<AuthSessionResult>;
     closeAuth: () => void;
     isAvailable: () => Promise<boolean>;
