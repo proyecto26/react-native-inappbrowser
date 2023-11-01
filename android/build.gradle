@@ -53,17 +53,22 @@ dependencies {
   implementation 'com.facebook.react:react-native:+'
   implementation 'org.greenrobot:eventbus:3.3.1'
   def supportLibVersion = safeExtGet('supportLibVersion', safeExtGet('supportVersion', null))
-  def androidXVersion = safeExtGet('androidXVersion', null)
-  if (supportLibVersion && androidXVersion == null) {
+  def androidXAnnotationVersion = safeExtGet('androidXAnnotationVersion', null)
+  def androidXBrowserVersion = safeExtGet('androidXBrowserVersion', null)
+  if (supportLibVersion) {
     implementation "com.android.support:support-annotations:$supportLibVersion"
     implementation "com.android.support:customtabs:$supportLibVersion"
   } else {
-    def defaultAndroidXVersion = "1.+"
-    if (androidXVersion == null) {
-      androidXVersion = defaultAndroidXVersion
+    def defaultAndroidXAnnotationVersion = "1.5.+"
+    def defaultAndroidXBrowserVersion = "1.4.+"
+    if (androidXAnnotationVersion == null) {
+      androidXAnnotationVersion = defaultAndroidXAnnotationVersion
     }
-    def androidXAnnotation = safeExtGet('androidXAnnotation', androidXVersion)
-    def androidXBrowser = safeExtGet('androidXBrowser', androidXVersion)
+    if (androidXBrowserVersion == null) {
+      androidXBrowserVersion = defaultAndroidXBrowserVersion
+    }
+    def androidXAnnotation = safeExtGet('androidXAnnotation', androidXAnnotationVersion)
+    def androidXBrowser = safeExtGet('androidXBrowser', androidXBrowserVersion)
     implementation "androidx.annotation:annotation:$androidXAnnotation"
     implementation "androidx.browser:browser:$androidXBrowser"
   }
