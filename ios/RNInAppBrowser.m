@@ -82,9 +82,18 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
             @"url" : url,
           });
         } else {
-          redirectResolve(@{
-            @"type" : @"cancel",
-          });
+          NSDictionary *userInfo = [error userInfo];
+          NSString *errorDescription = [userInfo objectForKey:NSDebugDescriptionErrorKey];
+          if (errorDescription != nil) {
+            redirectResolve(@{
+              @"type" : @"cancel",
+              @"description" : errorDescription,
+            });
+          } else {
+            redirectResolve(@{
+              @"type" : @"cancel",
+            });
+          }
         }
         [strongSelf flowDidFinish];
       }
