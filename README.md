@@ -352,7 +352,7 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { getDeepLink } from './utilities'
 ...
   async onLogin() {
-    const deepLink = getDeepLink('callback)
+    const deepLink = getDeepLink('callback')
     const url = `https://my-auth-login-page.com?redirect_uri=${deepLink}`
     try {
       if (await InAppBrowser.isAvailable()) {
