@@ -102,15 +102,18 @@ async function checkResultAndReturnUrl(
 
 export async function openBrowserAsync(
   url: string,
-  options?: InAppBrowserOptions = {
+  options?: InAppBrowserOptions = {}
+): Promise<BrowserResult> {
+  const defaults = {
     animated: true,
     modalEnabled: true,
     dismissButtonStyle: 'close',
     readerMode: false,
     enableBarCollapsing: false,
-  }
-): Promise<BrowserResult> {
+  };
+
   return RNInAppBrowser.open({
+    ...defaults,
     ...options,
     url,
     preferredBarTintColor:
