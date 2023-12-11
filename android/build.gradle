@@ -27,6 +27,10 @@ def DEFAULT_MIN_SDK_VERSION = 16
 def DEFAULT_TARGET_SDK_VERSION = 31
 
 android {
+  def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0].toInteger()
+  if (agpVersion >= 7) {
+    namespace 'com.proyecto26.inappbrowser'
+  }
   compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
   buildToolsVersion safeExtGet('buildToolsVersion', DEFAULT_BUILD_TOOLS_VERSION)
   defaultConfig {
@@ -51,7 +55,8 @@ repositories {
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation 'com.facebook.react:react-native:+'
-  implementation 'org.greenrobot:eventbus:3.3.1'
+  def eventbusVersion = safeExtGet('eventbus', safeExtGet('eventbus', '3.3.1'))
+  implementation "org.greenrobot:eventbus:$eventbusVersion"
   def supportLibVersion = safeExtGet('supportLibVersion', safeExtGet('supportVersion', null))
   def androidXAnnotationVersion = safeExtGet('androidXAnnotationVersion', null)
   def androidXBrowserVersion = safeExtGet('androidXBrowserVersion', null)
