@@ -49,7 +49,7 @@ public class RNInAppBrowser {
   private static final String KEY_NAVIGATION_BAR_DIVIDER_COLOR = "navigationBarDividerColor";
   private static final String KEY_ENABLE_URL_BAR_HIDING = "enableUrlBarHiding";
   private static final String KEY_SHOW_PAGE_TITLE = "showTitle";
-  private static final String KEY_DEFAULT_SHARE_MENU_ITEM = "enableDefaultShare";
+  private static final String KEY_ENABLE_SHARE_STATE = "enableShareState";
   private static final String KEY_FORCE_CLOSE_ON_REDIRECTION = "forceCloseOnRedirection";
   private static final String KEY_ANIMATIONS = "animations";
   private static final String KEY_HEADERS = "headers";
@@ -133,9 +133,10 @@ public class RNInAppBrowser {
     setColor(builder, options, KEY_NAVIGATION_BAR_COLOR, "setNavigationBarColor", "navigation bar");
     setColor(builder, options, KEY_NAVIGATION_BAR_DIVIDER_COLOR, "setNavigationBarDividerColor", "navigation bar divider");
 
-    if (options.hasKey(KEY_DEFAULT_SHARE_MENU_ITEM) && 
-        options.getBoolean(KEY_DEFAULT_SHARE_MENU_ITEM)) {
-      builder.addDefaultShareMenuItem();
+    if (options.hasKey(KEY_ENABLE_SHARE_STATE)) {
+      builder.setShareState(
+        options.getBoolean(KEY_ENABLE_SHARE_STATE) ? CustomTabsIntent.SHARE_STATE_ON : CustomTabsIntent.SHARE_STATE_OFF
+      );
     }
     if (options.hasKey(KEY_ANIMATIONS)) {
       final ReadableMap animations = options.getMap(KEY_ANIMATIONS);
