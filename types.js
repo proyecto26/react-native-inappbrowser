@@ -4,7 +4,7 @@
  */
 
 export type RedirectEvent = {|
-  url: 'string',
+  url: string,
 |};
 
 export type BrowserResult = {|

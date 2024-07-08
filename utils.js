@@ -18,15 +18,12 @@ import type {
   AuthSessionResult,
   InAppBrowserOptions,
 } from './types';
+import type { EventSubscription } from 'react-native/Libraries/vendor/emitter/EventEmitter';
 
 export const RNInAppBrowser = NativeModules.RNInAppBrowser;
 
-type EmitterSubscription = {
-  remove(): void,
-};
-
 let _redirectHandler: ?(event: RedirectEvent) => void;
-let _linkingEventSubscription: ?EmitterSubscription;
+let _linkingEventSubscription: ?EventSubscription;
 // If the initial AppState.currentState is null, we assume that the first call to
 // AppState#change event is not actually triggered by a real change,
 // is triggered instead by the bridge capturing the current state
@@ -55,7 +52,7 @@ function waitForRedirectAsync(returnUrl: string): Promise<RedirectResult> {
  */
 function handleAppStateActiveOnce(): Promise<void> {
   return new Promise(function (resolve) {
-    let appStateEventSubscription: ?EmitterSubscription;
+    let appStateEventSubscription: ?EventSubscription;
 
     function handleAppStateChange(nextAppState: AppStateStatus) {
       if (!_isAppStateAvailable) {
@@ -91,7 +88,9 @@ async function checkResultAndReturnUrl(
     try {
       await handleAppStateActiveOnce();
       const url = await Linking.getInitialURL();
-      return url && url.startsWith(returnUrl) ? { url, type: 'success' } : result;
+      return url && url.startsWith(returnUrl)
+        ? { url, type: 'success' }
+        : result;
     } catch {
       return result;
     }

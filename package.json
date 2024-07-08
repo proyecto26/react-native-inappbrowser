@@ -49,12 +49,13 @@
     "@babel/eslint-parser": "^7.18.9",
     "@react-native-community/eslint-config": "^3.0.3",
     "eslint": "^8.20.0",
-    "flow-bin": "^0.183.1",
+    "flow-bin": "^0.135.0",
     "prettier": "^2.7.1",
     "react-native": "^0.69.3"
   },
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/proyecto26"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }
