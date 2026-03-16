@@ -22,6 +22,25 @@ in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [3.7.1] - 2026-03-16
+### Added
+- add automated release workflow with semantic versioning ([67210c0](https://github.com/proyecto26/react-native-inappbrowser/commit/67210c0a6c0901d601f2b0b877728f679eb6a22f)).
+- 🌟 add support for React Native 0.73 ([#446](https://github.com/proyecto26/react-native-inappbrowser/pull/446)).
+- First automated release
+
+### Changed
+- Update README.md ([17b4edb](https://github.com/proyecto26/react-native-inappbrowser/commit/17b4edbf0c3ec5c13d0455c62d262bcd67afd3e5)).
+- Repair syntax highlighting in README ([ef71215](https://github.com/proyecto26/react-native-inappbrowser/commit/ef71215e30b4fd3e592bbd0d15a59c22f3f72b14)).
+- Add error description to openAuth response ([05e47dd](https://github.com/proyecto26/react-native-inappbrowser/commit/05e47ddd66ccd35b6e5c95f7a68f316c53854093)).
+- separate browser and annotation ver ([41491c1](https://github.com/proyecto26/react-native-inappbrowser/commit/41491c17601840050c862d1e7bbf70fb218a700e)).
+- fix androidXVersion ([7115730](https://github.com/proyecto26/react-native-inappbrowser/commit/71157301cae8550e70b50952b416e17fcf5dce37)).
+- :wrench: Upgraded dependency org.greenrobot:eventbus to 3.3.1 due to build issue ([34dd098](https://github.com/proyecto26/react-native-inappbrowser/commit/34dd098ad5895ea7f700c906490beb65f6d95613)).
+- Update comments ([e028173](https://github.com/proyecto26/react-native-inappbrowser/commit/e028173df5ffea7b8c1f3214669cdde33981ee14)).
+- Update README.md ([a51ecc7](https://github.com/proyecto26/react-native-inappbrowser/commit/a51ecc774e8e0fe494879d1dc60ed23148fea886)).
+
+
+
+
 ## [3.7.0] - 2022-07-29
 
 ### Added
@@ -224,7 +243,8 @@ Missing tags for previous versions 🤷‍♂
 - Fix `EventBusException` on **Android** by [@Almouro](https://github.com/Almouro) ([9cf4cbb](https://github.com/proyecto26/react-native-inappbrowser/commit/9cf4cbb58d55c8b534dabac6791e6a2a5428253f)).
 
 
-[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.7.0...HEAD
+[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.7.1...HEAD
+[3.7.1]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.7.0...v3.7.1
 [3.7.0]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.3...v3.7.0
 [3.6.3]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.2...v3.6.3
 [3.6.2]: https://github.com/proyecto26/react-native-inappbrowser/compare/v3.6.1...v3.6.2
