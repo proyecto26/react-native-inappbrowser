@@ -1,0 +1,188 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+      release_notes:
+        description: 'Additional release notes (optional)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.version.outputs.new_version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get current version
+        id: current
+        run: |
+          CURRENT=$(node -p "require('./package.json').version")
+          echo "version=$CURRENT" >> $GITHUB_OUTPUT
+          echo "Current version: $CURRENT"
+
+      - name: Determine version bump from commits
+        id: bump
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "type=${{ inputs.version_bump }}" >> $GITHUB_OUTPUT
+          else
+            LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+            if [ -z "$LAST_TAG" ]; then RANGE="HEAD"; else RANGE="${LAST_TAG}..HEAD"; fi
+            COMMITS=$(git log $RANGE --pretty=format:"%s" 2>/dev/null || echo "")
+            if echo "$COMMITS" | grep -qiE "^(feat|feature)(\(.+\))?!:|BREAKING CHANGE"; then
+              echo "type=major" >> $GITHUB_OUTPUT
+            elif echo "$COMMITS" | grep -qiE "^(feat|feature)(\(.+\))?:"; then
+              echo "type=minor" >> $GITHUB_OUTPUT
+            else
+              echo "type=patch" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      - name: Calculate new version
+        id: version
+        run: |
+          IFS='.' read -r MAJOR MINOR PATCH <<< "${{ steps.current.outputs.version }}"
+          case "${{ steps.bump.outputs.type }}" in
+            major) MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0 ;;
+            minor) MINOR=$((MINOR + 1)); PATCH=0 ;;
+            patch) PATCH=$((PATCH + 1)) ;;
+          esac
+          NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
+
+      - name: Generate changelog entry
+        id: changelog
+        run: |
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LAST_TAG" ]; then RANGE="HEAD"; else RANGE="${LAST_TAG}..HEAD"; fi
+
+          TODAY=$(date +%Y-%m-%d)
+          NEW_VERSION="${{ steps.version.outputs.new_version }}"
+          ADDED="" CHANGED="" FIXED="" REMOVED=""
+
+          while IFS= read -r line; do
+            HASH=$(echo "$line" | cut -d'|' -f1)
+            MSG=$(echo "$line" | cut -d'|' -f2-)
+            SHORT_HASH=$(echo "$HASH" | cut -c1-7)
+            PR_NUM=$(echo "$MSG" | grep -oP '\(#\K[0-9]+(?=\))' | head -1)
+
+            if [ -n "$PR_NUM" ]; then
+              ATTR="([#${PR_NUM}](https://github.com/proyecto26/react-native-inappbrowser/pull/${PR_NUM}))"
+            else
+              ATTR="([${SHORT_HASH}](https://github.com/proyecto26/react-native-inappbrowser/commit/${HASH}))"
+            fi
+
+            CLEAN_MSG=$(echo "$MSG" | sed -E 's/^(feat|fix|perf|refactor|chore|docs|style|test|build|ci)(\([^)]*\))?(!)?:\s*//')
+            CLEAN_MSG=$(echo "$CLEAN_MSG" | sed -E 's/\s*\(#[0-9]+\)\s*$//')
+
+            if echo "$MSG" | grep -qiE "^(feat|feature)(\(.+\))?:"; then
+              ADDED="${ADDED}- ${CLEAN_MSG} ${ATTR}.\n"
+            elif echo "$MSG" | grep -qiE "^fix(\(.+\))?:"; then
+              FIXED="${FIXED}- ${CLEAN_MSG} ${ATTR}.\n"
+            elif echo "$MSG" | grep -qiE "^(perf|refactor|chore|docs|style|build|ci)(\(.+\))?:"; then
+              CHANGED="${CHANGED}- ${CLEAN_MSG} ${ATTR}.\n"
+            elif echo "$MSG" | grep -qiE "^(revert)(\(.+\))?:"; then
+              REMOVED="${REMOVED}- ${CLEAN_MSG} ${ATTR}.\n"
+            else
+              CHANGED="${CHANGED}- ${CLEAN_MSG} ${ATTR}.\n"
+            fi
+          done < <(git log $RANGE --pretty=format:"%H|%s" --no-merges 2>/dev/null)
+
+          if [ -n "${{ inputs.release_notes }}" ]; then
+            ADDED="${ADDED}- ${{ inputs.release_notes }}\n"
+          fi
+
+          BODY=""
+          [ -n "$ADDED" ] && BODY="${BODY}### Added\n${ADDED}\n"
+          [ -n "$CHANGED" ] && BODY="${BODY}### Changed\n${CHANGED}\n"
+          [ -n "$FIXED" ] && BODY="${BODY}### Fixed\n${FIXED}\n"
+          [ -n "$REMOVED" ] && BODY="${BODY}### Removed\n${REMOVED}\n"
+          [ -z "$BODY" ] && BODY="### Changed\n- Release version ${NEW_VERSION}.\n"
+
+          echo -e "$BODY" > /tmp/release_body.md
+
+          # Update CHANGELOG.md
+          PREV_VERSION="${{ steps.current.outputs.version }}"
+          HEADER="## [${NEW_VERSION}] - ${TODAY}"
+          LINK="[${NEW_VERSION}]: https://github.com/proyecto26/react-native-inappbrowser/compare/v${PREV_VERSION}...v${NEW_VERSION}"
+          sed -i "/^## \[Unreleased\]/a\\\\n${HEADER}\\n" CHANGELOG.md
+          sed -i "/^## \[${NEW_VERSION}\]/r /tmp/release_body.md" CHANGELOG.md
+          sed -i "s|\[Unreleased\]: .*|[Unreleased]: https://github.com/proyecto26/react-native-inappbrowser/compare/v${NEW_VERSION}...HEAD|" CHANGELOG.md
+          sed -i "/^\[Unreleased\]:/a ${LINK}" CHANGELOG.md
+
+      - name: Update version in package.json
+        run: |
+          # Use node to update version properly (preserves formatting)
+          node -e "
+            const pkg = require('./package.json');
+            pkg.version = '${{ steps.version.outputs.new_version }}';
+            require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+
+      - name: Commit version bump
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m "chore(release): v${{ steps.version.outputs.new_version }}
+
+          - Updated package.json
+          - Updated CHANGELOG.md"
+          git tag "v${{ steps.version.outputs.new_version }}"
+          git push origin main --follow-tags
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.new_version }}
+          name: Release ${{ steps.version.outputs.new_version }}
+          body_path: /tmp/release_body.md
+          draft: false
+          prerelease: false
+
+  publish-npm:
+    name: Publish to npm
+    needs: release
+    runs-on: ubuntu-latest
+    if: needs.release.outputs.new_version != ''
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Pull latest (includes version bump commit)
+        run: git pull origin main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
