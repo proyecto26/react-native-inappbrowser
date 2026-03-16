@@ -145,6 +145,9 @@ Methods       | Action
 `openAuth`    | Opens the url with Safari in a modal on iOS using **SFAuthenticationSession/ASWebAuthenticationSession**, and Chrome in a new custom tab on Android. On iOS, the user will be asked whether to allow the app to authenticate using the given url **(OAuth flow with deep linking redirection)**.
 `closeAuth`   | Dismisses the current authentication session.
 `isAvailable` | Detect if the device supports this plugin.
+`onStart`   | Initialize a bound background service so the application can communicate its intention to the browser. After the service is connected, the client can be used to Warms up the browser to make navigation faster and indicates that a given URL may be loaded in the future. - Android Only.
+`warmup`   | Warm up the browser process - Android Only.
+`mayLaunchUrl` | Tells the browser of a likely future navigation to a URL. The most likely URL has to be specified first. Optionally, a list of other likely URLs can be provided. They are treated as less likely than the first one, and have to be sorted in decreasing priority order. These additional URLs may be ignored. All previous calls to this method will be deprioritized - Android Only.
 
 ### iOS Options
 
@@ -349,7 +352,7 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { getDeepLink } from './utilities'
 ...
   async onLogin() {
-    const deepLink = getDeepLink('callback)
+    const deepLink = getDeepLink('callback')
     const url = `https://my-auth-login-page.com?redirect_uri=${deepLink}`
     try {
       if (await InAppBrowser.isAvailable()) {
@@ -524,11 +527,9 @@ Support this project with your organization. Your logo will show up here with a 
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
 
-Donate **Ethereum**, **ADA**, **BNB**, **SHIBA**, **USDT**, **DOGE**:
+Donate **Ethereum**, **ADA**, **BNB**, **SHIBA**, **USDT/USDC**, **DOGE**, etc:
 
-![Wallet address](https://user-images.githubusercontent.com/2154886/123501719-84bf1900-d60c-11eb-882c-98a499cea323.png)
-
-> Wallet address: 0x3F9fA8021B43ACe578C2352861Cf335449F33427
+> Wallet address: jdnichollsc.eth
 
 Please let us know your contributions! 🙏
 

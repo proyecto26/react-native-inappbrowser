@@ -39,6 +39,23 @@ async function open(
   return openBrowserAsync(url, options);
 }
 
+/**
+ * # On iOS:
+ * Opens the url with Safari in a modal using `ASWebAuthenticationSession`. The user will be asked
+ * whether to allow the app to authenticate using the given url.
+ *
+ * # On Android:
+ * This will be done using a "custom Chrome tabs" browser and [activityResumedEvent](https://docs.nativescript.org/api-reference/classes/androidapplication#activityresumedevent),
+ *
+ * @param url The url to open in the web browser. This should be a login page.
+ * @param redirectUrl _Optional_ - The url to deep link back into your app.
+ * @param options _Optional_ - An object extending the InAppBrowser Options.
+ *
+ * @return
+ * - If the user does not permit the application to authenticate with the given url, the Promise fulfills with `{ type: 'cancel' }` object.
+ * - If the user closed the web browser, the Promise fulfills with `{ type: 'cancel' }` object.
+ * - If the browser is closed using `dismissBrowser`, the Promise fulfills with `{ type: 'dismiss' }` object.
+ */
 async function openAuth(
   url: string,
   redirectUrl: string,
@@ -94,6 +111,9 @@ function mayLaunchUrl(
   }
 }
 
+/**
+ * Dismisses the current authentication session
+ */
 function closeAuth(): void {
   closeAuthSessionPolyfillAsync();
   if (authSessionIsNativelySupported()) {
@@ -103,6 +123,9 @@ function closeAuth(): void {
   }
 }
 
+/**
+ * Detect if the device supports this plugin.
+ */
 async function isAvailable(): Promise<boolean> {
   return RNInAppBrowser.isAvailable();
 }
