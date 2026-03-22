@@ -482,10 +482,9 @@ You can than restore the old bar style after the browser has been dismissed like
 
 Using in-app browser tabs (like SFAuthenticationSession/ASWebAuthenticationSession and Android Custom Tabs) where available. Embedded user-agents, known as web-views (like UIWebView and WKWebView), are explicitly not supported due to the usability and security reasons documented in [Section 8.12 of RFC 8252](https://tools.ietf.org/html/rfc8252#section-8.12).
 
-## Credits 👍
-* **Expo:** [WebBrowser](https://docs.expo.io/versions/latest/sdk/webbrowser)
-* **React Native Custom Tabs:** [Chrome Custom Tabs for React Native](https://github.com/droibit/react-native-custom-tabs)
-* **React Native Safari View:** [A React Native wrapper for Safari View Controller](https://github.com/naoufal/react-native-safari-view)
+## Star History 🌟
+
+[![Star History Chart](https://api.star-history.com/svg?repos=proyecto26/react-native-inappbrowser&type=Date)](https://star-history.com/#proyecto26/react-native-inappbrowser-code&Date)
 
 ## Contributing ✨
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -523,15 +522,10 @@ Support this project with your organization. Your logo will show up here with a 
 <a href="https://opencollective.com/proyecto26/organization/8/website"><img src="https://opencollective.com/proyecto26/organization/8/avatar.svg"></a>
 <a href="https://opencollective.com/proyecto26/organization/9/website"><img src="https://opencollective.com/proyecto26/organization/9/avatar.svg"></a>
 
-## Supporting 🍻
-I believe in Unicorns 🦄
-Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
+## Sponsors 💜
+This project is free and open source. Sponsors help keep it maintained and growing.
 
-Donate **Ethereum**, **ADA**, **BNB**, **SHIBA**, **USDT/USDC**, **DOGE**, etc:
-
-> Wallet address: jdnichollsc.eth
-
-Please let us know your contributions! 🙏
+[**Become a Sponsor**](https://github.com/sponsors/proyecto26) | [Sponsorship Program](https://proyecto26.com/sponsors/)
 
 ## Enterprise 💼
 
@@ -544,6 +538,11 @@ To report a security vulnerability, please use the [Tidelift security contact](h
 
 ## License ⚖️
 This repository is available under the [MIT License](https://github.com/proyecto26/react-native-inappbrowser/blob/develop/LICENSE).
+
+## Credits 👍
+* **Expo:** [WebBrowser](https://docs.expo.io/versions/latest/sdk/webbrowser)
+* **React Native Custom Tabs:** [Chrome Custom Tabs for React Native](https://github.com/droibit/react-native-custom-tabs)
+* **React Native Safari View:** [A React Native wrapper for Safari View Controller](https://github.com/naoufal/react-native-safari-view)
 
 ## Happy coding 💯
 Made with ❤️
