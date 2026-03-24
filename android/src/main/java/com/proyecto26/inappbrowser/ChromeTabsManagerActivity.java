@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-
+import android.view.WindowManager;
 import org.greenrobot.eventbus.EventBus;
 
 /**
@@ -43,6 +43,7 @@ public class ChromeTabsManagerActivity extends Activity {
     try {
       super.onCreate(savedInstanceState);
 
+      getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
       // This activity gets opened in 2 different ways. If the extra KEY_BROWSER_INTENT is present we
       // start that intent and if it is not it means this activity was started with FLAG_ACTIVITY_CLEAR_TOP
       // in order to close the intent that was started previously so we just close this.
