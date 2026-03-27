@@ -159,6 +159,7 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
   NSString* modalTransitionStyle = [options valueForKey:@"modalTransitionStyle"];
   NSDictionary* formSheetPreferredContentSize = [options valueForKey:@"formSheetPreferredContentSize"];
 
+  BOOL incognito = [options[@"incognito"] boolValue];
   BOOL readerMode = [options[@"readerMode"] boolValue];
   BOOL enableBarCollapsing = [options[@"enableBarCollapsing"] boolValue];
   modalEnabled = [options[@"modalEnabled"] boolValue];

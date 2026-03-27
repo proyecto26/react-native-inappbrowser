@@ -61,6 +61,7 @@ public class RNInAppBrowser {
   private static final String KEY_BROWSER_PACKAGE = "browserPackage";
   private static final String KEY_SHOW_IN_RECENTS = "showInRecents";
   private static final String KEY_INCLUDE_REFERRER = "includeReferrer";
+  private static final String KEY_INCOGNITO = "incognito";
 
   private static final String ACTION_CUSTOM_TABS_CONNECTION = "android.support.customtabs.action.CustomTabsService";
   private static final String CHROME_PACKAGE_STABLE = "com.android.chrome";
@@ -216,6 +217,19 @@ public class RNInAppBrowser {
         && options.getBoolean(KEY_INCLUDE_REFERRER)) {
       intent.putExtra(Intent.EXTRA_REFERRER,
           Uri.parse("android-app://" + context.getApplicationContext().getPackageName()));
+    }
+
+     /**
+     * Incognito on Custom Chrome Tabs is behind an experiment, so this will not work everytime.
+     *
+     * Users might need to manually enable these two flags for this to work:
+     *   chrome://flags/#cct-incognito
+     *   chrome://flags/#cct-incognito-available-to-third-party
+     *
+     * Refer to https://stackoverflow.com/questions/66443545/how-can-i-start-chrome-custom-tabs-in-incognito-mode
+     */
+    if (options.hasKey(KEY_INCOGNITO) && options.getBoolean(KEY_INCOGNITO)) {
+      intent.putExtra("com.google.android.apps.chrome.EXTRA_OPEN_NEW_INCOGNITO_TAB", true);
     }
 
     currentActivity.startActivity(

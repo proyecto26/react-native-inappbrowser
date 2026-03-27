@@ -28,11 +28,11 @@ const instructions = Platform.select({
 });
 
 const App = () => {
-  const [url, setUrl] = useState('https://reactnative.dev');
+  const [url, setUrl] = useState('https://login.coinbase.com');
   const [statusBarStyle] = useState<StatusBarStyle>('dark-content');
 
   useEffect(() => {
-    InAppBrowser.mayLaunchUrl('https://reactnative.dev', []);
+    InAppBrowser.mayLaunchUrl('https://login.coinbase.com', []);
   }, []);
 
   const onOpenLink = useCallback(async () => {

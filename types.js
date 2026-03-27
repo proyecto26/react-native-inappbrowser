@@ -4,7 +4,7 @@
  */
 
 export type RedirectEvent = {|
-  url: 'string',
+  url: string,
 |};
 
 export type BrowserResult = {|
@@ -64,6 +64,7 @@ export type InAppBrowserAndroidOptions = {|
   browserPackage?: string,
   showInRecents?: boolean,
   includeReferrer?: boolean,
+  incognito?: boolean,
 |};
 
 export type InAppBrowserOptions = {

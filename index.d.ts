@@ -60,6 +60,7 @@ declare module "react-native-inappbrowser-reborn" {
     browserPackage?: string;
     showInRecents?: boolean;
     includeReferrer?: boolean;
+    incognito?: boolean;
   };
 
   export type InAppBrowserOptions =
