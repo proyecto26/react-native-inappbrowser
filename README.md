@@ -174,7 +174,7 @@ Property       | Description
 `navigationBarColor` (String)     | Sets the navigation bar color. [`gray`/`#808080`]
 `navigationBarDividerColor` (String) | Sets the navigation bar divider color.  [`white`/`#FFFFFF`]
 `enableUrlBarHiding` (Boolean)    | Enables the url bar to hide as the user scrolls down on the page. [`true`/`false`]
-`enableDefaultShare` (Boolean)    | Adds a default share item to the menu. [`true`/`false`]
+`enableShareState` (Boolean)      | Sets the share item in the toolbar. Browser default will be used if this is not set. [`true`/`false`]
 `animations` (Object)             | Sets the start and exit animations. [`{ startEnter, startExit, endEnter, endExit }`]
 `headers` (Object)                | The data are key/value pairs, they will be sent in the HTTP request headers for the provided url. [`{ 'Authorization': 'Bearer ...' }`]
 `forceCloseOnRedirection` (Boolean) | Open Custom Tab in a new task to avoid issues redirecting back to app scheme. [`true`/`false`]
@@ -215,7 +215,7 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn'
           navigationBarColor: 'black',
           navigationBarDividerColor: 'white',
           enableUrlBarHiding: true,
-          enableDefaultShare: true,
+          enableShareState: true,
           forceCloseOnRedirection: false,
           // Specify full animation resource identifier(package:anim/name)
           // or only resource name(in case of animation bundled with app).
@@ -362,7 +362,7 @@ import { getDeepLink } from './utilities'
           // Android Properties
           showTitle: false,
           enableUrlBarHiding: true,
-          enableDefaultShare: false
+          enableShareState: false
         }).then((response) => {
           if (
             response.type === 'success' &&
