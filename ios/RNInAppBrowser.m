@@ -404,6 +404,18 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
 #pragma clang diagnostic ignored "-Wpartial-availability"
 - (UIWindow *)presentationAnchorForWebAuthenticationSession:(ASWebAuthenticationSession *)session API_AVAILABLE(ios(13.0))
 {
+  if (@available(iOS 15.0, *)) {
+    for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+      if ([scene isKindOfClass:[UIWindowScene class]] && scene.activationState == UISceneActivationStateForegroundActive) {   
+        UIWindowScene *windowScene = (UIWindowScene *)scene 
+        for (UIWindow *window in windowScene.windows) {
+          if (window.isKeyWindow) {
+            return window;
+          }
+        }
+      }  
+    }
+  }
   return UIApplication.sharedApplication.keyWindow;
 }
 #pragma clang diagnostic pop
