@@ -99,21 +99,39 @@ RCT_EXPORT_METHOD(openAuth:(NSString *)authURL
       }
     };
 
-    NSString *escapedRedirectURL = nil;
-    if (redirectURL) {
-        escapedRedirectURL = [[NSURL alloc] initWithString:redirectURL].scheme;
-    }
+    NSURL *redirectNSURL = redirectURL ? [[NSURL alloc] initWithString:redirectURL] : nil;
+    BOOL isHTTPSRedirect = redirectNSURL && [redirectNSURL.scheme isEqualToString:@"https"];
+    BOOL usedHTTPSCallback = NO;
 
-    if (@available(iOS 12.0, *)) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_17_4) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_17_4
+    if (isHTTPSRedirect && @available(iOS 17.4, *)) {
+      ASWebAuthenticationSessionCallback *httpsCallback =
+        [ASWebAuthenticationSessionCallback callbackWithHTTPSHost:redirectNSURL.host
+                                                             path:redirectNSURL.path.length ? redirectNSURL.path : @"/"];
       webAuthSession = [[ASWebAuthenticationSession alloc]
         initWithURL:url
-        callbackURLScheme:escapedRedirectURL
+        callback:httpsCallback
         completionHandler:completionHandler];
-    } else {
-      authSession = [[SFAuthenticationSession alloc]
-        initWithURL:url
-        callbackURLScheme:escapedRedirectURL
-        completionHandler:completionHandler];
+      usedHTTPSCallback = YES;
+    }
+#endif
+#pragma clang diagnostic pop
+
+    if (!usedHTTPSCallback) {
+      NSString *callbackScheme = redirectNSURL.scheme;
+      if (@available(iOS 12.0, *)) {
+        webAuthSession = [[ASWebAuthenticationSession alloc]
+          initWithURL:url
+          callbackURLScheme:callbackScheme
+          completionHandler:completionHandler];
+      } else {
+        authSession = [[SFAuthenticationSession alloc]
+          initWithURL:url
+          callbackURLScheme:callbackScheme
+          completionHandler:completionHandler];
+      }
     }
 
 #pragma clang diagnostic push
